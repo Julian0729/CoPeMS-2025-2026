@@ -17,6 +17,11 @@ const router = createRouter({
           name: "Applicant-Login",
           component: () => import("@/pages/Applicant-Login.vue"),
         },
+        {
+          path: "Applicant-Registration",
+          name: "Applicant-Registration",
+          component: () => import("@/pages/Applicant-Registration.vue"),
+        },
       ],
     },
     {
@@ -24,6 +29,8 @@ const router = createRouter({
       component: () => import("@/layouts/ApplicantLayout.vue"),
       children: [],
     },
+    // Building Permit Applicant Routes
+    // Occupancy Permit Applicant Routes
   ],
 });
 

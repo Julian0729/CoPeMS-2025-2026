@@ -95,7 +95,9 @@
                   </v-btn>
                   <div class="text-center mt-6">
                     <span class="text-grey-darken-1">Already have an account?</span>
-                    <a href="/login" class="text-primary font-weight-bold ms-1">Login</a>
+                    <a href="/Applicant-Login" class="text-primary font-weight-bold ms-1"
+                      >Login</a
+                    >
                   </div>
                 </v-form>
               </v-card-text>
