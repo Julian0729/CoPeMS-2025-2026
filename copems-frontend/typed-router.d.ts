@@ -21,6 +21,7 @@ declare module 'vue-router/auto-routes' {
     '/Applicant-bpInquiry': RouteRecordInfo<'/Applicant-bpInquiry', '/Applicant-bpInquiry', Record<never, never>, Record<never, never>>,
     '/Applicant-Homepage': RouteRecordInfo<'/Applicant-Homepage', '/Applicant-Homepage', Record<never, never>, Record<never, never>>,
     '/Applicant-Login': RouteRecordInfo<'/Applicant-Login', '/Applicant-Login', Record<never, never>, Record<never, never>>,
+    '/Applicant-opInquiry': RouteRecordInfo<'/Applicant-opInquiry', '/Applicant-opInquiry', Record<never, never>, Record<never, never>>,
     '/Applicant-Registration': RouteRecordInfo<'/Applicant-Registration', '/Applicant-Registration', Record<never, never>, Record<never, never>>,
   }
 
@@ -45,6 +46,10 @@ declare module 'vue-router/auto-routes' {
     }
     'src/pages/Applicant-Login.vue': {
       routes: '/Applicant-Login'
+      views: never
+    }
+    'src/pages/Applicant-opInquiry.vue': {
+      routes: '/Applicant-opInquiry'
       views: never
     }
     'src/pages/Applicant-Registration.vue': {
