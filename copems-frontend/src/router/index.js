@@ -30,6 +30,12 @@ const router = createRouter({
       children: [],
     },
     // Building Permit Applicant Routes
+    {
+      path: "Applicant-bpInquiry",
+      name: "Applicant-bpInquiry",
+      component: () => import("@/pages/Applicant-bpInquiry.vue"),
+    },
+
     // Occupancy Permit Applicant Routes
   ],
 });
