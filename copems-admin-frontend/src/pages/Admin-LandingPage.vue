@@ -129,11 +129,13 @@
 </template>
 
 <script>
-import { useAuthStore } from "@/stores/auth";
-import nagaImage from "@/assets/naga.png";
+// ✨ FINAL FIX: Changed to the correct relative path for your structure.
+// This assumes the file structure is src/pages/ and src/stores/
+import { useAuthStore } from "../stores/auth";
+import nagaImage from "@/assets/cityhall.jpg";
 
 export default {
-  name: "HomePage",
+  name: "AdminLandingPage",
   data() {
     return {
       isLoading: true,
@@ -175,16 +177,23 @@ export default {
 
         if (success) {
           this.alertType = "success";
-          this.alertMessage = "Login successful!";
+          this.alertMessage = "Login successful! Redirecting...";
 
           setTimeout(() => {
-            this.$router.push("/applicant/OPapply");
+            // Redirecting to a dedicated Admin/Staff route.
+            this.$router.push("/admin/dashboard");
           }, 1000);
+        } else {
+          this.alertType = "error";
+          this.alertMessage = "Login failed. Please check your credentials.";
         }
       } catch (error) {
+        console.error("Login API Error:", error);
         this.alertType = "error";
         this.alertMessage =
-          error.message || "Login failed. Please check your credentials.";
+          error.response?.data?.message ||
+          error.message ||
+          "Login failed. An unexpected error occurred.";
       } finally {
         this.loading = false;
       }
@@ -291,7 +300,8 @@ export default {
 .hero-section {
   width: 100vw;
   height: 100vh;
-  background-image: url("@/assets/naga.png");
+  /* background-image is set by the script using nagaImage from @/assets/cityhall.jpg */
+  background-image: url("@/assets/cityhall.jpg");
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
