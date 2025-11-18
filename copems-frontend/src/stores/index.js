@@ -1,4 +1,2 @@
-// Utilities
-import { createPinia } from 'pinia'
-
-export default createPinia()
+// ...existing code...
+// This file should only contain store-related logic. Router setup has been moved to src/router/index.js.
