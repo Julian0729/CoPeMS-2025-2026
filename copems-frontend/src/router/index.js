@@ -37,50 +37,58 @@ const router = createRouter({
     {
       path: "/applicant",
       component: () => import("@/layouts/ApplicantLayout.vue"),
-      children: [],
-    },
-    // Building Permit Applicant Routes
+      children: [
+        // Building Permit Applicant Routes
 
-    // Occupancy Permit Applicant Routes
-    {
-      path: "FormsSection",
-      name: "FormsSection",
-      component: () =>
-        import(
-          "@/module/OccupancyPermit/OccupancyApplications/FormsSection.vue"
-        ),
-    },
-    {
-      path: "OPapply",
-      name: "OPapply",
-      component: () =>
-        import("@/module/OccupancyPermit/OccupancyApplications/OPapply.vue"),
-    },
-    {
-      path: "OPlocation",
-      name: "OPlocation",
-      component: () =>
-        import("@/module/OccupancyPermit/OccupancyApplications/OPlocation.vue"),
-    },
-    {
-      path: "OPowner",
-      name: "OPowner",
-      component: () =>
-        import("@/module/OccupancyPermit/OccupancyApplications/OPowner.vue"),
-    },
-    {
-      path: "OPowner",
-      name: "OPowner",
-      component: () =>
-        import("@/module/OccupancyPermit/OccupancyApplications/OPowner.vue"),
-    },
-    {
-      path: "OPtype",
-      name: "OPtype",
-      component: () =>
-        import("@/module/OccupancyPermit/OccupancyApplications/OPtype.vue"),
+        // Occupancy Permit Applicant Routes
+        {
+          path: "FormsSection",
+          name: "FormsSection",
+          component: () =>
+            import(
+              "@/module/OccupancyPermit/OccupancyApplications/FormsSection.vue"
+            ),
+        },
+        {
+          path: "OPapply",
+          name: "OPapply",
+          component: () =>
+            import(
+              "@/module/OccupancyPermit/OccupancyApplications/OPapply.vue"
+            ),
+        },
+        {
+          path: "OPlocation",
+          name: "OPlocation",
+          component: () =>
+            import(
+              "@/module/OccupancyPermit/OccupancyApplications/OPlocation.vue"
+            ),
+        },
+        {
+          path: "OPowner",
+          name: "OPowner",
+          component: () =>
+            import(
+              "@/module/OccupancyPermit/OccupancyApplications/OPowner.vue"
+            ),
+        },
+        {
+          path: "OPowner",
+          name: "OPowner",
+          component: () =>
+            import(
+              "@/module/OccupancyPermit/OccupancyApplications/OPowner.vue"
+            ),
+        },
+        {
+          path: "OPtype",
+          name: "OPtype",
+          component: () =>
+            import("@/module/OccupancyPermit/OccupancyApplications/OPtype.vue"),
+        },
+      ],
     },
   ],
 });
-
 export default router;
