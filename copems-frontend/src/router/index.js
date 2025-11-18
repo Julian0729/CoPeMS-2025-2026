@@ -96,6 +96,24 @@ const router = createRouter({
         },
       ],
     },
+    {
+      path: "Completion",
+      name: "Completion",
+      component: () =>
+        import("@/module/OccupancyPermit/OccupancyPermits/Completion.vue"),
+    },
+    {
+      path: "Electrical",
+      name: "Electrical",
+      component: () =>
+        import("@/module/OccupancyPermit/OccupancyPermits/Electrical.vue"),
+    },
+    {
+      path: "Unified",
+      name: "Unified",
+      component: () =>
+        import("@/module/OccupancyPermit/OccupancyPermits/Unified.vue"),
+    },
   ],
 });
 export default router;
