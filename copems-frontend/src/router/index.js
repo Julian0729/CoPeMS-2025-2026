@@ -87,6 +87,13 @@ const router = createRouter({
           component: () =>
             import("@/module/OccupancyPermit/OccupancyApplications/OPtype.vue"),
         },
+        {
+          path: "OPsignatories",
+          component: () =>
+            import(
+              "@/module/OccupancyPermit/OccupancyApplications/OPsignatories.vue"
+            ),
+        },
       ],
     },
   ],
