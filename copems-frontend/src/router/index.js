@@ -39,6 +39,38 @@ const router = createRouter({
       component: () => import("@/layouts/ApplicantLayout.vue"),
       children: [
         // Building Permit Applicant Routes
+        {
+          path: "bpcharacter",
+          name: "bpcharacter",
+          component: () =>
+            import(
+              "@/module/BuildingPermit/bpcharacter.vue"
+            ),
+        },
+        {
+          path: "bpconstruction",
+          name: "bpconstruction",
+          component: () =>
+            import(
+              "@/module/BuildingPermit/bpconstruction.vue"
+            ),
+        },
+                {
+          path: "bpowner",
+          name: "bpowner",
+          component: () =>
+            import(
+              "@/module/BuildingPermit/bpowner.vue"
+            ),
+        },
+                {
+          path: "bpsignatories",
+          name: "bpsignatories",
+          component: () =>
+            import(
+              "@/module/BuildingPermit/bpsignatories.vue"
+            ),
+        },
 
         // Occupancy Permit Applicant Routes
         {
