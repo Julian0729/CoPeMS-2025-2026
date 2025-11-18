@@ -451,7 +451,7 @@ export default {
 }
 @media (max-width: 900px) {
   .hero-bg {
-    min-height: 260px;
+    min-height: 270px;
   }
   .service-card,
   .feature-card {
