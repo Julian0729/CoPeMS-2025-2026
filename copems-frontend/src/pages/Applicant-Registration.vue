@@ -15,9 +15,9 @@
                   </div>
                   <h3 class="feature-title">Time-Saving</h3>
                   <p class="feature-description">
-                    Save valuable time by processing your permits online. No
-                    more waiting in long queues – complete everything from the
-                    comfort of your home or office.
+                    Save valuable time by processing your permits online. No more waiting
+                    in long queues – complete everything from the comfort of your home or
+                    office.
                   </p>
                 </v-col>
                 <v-col cols="12" sm="4" class="text-center">
@@ -26,9 +26,8 @@
                   </div>
                   <h3 class="feature-title">24/7 Access</h3>
                   <p class="feature-description">
-                    Access our services around the clock, every day of the year.
-                    Submit applications and track progress at any time that
-                    suits your schedule.
+                    Access our services around the clock, every day of the year. Submit
+                    applications and track progress at any time that suits your schedule.
                   </p>
                 </v-col>
                 <v-col cols="12" sm="4" class="text-center">
@@ -37,9 +36,8 @@
                   </div>
                   <h3 class="feature-title">Real-time Updates</h3>
                   <p class="feature-description">
-                    Stay informed with instant notifications about your
-                    application status. Receive timely updates and never miss
-                    important information.
+                    Stay informed with instant notifications about your application
+                    status. Receive timely updates and never miss important information.
                   </p>
                 </v-col>
               </v-row>
@@ -72,9 +70,7 @@
                     density="comfortable"
                     variant="outlined"
                     prepend-inner-icon="mdi-lock-outline"
-                    :append-inner-icon="
-                      showPassword ? 'mdi-eye' : 'mdi-eye-off'
-                    "
+                    :append-inner-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
                     @click:append-inner="toggleShowPassword"
                     class="mb-2"
                   />
@@ -85,9 +81,7 @@
                     density="comfortable"
                     variant="outlined"
                     prepend-inner-icon="mdi-lock-check-outline"
-                    :append-inner-icon="
-                      showConfirmPassword ? 'mdi-eye' : 'mdi-eye-off'
-                    "
+                    :append-inner-icon="showConfirmPassword ? 'mdi-eye' : 'mdi-eye-off'"
                     @click:append-inner="toggleShowConfirmPassword"
                     class="mb-2"
                   />
@@ -100,12 +94,8 @@
                     Register
                   </v-btn>
                   <div class="text-center mt-6">
-                    <span class="text-grey-darken-1"
-                      >Already have an account?</span
-                    >
-                    <a href="/login" class="text-primary font-weight-bold ms-1"
-                      >Login</a
-                    >
+                    <span class="text-grey-darken-1">Already have an account?</span>
+                    <a href="/login" class="text-primary font-weight-bold ms-1">Login</a>
                   </div>
                 </v-form>
               </v-card-text>
