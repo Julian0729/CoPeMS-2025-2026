@@ -43,12 +43,14 @@
                 compliance with building codes and regulations.
               </v-card-text>
               <v-card-actions>
-                <v-btn color="primary" class="ma-2 rounded-pill">Apply Now</v-btn>
+                <v-btn color="primary" class="ma-2 rounded-pill" to="Applicant-Login"
+                  >Apply Now</v-btn
+                >
                 <v-btn
                   color="primary"
                   outlined
                   class="ma-2 rounded-pill to"
-                  to="/bpinquiry"
+                  to="/Applicant-bpInquiry"
                   >Inquiry
                 </v-btn>
               </v-card-actions>
@@ -65,10 +67,14 @@
                 Ensure safety and compliance standards.
               </v-card-text>
               <v-card-actions>
-                <v-btn color="primary" class="ma-2 rounded-pill" to="/login"
+                <v-btn color="primary" class="ma-2 rounded-pill" to="/Applicant-Login"
                   >Apply Now</v-btn
                 >
-                <v-btn color="primary" outlined class="ma-2 rounded-pill" to="/opinquiry"
+                <v-btn
+                  color="primary"
+                  outlined
+                  class="ma-2 rounded-pill"
+                  to="/Applicant-opInquiry"
                   >Inquiry</v-btn
                 >
               </v-card-actions>

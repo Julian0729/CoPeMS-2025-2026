@@ -27,6 +27,11 @@ const router = createRouter({
           name: "Applicant-bpInquiry",
           component: () => import("@/pages/Applicant-bpInquiry.vue"),
         },
+        {
+          path: "Applicant-opInquiry",
+          name: "Applicant-opInquiry",
+          component: () => import("@/pages/Applicant-opInquiry.vue"),
+        },
       ],
     },
     {
