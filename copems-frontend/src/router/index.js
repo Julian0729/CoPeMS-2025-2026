@@ -94,25 +94,25 @@ const router = createRouter({
               "@/module/OccupancyPermit/OccupancyApplications/OPsignatories.vue"
             ),
         },
+        {
+          path: "Completion",
+          name: "Completion",
+          component: () =>
+            import("@/module/OccupancyPermit/OccupancyPermits/Completion.vue"),
+        },
+        {
+          path: "Electrical",
+          name: "Electrical",
+          component: () =>
+            import("@/module/OccupancyPermit/OccupancyPermits/Electrical.vue"),
+        },
+        {
+          path: "Unified",
+          name: "Unified",
+          component: () =>
+            import("@/module/OccupancyPermit/OccupancyPermits/Unified.vue"),
+        },
       ],
-    },
-    {
-      path: "Completion",
-      name: "Completion",
-      component: () =>
-        import("@/module/OccupancyPermit/OccupancyPermits/Completion.vue"),
-    },
-    {
-      path: "Electrical",
-      name: "Electrical",
-      component: () =>
-        import("@/module/OccupancyPermit/OccupancyPermits/Electrical.vue"),
-    },
-    {
-      path: "Unified",
-      name: "Unified",
-      component: () =>
-        import("@/module/OccupancyPermit/OccupancyPermits/Unified.vue"),
     },
   ],
 });
