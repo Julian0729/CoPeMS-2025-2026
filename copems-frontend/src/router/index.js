@@ -22,6 +22,11 @@ const router = createRouter({
           name: "Applicant-Registration",
           component: () => import("@/pages/Applicant-Registration.vue"),
         },
+        {
+          path: "Applicant-bpInquiry",
+          name: "Applicant-bpInquiry",
+          component: () => import("@/pages/Applicant-bpInquiry.vue"),
+        },
       ],
     },
     {
@@ -30,11 +35,6 @@ const router = createRouter({
       children: [],
     },
     // Building Permit Applicant Routes
-    {
-      path: "Applicant-bpInquiry",
-      name: "Applicant-bpInquiry",
-      component: () => import("@/pages/Applicant-bpInquiry.vue"),
-    },
 
     // Occupancy Permit Applicant Routes
   ],
