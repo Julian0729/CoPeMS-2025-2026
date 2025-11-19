@@ -63,6 +63,38 @@ const router = createRouter({
               "@/modules/OccupancyPermit/Admin-opScheduling/VerifiedChecklist.vue"
             ),
         },
+        {
+          path: "ChiefInspectorDashboard",
+          name: "ChiefInspectorDashboard",
+          component: () =>
+            import(
+              "@/modules/OccupancyPermit/Admin-opInspection/ChiefInspectorDashboard.vue"
+            ),
+        },
+        {
+          path: "InspectorDashboard",
+          name: "InspectorDashboard",
+          component: () =>
+            import(
+              "@/modules/OccupancyPermit/Admin-opInspection/InspectorDashboard.vue"
+            ),
+        },
+        {
+          path: "ReportInput",
+          name: "ReportInput",
+          component: () =>
+            import(
+              "@/modules/OccupancyPermit/Admin-opInspection/ReportInput.vue"
+            ),
+        },
+        {
+          path: "ReportViewing",
+          name: "ReportViewing",
+          component: () =>
+            import(
+              "@/modules/OccupancyPermit/Admin-opInspection/ReportViewing.vue"
+            ),
+        },
       ],
     },
   ],
