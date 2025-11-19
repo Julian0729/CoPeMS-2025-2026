@@ -34,6 +34,30 @@ const router = createRouter({
           name: "OPchecklist",
           component: () => import("@/modules/OccupancyPermit/OPchecklist.vue"),
         },
+        {
+          path: "TechstaffDashboard",
+          name: "TechstaffDashboard",
+          component: () =>
+            import(
+              "@/modules/OccupancyPermit/Admin-opScheduling/TechstaffDashboard.vue"
+            ),
+        },
+        {
+          path: "VerifiedApplication",
+          name: "VerifiedApplication",
+          component: () =>
+            import(
+              "@/modules/OccupancyPermit/Admin-opScheduling/VerifiedApplication.vue"
+            ),
+        },
+        {
+          path: "VerifiedChecklist",
+          name: "VerifiedChecklist",
+          component: () =>
+            import(
+              "@/modules/OccupancyPermit/Admin-opScheduling/VerifiedChecklist.vue"
+            ),
+        },
       ],
     },
   ],
