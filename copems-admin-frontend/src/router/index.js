@@ -27,12 +27,17 @@ const router = createRouter({
           path: "AdminDashboard",
           name: "AdminDashboard",
           component: () =>
-            import("@/modules/OccupancyPermit/AdminDashboard.vue"),
+            import(
+              "@/modules/OccupancyPermit/Admin-opVerification/AdminDashboard.vue"
+            ),
         },
         {
           path: "OPchecklist",
           name: "OPchecklist",
-          component: () => import("@/modules/OccupancyPermit/OPchecklist.vue"),
+          component: () =>
+            import(
+              "@/modules/OccupancyPermit/Admin-opVerification/OPchecklist.vue"
+            ),
         },
       ],
     },
