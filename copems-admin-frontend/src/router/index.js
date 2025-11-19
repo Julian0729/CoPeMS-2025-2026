@@ -21,7 +21,19 @@ const router = createRouter({
       component: () => import("@/layouts/Adminlayout.vue"),
       children: [
         // Building Permit Admin routes can be added here
+
         // Occupancy Permit Admin routes can be added here
+        {
+          path: "AdminDashboard",
+          name: "AdminDashboard",
+          component: () =>
+            import("@/modules/OccupancyPermit/AdminDashboard.vue"),
+        },
+        {
+          path: "OPchecklist",
+          name: "OPchecklist",
+          component: () => import("@/modules/OccupancyPermit/OPchecklist.vue"),
+        },
       ],
     },
   ],
