@@ -449,7 +449,7 @@
                   @click="openSuccessDialog"
                   variant="elevated"
                 >
-                  Save<v-icon right>mdi-content-save-outline</v-icon>
+                  SUBMIT
                 </v-btn>
               </div>
             </v-container>
@@ -462,9 +462,7 @@
       <v-card class="pa-4 text-center rounded-xl" elevation="10">
         <v-card-text>
           <div class="mb-4">
-            <v-icon color="green" size="72" class="success-icon-border">
-              mdi-check-circle-outline
-            </v-icon>
+            <v-icon color="green" size="72"> mdi-check-circle </v-icon>
           </div>
           <h3 class="text-h6 font-weight-bold mb-4">
             Application Submitted Successfully!
@@ -490,8 +488,9 @@
             @click="closeDialog"
             class="text-capitalize font-weight-bold"
             size="large"
+            to="/applicant/FormsSection"
           >
-            OK
+            SAVE
           </v-btn>
         </v-card-text>
       </v-card>
@@ -521,46 +520,44 @@ export default defineComponent({
       ],
       selectedApplicationType: null,
       validationFailed: false,
-      engineerFirstName: "Juan", // Mock data
-      engineerLastName: "Dela Cruz", // Mock data
-      engineerMiddleName: "A", // Mock data
-      prcNo: "0012345", // Mock data
-      validity: new Date().toISOString().substr(0, 10), // Mock date
+      engineerFirstName: "",
+      engineerLastName: "",
+      engineerMiddleName: "",
+      prcNo: "",
+      validity: new Date().toISOString().substr(0, 10),
       validityMenu: false,
-      ptrNo: "87654321", // Mock data
-      dateIssued: new Date().toISOString().substr(0, 10), // Mock date
+      ptrNo: "",
+      dateIssued: new Date().toISOString().substr(0, 10),
       dateIssuedMenu: false,
-      issuedAt: "Manila", // Mock data
-      tin: "000-000-000-000", // Mock data
+      issuedAt: "",
+      tin: "",
 
-      province: "Province A", // Mock data
-      municipality: "City B", // Mock data
-      barangay: "Barangay 1", // Mock data
-      blkNo: "Blk 1", // Mock data
-      street: "Main St.", // Mock data
+      province: "",
+      municipality: "",
+      barangay: "",
+      blkNo: "",
+      street: "",
 
-      applicantFirstName: "Maria", // Mock data
-      applicantLastName: "Santos", // Mock data
-      applicantMiddleInitial: "B", // Mock data
-      applicantProvince: "Province A", // Mock data
-      applicantMunicipality: "City B", // Mock data
-      applicantBarangay: "Barangay 1", // Mock data
-      applicantHouseNo: "H10", // Mock data
-      applicantStreet: "Side St.", // Mock data
-      applicantGovIdNo: "123-456-789", // Mock data
-      applicantIdDateIssued: "2023-01-01", // Mock data
-      applicantIdPlaceIssued: "Quezon City", // Mock data
+      applicantFirstName: "",
+      applicantLastName: "",
+      applicantMiddleInitial: "",
+      applicantProvince: "",
+      applicantMunicipality: "",
+      applicantBarangay: "",
+      applicantHouseNo: "",
+      applicantStreet: "",
+      applicantGovIdNo: "",
+      applicantIdDateIssued: "",
+      applicantIdPlaceIssued: "",
 
       provinces: ["Province A", "Province B"],
       barangays: ["Barangay 1", "Barangay 2"],
 
-      // New data properties for the dialog
       dialog: false,
       applicationNumber: "",
     };
   },
   methods: {
-    // Existing methods...
     async validateAndProceed() {
       const { valid } = await this.$refs.form.validate();
 
@@ -587,27 +584,18 @@ export default defineComponent({
       this.$router.push("/applicant/OPlocation");
     },
 
-    // Updated nextStep logic to open the dialog
     async openSuccessDialog() {
-      // In a real application, you would perform form validation and API submission here.
-      // Assuming submission is successful for this function design.
-
-      // Mock Application Number Generation
       const year = new Date().getFullYear();
-      const randomNumber = Math.floor(1000 + Math.random() * 9000); // 4-digit number
-      this.applicationNumber = `OCP-${year}-${randomNumber}`;
+      const randomNumber = Math.floor(1000 + Math.random() * 9000);
+      this.applicationNumber = `OP-${year}-${randomNumber}`;
 
-      // Show the dialog
       this.dialog = true;
 
-      // The actual next step navigation will happen in closeDialog
       console.log("Application submitted, dialog displayed.");
     },
 
-    // Method to close the dialog and navigate
     closeDialog() {
       this.dialog = false;
-      // Navigate to the next section or a confirmation page
       this.$router.push("/FormsSection");
       console.log("Dialog closed, navigating to FormsSection.");
     },
@@ -623,7 +611,6 @@ export default defineComponent({
 </script>
 
 <style scoped>
-/* Existing styles */
 .no-scroll {
   overflow: hidden !important;
 }
@@ -726,20 +713,12 @@ export default defineComponent({
   letter-spacing: 0.02em;
 }
 
-/* New styles for the dialog */
-.success-icon-border {
-  border: 3px solid #4caf50; /* Green border around the icon */
-  border-radius: 50%;
-  padding: 10px;
-}
-
 .submission-number-card {
   background: #e3f0ff !important;
   border: 1px solid #a3c9f2;
   border-radius: 8px;
 }
 
-/* Media queries */
 @media (max-width: 1200px) {
   .page-title-responsive {
     font-size: 1.12rem !important;

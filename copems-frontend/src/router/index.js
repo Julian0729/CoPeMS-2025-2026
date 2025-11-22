@@ -137,6 +137,14 @@ const router = createRouter({
           component: () =>
             import("@/module/OccupancyPermit/OccupancyPermits/Unified.vue"),
         },
+        {
+          path: "OPstatusMonitoring",
+          name: "OPstatusMonitoring",
+          component: () =>
+            import(
+              "@/module/OccupancyPermit/OccupancyMonitoring/OPstatusmonitoring.vue"
+            ),
+        },
       ],
     },
   ],
