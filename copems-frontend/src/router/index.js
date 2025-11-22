@@ -32,6 +32,11 @@ const router = createRouter({
           name: "Applicant-opInquiry",
           component: () => import("@/pages/Applicant-opInquiry.vue"),
         },
+        {
+          path: "Applicant-ForgotPW",
+          name: "Applicant-ForgotPW",
+          component: () => import("@/pages/Applicant-ForgotPW.vue"),
+        },
       ],
     },
     {
@@ -42,34 +47,22 @@ const router = createRouter({
         {
           path: "bpcharacter",
           name: "bpcharacter",
-          component: () =>
-            import(
-              "@/module/BuildingPermit/bpcharacter.vue"
-            ),
+          component: () => import("@/module/BuildingPermit/bpcharacter.vue"),
         },
         {
           path: "bpconstruction",
           name: "bpconstruction",
-          component: () =>
-            import(
-              "@/module/BuildingPermit/bpconstruction.vue"
-            ),
+          component: () => import("@/module/BuildingPermit/bpconstruction.vue"),
         },
-                {
+        {
           path: "bpowner",
           name: "bpowner",
-          component: () =>
-            import(
-              "@/module/BuildingPermit/bpowner.vue"
-            ),
+          component: () => import("@/module/BuildingPermit/bpowner.vue"),
         },
-                {
+        {
           path: "bpsignatories",
           name: "bpsignatories",
-          component: () =>
-            import(
-              "@/module/BuildingPermit/bpsignatories.vue"
-            ),
+          component: () => import("@/module/BuildingPermit/bpsignatories.vue"),
         },
 
         // Occupancy Permit Applicant Routes

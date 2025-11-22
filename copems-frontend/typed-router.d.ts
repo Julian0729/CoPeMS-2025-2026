@@ -19,6 +19,7 @@ declare module 'vue-router/auto-routes' {
    */
   export interface RouteNamedMap {
     '/Applicant-bpInquiry': RouteRecordInfo<'/Applicant-bpInquiry', '/Applicant-bpInquiry', Record<never, never>, Record<never, never>>,
+    '/Applicant-ForgotPW': RouteRecordInfo<'/Applicant-ForgotPW', '/Applicant-ForgotPW', Record<never, never>, Record<never, never>>,
     '/Applicant-Homepage': RouteRecordInfo<'/Applicant-Homepage', '/Applicant-Homepage', Record<never, never>, Record<never, never>>,
     '/Applicant-Login': RouteRecordInfo<'/Applicant-Login', '/Applicant-Login', Record<never, never>, Record<never, never>>,
     '/Applicant-opInquiry': RouteRecordInfo<'/Applicant-opInquiry', '/Applicant-opInquiry', Record<never, never>, Record<never, never>>,
@@ -38,6 +39,10 @@ declare module 'vue-router/auto-routes' {
   export interface _RouteFileInfoMap {
     'src/pages/Applicant-bpInquiry.vue': {
       routes: '/Applicant-bpInquiry'
+      views: never
+    }
+    'src/pages/Applicant-ForgotPW.vue': {
+      routes: '/Applicant-ForgotPW'
       views: never
     }
     'src/pages/Applicant-Homepage.vue': {

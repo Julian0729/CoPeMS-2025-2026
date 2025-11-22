@@ -49,10 +49,11 @@
               <v-card-title
                 class="text-center text-h5 font-weight-bold pb-1 text-blue-darken-3"
               >
-                Welcome Back!
+                <a href="#" class="text-primary text-decoration-none">Forgot Password?</a>
               </v-card-title>
               <v-card-subtitle class="text-center mb-6 text-grey-darken-1">
-                Login to your account
+                Enter your email address and we'll send you instructions to reset your
+                password.
               </v-card-subtitle>
               <v-card-text>
                 <v-form>
@@ -60,52 +61,28 @@
                     label="Email Address"
                     density="comfortable"
                     variant="outlined"
-                    class="mb-4"
+                    class="mb-6"
                     prepend-inner-icon="mdi-email-outline"
                   ></v-text-field>
-
-                  <v-text-field
-                    v-model="password"
-                    :type="showPassword ? 'text' : 'password'"
-                    label="Password"
-                    density="comfortable"
-                    variant="outlined"
-                    prepend-inner-icon="mdi-lock-outline"
-                    :append-inner-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-                    @click:append-inner="toggleShowPassword"
-                    class="mb-2"
-                  />
-
-                  <div class="d-flex justify-space-between align-center mt-2 mb-4">
-                    <v-checkbox-btn
-                      label="Remember me"
-                      class="ma-0 pa-0"
-                      color="primary"
-                    ></v-checkbox-btn>
-                    <a
-                      href="/Applicant-ForgotPW"
-                      class="forgot-password-link text-primary text-caption font-weight-medium"
-                      >Forgot password?</a
-                    >
-                  </div>
 
                   <v-btn
                     block
                     color="primary"
                     size="large"
                     class="login-btn gradient-btn"
-                    to="/applicantlayout/applicantdetails"
+                    @click="sendResetLink"
                   >
-                    Login
+                    Send Reset Link
                   </v-btn>
 
                   <div class="text-center mt-6">
-                    <span class="text-grey-darken-1">Don't have an account?</span>
                     <router-link
-                      to="/Applicant-Registration"
+                      to="/Applicant-Login"
                       class="text-primary font-weight-bold ms-1"
-                      >Register</router-link
                     >
+                      <v-icon size="small" class="me-1">mdi-arrow-left</v-icon>
+                      Back to Login
+                    </router-link>
                   </div>
                 </v-form>
               </v-card-text>
@@ -119,22 +96,27 @@
 
 <script>
 export default {
-  name: "HomePage",
+  name: "ForgotPasswordPage",
   data() {
     return {
-      password: "",
-      showPassword: false,
+      // You may add a data property for the email if you are collecting the input
+      email: "",
     };
   },
   methods: {
-    toggleShowPassword() {
-      this.showPassword = !this.showPassword;
+    sendResetLink() {
+      // Logic to handle sending the reset link goes here
+      console.log("Sending reset link to:", this.email);
     },
   },
 };
 </script>
 
 <style scoped>
+/*
+  The styles remain largely the same, but I've kept them here for completeness.
+  Note: The color of the "Forgot Password?" title is adjusted in the template using the `text-primary` class to better match the image.
+*/
 .page-wrapper {
   background: linear-gradient(120deg, #f7f8fa 60%, #e6f0fa 100%);
   min-height: 100vh;
