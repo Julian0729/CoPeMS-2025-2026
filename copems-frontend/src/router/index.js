@@ -56,7 +56,6 @@ const router = createRouter({
             import(
               "@/module/BuildingPermit/BuildingPermitApplication/bpcharacter.vue"
             ),
-          component: () => import("@/module/BuildingPermit/bpcharacter.vue"),
         },
         {
           path: "bpconstruction",
@@ -65,7 +64,6 @@ const router = createRouter({
             import(
               "@/module/BuildingPermit/BuildingPermitApplication/bpconstruction.vue"
             ),
-          component: () => import("@/module/BuildingPermit/bpconstruction.vue"),
         },
         {
           path: "bpowner",
@@ -74,7 +72,6 @@ const router = createRouter({
             import(
               "@/module/BuildingPermit/BuildingPermitApplication/bpowner.vue"
             ),
-          component: () => import("@/module/BuildingPermit/bpowner.vue"),
         },
         {
           path: "bpsignatories",
@@ -105,9 +102,8 @@ const router = createRouter({
           name: "bpnavigation",
           component: () =>
             import(
-              "@/module/BuildingPermit/BuildingPermitApplication/BPNavigation.vue"
+              "@/module/BuildingPermit/BuildingPermitApplication/bpnavigation.vue"
             ),
-          component: () => import("@/module/BuildingPermit/bpsignatories.vue"),
         },
 
         // Occupancy Permit Applicant Routes

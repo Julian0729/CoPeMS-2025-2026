@@ -320,7 +320,7 @@
 <script>
 import { defineComponent } from "vue";
 import { useRouter } from "vue-router";
-import BPNavigation from "./BPNavigation.vue";
+import BPNavigation from "./bpnavigation.vue";
 
 export default defineComponent({
   name: "BuildingPermitStep2",
@@ -552,7 +552,8 @@ export default defineComponent({
 }
 
 .gradient-text {
-  background: linear-gradient(90deg, #1976d2 20%, #1565c0 80%);
+  background: linear-gradient(90deg, #1976d2 10%, #0000cc 90%);
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
