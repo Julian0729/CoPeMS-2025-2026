@@ -48,7 +48,7 @@
                   block
                   color="white"
                   variant="flat"
-                  to="/login"
+                  to="/"
                   class="text-capitalize font-weight-bold logout-btn-white"
                   @click="handleLogout"
                 >
