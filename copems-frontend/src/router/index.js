@@ -23,6 +23,11 @@ const router = createRouter({
           component: () => import("@/pages/Applicant-Registration.vue"),
         },
         {
+          path: "register",
+          name: "register",
+          component: () => import("@/pages/Applicant-Registration.vue"),
+        },
+        {
           path: "Applicant-bpInquiry",
           name: "Applicant-bpInquiry",
           component: () => import("@/pages/Applicant-bpInquiry.vue"),
