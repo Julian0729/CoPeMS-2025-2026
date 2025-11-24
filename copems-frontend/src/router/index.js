@@ -52,21 +52,61 @@ const router = createRouter({
         {
           path: "bpcharacter",
           name: "bpcharacter",
+          component: () =>
+            import(
+              "@/module/BuildingPermit/BuildingPermitApplication/bpcharacter.vue"
+            ),
           component: () => import("@/module/BuildingPermit/bpcharacter.vue"),
         },
         {
           path: "bpconstruction",
           name: "bpconstruction",
+          component: () =>
+            import(
+              "@/module/BuildingPermit/BuildingPermitApplication/bpconstruction.vue"
+            ),
           component: () => import("@/module/BuildingPermit/bpconstruction.vue"),
         },
         {
           path: "bpowner",
           name: "bpowner",
+          component: () =>
+            import(
+              "@/module/BuildingPermit/BuildingPermitApplication/bpowner.vue"
+            ),
           component: () => import("@/module/BuildingPermit/bpowner.vue"),
         },
         {
           path: "bpsignatories",
           name: "bpsignatories",
+          component: () =>
+            import(
+              "@/module/BuildingPermit/BuildingPermitApplication/bpsignatories.vue"
+            ),
+        },
+        {
+          path: "bpuploadingofplans",
+          name: "bpuploadingofplans",
+          component: () =>
+            import(
+              "@/module/BuildingPermit/BuildingPermitApplication/bpuploadingofplans.vue"
+            ),
+        },
+                {
+          path: "bpancillary",
+          name: "bpancillary",
+          component: () =>
+            import(
+              "@/module/BuildingPermit/BuildingPermitApplication/bpancillary.vue"
+            ),
+        },
+        {
+          path: "bpnavigation",
+          name: "bpnavigation",
+          component: () =>
+            import(
+              "@/module/BuildingPermit/BuildingPermitApplication/bpnavigation.vue"
+            ),
           component: () => import("@/module/BuildingPermit/bpsignatories.vue"),
         },
 

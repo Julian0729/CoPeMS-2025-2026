@@ -3,7 +3,7 @@
     <v-main class="no-scroll">
       <v-container fluid class="pa-0 content-area fill-height">
         <v-row no-gutters class="fill-height">
-          <ApplicantNavigation
+          <BPNavigation
             :sidebar-step="sidebarStep"
             :sidebar-steps="sidebarSteps"
             @go-to-step="goToStep"
@@ -286,7 +286,7 @@
 
               <div class="d-flex justify-end mt-6 mb-8">
                 <router-link
-                  to="/applicant/applicantdetails"
+                  to="/applicant/bpowner"
                   style="text-decoration: none"
                 >
                   <v-btn
@@ -304,7 +304,7 @@
                   elevation="2"
                   @click="nextStep"
                   variant="elevated"
-                  to="/applicantlayout/usecharacterofoccupancy"
+                  to="/Applicant/bpcharacter"
                 >
                   Next<v-icon right>mdi-arrow-right</v-icon>
                 </v-btn>
@@ -320,11 +320,11 @@
 <script>
 import { defineComponent } from "vue";
 import { useRouter } from "vue-router";
-import ApplicantNavigation from "./ApplicantNavigation.vue";
+import BPNavigation from "./BPNavigation.vue";
 
 export default defineComponent({
   name: "BuildingPermitStep2",
-  components: { ApplicantNavigation },
+  components: { BPNavigation },
   setup() {
     const router = useRouter();
     return { router };
@@ -477,7 +477,7 @@ export default defineComponent({
         this.formStepValue = nextStepNumber.toString();
 
         if (nextStepNumber === 3) {
-          this.router.push("/applicant/usecharacterofoccupancy");
+          this.router.push("/Applicant/character");
         }
       }
     },

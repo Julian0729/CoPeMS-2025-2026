@@ -3,7 +3,7 @@
     <v-main class="no-scroll">
       <v-container fluid class="pa-0 content-area fill-height">
         <v-row no-gutters class="fill-height">
-          <ApplicantNavigation
+          <BPNavigation
             :sidebar-step="sidebarStep"
             :sidebar-steps="sidebarSteps"
             @go-to-step="goToStep"
@@ -267,21 +267,12 @@
 
               <div class="d-flex justify-end mt-6 mb-8">
                 <v-btn
-                  color="blue-grey-lighten-4"
-                  class="mr-2 btn-rounded"
-                  elevation="2"
-                  to="/applicant/typeofapplication"
-                  variant="tonal"
-                >
-                  <v-icon left>mdi-arrow-left</v-icon>Back
-                </v-btn>
-                <v-btn
                   color="blue-darken-3"
                   class="btn-rounded"
                   elevation="2"
                   @click="validateAndProceed"
                   variant="elevated"
-                  to="/applicantlayout/constructioninformation"
+                  to="/Applicant/bpconstruction"
                 >
                   Next<v-icon right>mdi-arrow-right</v-icon>
                 </v-btn>
@@ -296,10 +287,11 @@
 
 <script>
 import { defineComponent } from "vue";
-import ApplicantNavigation from "./ApplicantNavigation.vue";
+import BPNavigation from "./bpnavigation.vue";
 
 export default defineComponent({
-  components: { ApplicantNavigation },
+  // 3. CORRECTED: Changed component registration key
+  components: { BPNavigation },
   name: "BuildingPermitPage",
   data() {
     return {
@@ -363,6 +355,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
+/* Scoped styles remain unchanged */
 .no-scroll {
   overflow: hidden !important;
 }
