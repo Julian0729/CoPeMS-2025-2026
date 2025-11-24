@@ -1,11 +1,9 @@
 <template>
   <div class="page-wrapper">
     <v-main>
-      <v-container
-        class="fill-height pa-8 d-flex align-center justify-center"
-        fluid
-      >
+      <v-container class="fill-height pa-8" fluid>
         <v-row align="center" justify="center" class="w-100">
+          <!-- INFO SECTION -->
           <v-col cols="12" md="7" class="pa-6">
             <div class="info-section elevation-2">
               <h2 class="info-title gradient-info-title">
@@ -18,9 +16,9 @@
                   </div>
                   <h3 class="feature-title">Time-Saving</h3>
                   <p class="feature-description">
-                    Save valuable time by processing your permits online. No
-                    more waiting in long queues – complete everything from the
-                    comfort of your home or office.
+                    Save valuable time by processing your permits online. No more waiting
+                    in long queues – complete everything from the comfort of your home or
+                    office.
                   </p>
                 </v-col>
                 <v-col cols="12" sm="4" class="text-center">
@@ -29,9 +27,8 @@
                   </div>
                   <h3 class="feature-title">24/7 Access</h3>
                   <p class="feature-description">
-                    Access our services around the clock, every day of the year.
-                    Submit applications and track progress at any time that
-                    suits your schedule.
+                    Access our services around the clock, every day of the year. Submit
+                    applications and track progress at any time that suits your schedule.
                   </p>
                 </v-col>
                 <v-col cols="12" sm="4" class="text-center">
@@ -40,15 +37,15 @@
                   </div>
                   <h3 class="feature-title">Real-time Updates</h3>
                   <p class="feature-description">
-                    Stay informed with instant notifications about your
-                    application status. Receive timely updates and never miss
-                    important information.
+                    Stay informed with instant notifications about your application
+                    status. Receive timely updates and never miss important information.
                   </p>
                 </v-col>
               </v-row>
             </div>
           </v-col>
 
+          <!-- LOGIN CARD -->
           <v-col cols="12" md="4" class="pa-6">
             <v-card class="login-card pa-7 elevation-8">
               <v-card-title
@@ -60,13 +57,17 @@
                 Login to your account
               </v-card-subtitle>
               <v-card-text>
-                <v-form>
+                <v-form @submit.prevent="handleLogin" ref="loginForm">
                   <v-text-field
+                    v-model="email"
                     label="Email Address"
                     density="comfortable"
                     variant="outlined"
                     class="mb-4"
                     prepend-inner-icon="mdi-email-outline"
+                    :rules="emailRules"
+                    type="email"
+                    required
                   ></v-text-field>
 
                   <v-text-field
@@ -76,16 +77,14 @@
                     density="comfortable"
                     variant="outlined"
                     prepend-inner-icon="mdi-lock-outline"
-                    :append-inner-icon="
-                      showPassword ? 'mdi-eye' : 'mdi-eye-off'
-                    "
+                    :append-inner-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
                     @click:append-inner="toggleShowPassword"
                     class="mb-2"
+                    :rules="passwordRules"
+                    required
                   />
 
-                  <div
-                    class="d-flex justify-space-between align-center mt-2 mb-4"
-                  >
+                  <div class="d-flex justify-space-between align-center mt-2 mb-4">
                     <v-checkbox-btn
                       label="Remember me"
                       class="ma-0 pa-0"
@@ -98,23 +97,34 @@
                     >
                   </div>
 
+                  <!-- Error/Success Messages -->
+                  <v-alert
+                    v-if="alertMessage"
+                    :type="alertType"
+                    class="mb-4"
+                    :icon="
+                      alertType === 'success' ? 'mdi-check-circle' : 'mdi-alert-circle'
+                    "
+                  >
+                    {{ alertMessage }}
+                  </v-alert>
+
                   <v-btn
                     block
                     color="primary"
                     size="large"
                     class="login-btn gradient-btn"
                     to="/Applicant/bpowner"
+                    type="submit"
+                    :loading="loading"
+                    :disabled="loading"
                   >
-                    Login
+                    {{ loading ? "Signing in..." : "Login" }}
                   </v-btn>
 
                   <div class="text-center mt-6">
-                    <span class="text-grey-darken-1"
-                      >Don't have an account?</span
-                    >
-                    <router-link
-                      to="/register"
-                      class="text-primary font-weight-bold ms-1"
+                    <span class="text-grey-darken-1">Don't have an account?</span>
+                    <router-link to="/register" class="text-primary font-weight-bold ms-1"
                       >Register</router-link
                     >
                   </div>
@@ -129,17 +139,58 @@
 </template>
 
 <script>
+import { useAuthStore } from "@/stores/auth";
+
 export default {
-  name: "HomePage",
+  name: "LoginPage",
   data() {
     return {
+      email: "",
       password: "",
       showPassword: false,
+      loading: false,
+      alertMessage: "",
+      alertType: "error",
+      emailRules: [
+        (v) => !!v || "Email is required",
+        (v) => /.+@.+\..+/.test(v) || "Email must be valid",
+      ],
+      passwordRules: [(v) => !!v || "Password is required"],
     };
   },
   methods: {
     toggleShowPassword() {
       this.showPassword = !this.showPassword;
+    },
+    async handleLogin() {
+      // Validate form
+      const { valid } = await this.$refs.loginForm.validate();
+      if (!valid) {
+        return;
+      }
+
+      this.loading = true;
+      this.alertMessage = "";
+
+      try {
+        const authStore = useAuthStore();
+        await authStore.login(this.email, this.password);
+
+        this.alertType = "success";
+        this.alertMessage = "Login successful!";
+
+        // Redirect to appropriate dashboard based on user role
+        // For now, redirect to applicant dashboard
+        setTimeout(() => {
+          this.$router.push("/applicant/OPapply");
+        }, 1000);
+      } catch (error) {
+        this.alertType = "error";
+        this.alertMessage =
+          error.message || "Login failed. Please check your credentials.";
+      } finally {
+        this.loading = false;
+      }
     },
   },
 };
@@ -174,6 +225,7 @@ export default {
 }
 .gradient-info-title {
   background: linear-gradient(90deg, #1976d2 20%, #4a148c 90%);
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -211,6 +263,7 @@ export default {
   margin-bottom: 0;
 }
 
+/* Login Card */
 .login-card {
   border-radius: 22px !important;
   box-shadow: 0 8px 40px rgba(33, 150, 243, 0.12) !important;

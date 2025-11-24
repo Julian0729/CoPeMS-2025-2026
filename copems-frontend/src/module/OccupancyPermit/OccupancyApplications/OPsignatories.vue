@@ -431,6 +431,7 @@
                   </v-form>
                 </v-card-text>
               </v-card>
+
               <div class="d-flex justify-end mt-6 mb-8">
                 <v-btn
                   color="blue-grey-4"
@@ -445,11 +446,10 @@
                   color="blue-darken-3"
                   class="btn-rounded"
                   elevation="2"
-                  @click="nextStep"
+                  @click="openSuccessDialog"
                   variant="elevated"
-                  to="FormsSection"
                 >
-                  Save<v-icon right>mdi-arrow-right</v-icon>
+                  SUBMIT
                 </v-btn>
               </div>
             </v-container>
@@ -457,6 +457,44 @@
         </v-row>
       </v-container>
     </v-main>
+
+    <v-dialog v-model="dialog" max-width="400" persistent>
+      <v-card class="pa-4 text-center rounded-xl" elevation="10">
+        <v-card-text>
+          <div class="mb-4">
+            <v-icon color="green" size="72"> mdi-check-circle </v-icon>
+          </div>
+          <h3 class="text-h6 font-weight-bold mb-4">
+            Application Submitted Successfully!
+          </h3>
+          <p class="text-body-1 mb-6 text-grey-darken-1">
+            Your occupancy permit application has been submitted.
+          </p>
+
+          <v-card flat class="pa-4 mx-auto mb-6 submission-number-card">
+            <p class="text-subtitle-1 mb-1">Your Application Number</p>
+            <p class="text-h5 font-weight-black text-blue-darken-3">
+              {{ applicationNumber }}
+            </p>
+          </v-card>
+
+          <p class="text-caption text-grey-darken-1 mb-6">
+            Please keep this number for tracking your application status.
+          </p>
+
+          <v-btn
+            color="blue-darken-3"
+            block
+            @click="closeDialog"
+            class="text-capitalize font-weight-bold"
+            size="large"
+            to="/applicant/FormsSection"
+          >
+            SAVE
+          </v-btn>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
   </v-app>
 </template>
 
@@ -467,6 +505,7 @@ export default defineComponent({
   name: "OccupancySignatoriesPage",
   data() {
     return {
+      // Existing data properties...
       formStepValue: 4,
       formSteps: [
         { title: "Application", value: 1 },
@@ -485,26 +524,26 @@ export default defineComponent({
       engineerLastName: "",
       engineerMiddleName: "",
       prcNo: "",
-      validity: null,
+      validity: new Date().toISOString().substr(0, 10),
       validityMenu: false,
       ptrNo: "",
-      dateIssued: null,
+      dateIssued: new Date().toISOString().substr(0, 10),
       dateIssuedMenu: false,
       issuedAt: "",
       tin: "",
 
-      province: null,
+      province: "",
       municipality: "",
-      barangay: null,
+      barangay: "",
       blkNo: "",
       street: "",
 
       applicantFirstName: "",
       applicantLastName: "",
       applicantMiddleInitial: "",
-      applicantProvince: null,
+      applicantProvince: "",
       applicantMunicipality: "",
-      applicantBarangay: null,
+      applicantBarangay: "",
       applicantHouseNo: "",
       applicantStreet: "",
       applicantGovIdNo: "",
@@ -513,6 +552,9 @@ export default defineComponent({
 
       provinces: ["Province A", "Province B"],
       barangays: ["Barangay 1", "Barangay 2"],
+
+      dialog: false,
+      applicationNumber: "",
     };
   },
   methods: {
@@ -541,8 +583,21 @@ export default defineComponent({
     goBack() {
       this.$router.push("/applicant/OPlocation");
     },
-    nextStep() {
-      console.log("Proceeding to the next step (FormsSection)");
+
+    async openSuccessDialog() {
+      const year = new Date().getFullYear();
+      const randomNumber = Math.floor(1000 + Math.random() * 9000);
+      this.applicationNumber = `OP-${year}-${randomNumber}`;
+
+      this.dialog = true;
+
+      console.log("Application submitted, dialog displayed.");
+    },
+
+    closeDialog() {
+      this.dialog = false;
+      this.$router.push("/FormsSection");
+      console.log("Dialog closed, navigating to FormsSection.");
     },
   },
   watch: {
@@ -657,6 +712,13 @@ export default defineComponent({
   font-size: 1.4rem;
   letter-spacing: 0.02em;
 }
+
+.submission-number-card {
+  background: #e3f0ff !important;
+  border: 1px solid #a3c9f2;
+  border-radius: 8px;
+}
+
 @media (max-width: 1200px) {
   .page-title-responsive {
     font-size: 1.12rem !important;
