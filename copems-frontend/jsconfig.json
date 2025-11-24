@@ -5,6 +5,8 @@
     "module": "esnext",
     "baseUrl": "./",
     "moduleResolution": "bundler",
+    "forceConsistentCasingInFileNames": false,
+    "skipLibCheck": true,
     "paths": {
       "@/*": ["src/*"]
     },

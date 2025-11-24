@@ -1,0 +1,9 @@
+{
+  "extends": "./jsconfig.json",
+  "compilerOptions": {
+    "forceConsistentCasingInFileNames": false,
+    "noImplicitAny": false,
+    "skipLibCheck": true
+  },
+  "ts.problemMatchers": []
+}
