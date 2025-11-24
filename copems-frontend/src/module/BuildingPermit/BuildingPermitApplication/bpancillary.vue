@@ -334,6 +334,7 @@ function downloadForm(title) {
 
 .gradient-text {
   background: linear-gradient(90deg, #1976d2 10%, #0000cc 90%);
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }

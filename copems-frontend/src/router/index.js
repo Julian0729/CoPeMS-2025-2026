@@ -92,7 +92,7 @@ const router = createRouter({
           name: "bpnavigation",
           component: () =>
             import(
-              "@/module/BuildingPermit/BuildingPermitApplication/bpnavigation.vue"
+              "@/module/BuildingPermit/BuildingPermitApplication/BPNavigation.vue"
             ),
         },
 
