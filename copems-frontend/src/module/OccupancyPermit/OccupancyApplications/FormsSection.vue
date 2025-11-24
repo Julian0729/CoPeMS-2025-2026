@@ -151,7 +151,7 @@
                           elevation="2"
                           size="x-large"
                           class="rounded-pill font-weight-bold px-8 btn-rounded-custom"
-                          to="/applicant/occupancychecklist"
+                          to="/applicant/OPstatusMonitoring"
                         >
                           Save
                         </v-btn>

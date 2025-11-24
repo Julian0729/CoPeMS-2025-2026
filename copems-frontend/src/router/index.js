@@ -23,6 +23,11 @@ const router = createRouter({
           component: () => import("@/pages/Applicant-Registration.vue"),
         },
         {
+          path: "register",
+          name: "register",
+          component: () => import("@/pages/Applicant-Registration.vue"),
+        },
+        {
           path: "Applicant-bpInquiry",
           name: "Applicant-bpInquiry",
           component: () => import("@/pages/Applicant-bpInquiry.vue"),
@@ -31,6 +36,11 @@ const router = createRouter({
           path: "Applicant-opInquiry",
           name: "Applicant-opInquiry",
           component: () => import("@/pages/Applicant-opInquiry.vue"),
+        },
+        {
+          path: "Applicant-ForgotPW",
+          name: "Applicant-ForgotPW",
+          component: () => import("@/pages/Applicant-ForgotPW.vue"),
         },
       ],
     },
@@ -46,6 +56,7 @@ const router = createRouter({
             import(
               "@/module/BuildingPermit/BuildingPermitApplication/bpcharacter.vue"
             ),
+          component: () => import("@/module/BuildingPermit/bpcharacter.vue"),
         },
         {
           path: "bpconstruction",
@@ -54,6 +65,7 @@ const router = createRouter({
             import(
               "@/module/BuildingPermit/BuildingPermitApplication/bpconstruction.vue"
             ),
+          component: () => import("@/module/BuildingPermit/bpconstruction.vue"),
         },
         {
           path: "bpowner",
@@ -62,6 +74,7 @@ const router = createRouter({
             import(
               "@/module/BuildingPermit/BuildingPermitApplication/bpowner.vue"
             ),
+          component: () => import("@/module/BuildingPermit/bpowner.vue"),
         },
         {
           path: "bpsignatories",
@@ -94,6 +107,7 @@ const router = createRouter({
             import(
               "@/module/BuildingPermit/BuildingPermitApplication/BPNavigation.vue"
             ),
+          component: () => import("@/module/BuildingPermit/bpsignatories.vue"),
         },
 
         // Occupancy Permit Applicant Routes
@@ -167,6 +181,14 @@ const router = createRouter({
           name: "Unified",
           component: () =>
             import("@/module/OccupancyPermit/OccupancyPermits/Unified.vue"),
+        },
+        {
+          path: "OPstatusMonitoring",
+          name: "OPstatusMonitoring",
+          component: () =>
+            import(
+              "@/module/OccupancyPermit/OccupancyMonitoring/OPstatusmonitoring.vue"
+            ),
         },
       ],
     },

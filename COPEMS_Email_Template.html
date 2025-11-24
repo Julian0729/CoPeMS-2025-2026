@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{subject}}</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        background-color: #f4f4f4;
+      }
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #ffffff;
+        padding: 0;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      .header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        text-align: center;
+        padding: 30px 20px;
+      }
+      .header h1 {
+        margin: 0;
+        font-size: 28px;
+        font-weight: bold;
+      }
+      .header p {
+        margin: 10px 0 0 0;
+        font-size: 16px;
+        opacity: 0.9;
+      }
+      .content {
+        padding: 40px 30px;
+        text-align: center;
+      }
+      .greeting {
+        font-size: 20px;
+        color: #333;
+        margin-bottom: 20px;
+      }
+      .message {
+        font-size: 16px;
+        color: #666;
+        margin-bottom: 30px;
+        line-height: 1.6;
+      }
+      .verification-button {
+        display: inline-block;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        text-decoration: none;
+        padding: 15px 30px;
+        border-radius: 50px;
+        font-size: 16px;
+        font-weight: bold;
+        margin: 20px 0;
+        transition: transform 0.2s;
+      }
+      .verification-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+      }
+      .token-info {
+        background-color: #f8f9fa;
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        padding: 20px;
+        margin: 25px 0;
+      }
+      .token-info h3 {
+        margin: 0 0 10px 0;
+        color: #495057;
+        font-size: 16px;
+      }
+      .token-code {
+        font-family: "Courier New", monospace;
+        background-color: #e9ecef;
+        padding: 10px;
+        border-radius: 4px;
+        word-break: break-all;
+        font-size: 14px;
+        color: #495057;
+      }
+      .security-note {
+        background-color: #fff3cd;
+        border-left: 4px solid #ffc107;
+        padding: 15px;
+        margin: 25px 0;
+        border-radius: 4px;
+      }
+      .security-note h4 {
+        margin: 0 0 8px 0;
+        color: #856404;
+      }
+      .security-note p {
+        margin: 0;
+        color: #856404;
+        font-size: 14px;
+      }
+      .footer {
+        background-color: #f8f9fa;
+        padding: 30px 20px;
+        text-align: center;
+        border-top: 1px solid #dee2e6;
+      }
+      .footer p {
+        margin: 5px 0;
+        font-size: 14px;
+        color: #6c757d;
+      }
+      .footer .company-name {
+        font-weight: bold;
+        color: #495057;
+      }
+      .divider {
+        height: 1px;
+        background: linear-gradient(90deg, transparent, #dee2e6, transparent);
+        margin: 30px 0;
+      }
+      @media (max-width: 600px) {
+        .container {
+          margin: 10px;
+          border-radius: 5px;
+        }
+        .content {
+          padding: 30px 20px;
+        }
+        .header {
+          padding: 25px 20px;
+        }
+        .header h1 {
+          font-size: 24px;
+        }
+        .verification-button {
+          padding: 12px 25px;
+          font-size: 15px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header Section -->
+      <div class="header">
+        <h1>{{system_name}}</h1>
+        <p>Certificate of Occupancy Permit Electronic Management System</p>
+      </div>
+
+      <!-- Content Section -->
+      <div class="content">
+        <div class="greeting">Hello {{to_name}}! 👋</div>
+
+        <div class="message">
+          Welcome to COPEMS! We're excited to have you on board. To complete
+          your registration and secure your account, please verify your email
+          address by clicking the button below.
+        </div>
+
+        <!-- Verification Button -->
+        <a href="{{confirmation_url}}" class="verification-button">
+          ✅ Verify My Email Address
+        </a>
+
+        <!-- Alternative Link Section -->
+        <div class="divider"></div>
+
+        <p style="font-size: 14px; color: #666; margin-bottom: 10px">
+          If the button above doesn't work, copy and paste this link into your
+          browser:
+        </p>
+        <p
+          style="
+            font-size: 12px;
+            color: #007bff;
+            word-break: break-all;
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 4px;
+          "
+        >
+          {{confirmation_url}}
+        </p>
+
+        <!-- Token Information -->
+        <div class="token-info">
+          <h3>Verification Details</h3>
+          <p><strong>Email:</strong> {{to_email}}</p>
+          <p><strong>Verification Token:</strong></p>
+          <div class="token-code">{{confirmation_token}}</div>
+        </div>
+
+        <!-- Security Notice -->
+        <div class="security-note">
+          <h4>🔒 Security Notice</h4>
+          <p>
+            This verification link will expire in 24 hours for your security. If
+            you didn't create an account with COPEMS, please ignore this email.
+          </p>
+        </div>
+
+        <div class="divider"></div>
+
+        <p style="font-size: 14px; color: #666">
+          Need help? Contact our support team and we'll be happy to assist you.
+        </p>
+      </div>
+
+      <!-- Footer Section -->
+      <div class="footer">
+        <p class="company-name">{{system_name}} Team</p>
+        <p>Certificate of Occupancy Permit Electronic Management System</p>
+        <p>This is an automated message, please do not reply to this email.</p>
+        <p style="margin-top: 15px; font-size: 12px">
+          © 2025 COPEMS. All rights reserved.
+        </p>
+      </div>
+    </div>
+  </body>
+</html>

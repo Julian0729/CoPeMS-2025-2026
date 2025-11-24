@@ -1,5 +1,5 @@
 {
   "dependencies": {
-    "html2pdf.js": "^0.12.1"
+    "@emailjs/browser": "^4.4.1"
   }
 }
