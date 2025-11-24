@@ -103,7 +103,7 @@
                     color="primary"
                     size="large"
                     class="login-btn gradient-btn"
-                    to="/applicantlayout/applicantdetails"
+                    to="/Applicant/bpowner"
                   >
                     Login
                   </v-btn>

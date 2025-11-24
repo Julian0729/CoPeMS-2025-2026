@@ -44,7 +44,7 @@ const router = createRouter({
           name: "bpcharacter",
           component: () =>
             import(
-              "@/module/BuildingPermit/bpcharacter.vue"
+              "@/module/BuildingPermit/BuildingPermitApplication/bpcharacter.vue"
             ),
         },
         {
@@ -52,23 +52,47 @@ const router = createRouter({
           name: "bpconstruction",
           component: () =>
             import(
-              "@/module/BuildingPermit/bpconstruction.vue"
+              "@/module/BuildingPermit/BuildingPermitApplication/bpconstruction.vue"
             ),
         },
-                {
+        {
           path: "bpowner",
           name: "bpowner",
           component: () =>
             import(
-              "@/module/BuildingPermit/bpowner.vue"
+              "@/module/BuildingPermit/BuildingPermitApplication/bpowner.vue"
             ),
         },
-                {
+        {
           path: "bpsignatories",
           name: "bpsignatories",
           component: () =>
             import(
-              "@/module/BuildingPermit/bpsignatories.vue"
+              "@/module/BuildingPermit/BuildingPermitApplication/bpsignatories.vue"
+            ),
+        },
+        {
+          path: "bpuploadingofplans",
+          name: "bpuploadingofplans",
+          component: () =>
+            import(
+              "@/module/BuildingPermit/BuildingPermitApplication/bpuploadingofplans.vue"
+            ),
+        },
+                {
+          path: "bpancillary",
+          name: "bpancillary",
+          component: () =>
+            import(
+              "@/module/BuildingPermit/BuildingPermitApplication/bpancillary.vue"
+            ),
+        },
+        {
+          path: "bpnavigation",
+          name: "bpnavigation",
+          component: () =>
+            import(
+              "@/module/BuildingPermit/BuildingPermitApplication/bpnavigation.vue"
             ),
         },
 

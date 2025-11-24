@@ -386,7 +386,7 @@
                   color="blue-grey-lighten-4"
                   class="mr-2 btn-rounded"
                   elevation="2"
-                  to="/applicant/constructioninformation"
+                  to="/applicant/bpconstruction"
                   variant="tonal"
                 >
                   <v-icon left>mdi-arrow-left</v-icon>Back
@@ -395,7 +395,7 @@
                   color="blue-darken-3"
                   class="btn-rounded"
                   elevation="2"
-                  to="/applicantlayout/engineerinformation"
+                  to="/Applicant/bpsignatories"
                   @click="goToNextFormStep"
                   variant="elevated"
                 >

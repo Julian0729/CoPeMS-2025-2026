@@ -3,7 +3,7 @@
     <v-main class="no-scroll">
       <v-container fluid class="pa-0 content-area fill-height">
         <v-row no-gutters class="fill-height">
-          <ApplicantNavigation
+          <BPNavigation
             :sidebar-step="sidebarStep"
             :sidebar-steps="sidebarSteps"
             @go-to-step="goToSidebarStep"
@@ -684,7 +684,7 @@
                   color="blue-grey-lighten-4"
                   class="mr-2 btn-rounded"
                   elevation="2"
-                  to="/applicant/usecharacterofoccupancy"
+                  to="/applicant/bpcharacter"
                   variant="tonal"
                 >
                   <v-icon left>mdi-arrow-left</v-icon>Back
@@ -694,6 +694,7 @@
                   class="btn-rounded"
                   elevation="2"
                   variant="elevated"
+                  to="/Applicant/bpuploadingofplans"
                   @click="submitApplication"
                 >
                   Submit<v-icon right>mdi-check</v-icon>
@@ -767,11 +768,11 @@
 <script>
 import { defineComponent } from "vue";
 import { useRouter } from "vue-router";
-import ApplicantNavigation from "./ApplicantNavigation.vue";
+import BPNavigation from "./BPNavigation.vue";
 
 export default defineComponent({
   name: "BuildingPermitStep4",
-  components: { ApplicantNavigation },
+  components: { BPNavigation },
   setup() {
     const router = useRouter();
     return { router };
