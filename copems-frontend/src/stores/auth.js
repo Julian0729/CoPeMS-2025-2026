@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 
 // Backend API base URL
-const API_BASE_URL = 'http://localhost:4003/api/user';
+const API_BASE_URL = "http://localhost:4003/api/user";
 
 export const useAuthStore = defineStore("auth", {
   state: () => ({
@@ -18,12 +18,12 @@ export const useAuthStore = defineStore("auth", {
   actions: {
     async login(email, password) {
       this.loading = true;
-      
+
       try {
         const response = await fetch(`${API_BASE_URL}/login`, {
-          method: 'POST',
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
           body: JSON.stringify({
             username: email, // Backend expects 'username' field
@@ -34,7 +34,7 @@ export const useAuthStore = defineStore("auth", {
         const data = await response.json();
 
         if (!response.ok) {
-          throw new Error(data.message || 'Login failed');
+          throw new Error(data.message || "Login failed");
         }
 
         if (data.success) {
@@ -51,12 +51,12 @@ export const useAuthStore = defineStore("auth", {
           localStorage.setItem("authToken", data.token);
           localStorage.setItem("user", JSON.stringify(this.user));
         } else {
-          throw new Error(data.message || 'Login failed');
+          throw new Error(data.message || "Login failed");
         }
       } catch (error) {
         this.user = null;
         this.isAuthenticated = false;
-        console.error('Login error:', error);
+        console.error("Login error:", error);
         throw error;
       } finally {
         this.loading = false;
@@ -65,22 +65,22 @@ export const useAuthStore = defineStore("auth", {
 
     async register(email, password, confirmPassword) {
       this.loading = true;
-      
+
       try {
         // Validate passwords match
         if (password !== confirmPassword) {
-          throw new Error('Passwords do not match');
+          throw new Error("Passwords do not match");
         }
 
         // Validate password strength
         if (password.length < 6) {
-          throw new Error('Password must be at least 6 characters long');
+          throw new Error("Password must be at least 6 characters long");
         }
 
         const response = await fetch(`${API_BASE_URL}/register-no-email`, {
-          method: 'POST',
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
           body: JSON.stringify({
             email,
@@ -91,18 +91,18 @@ export const useAuthStore = defineStore("auth", {
         const data = await response.json();
 
         if (!response.ok) {
-          throw new Error(data.message || 'Registration failed');
+          throw new Error(data.message || "Registration failed");
         }
 
         if (data.success) {
           // For demo purposes, we'll automatically "verify" the email
           // In a real app, user would need to check their email
-          
+
           // Auto-verify the email (since we're using register-no-email endpoint)
           const verifyResponse = await fetch(`${API_BASE_URL}/verify-email`, {
-            method: 'POST',
+            method: "POST",
             headers: {
-              'Content-Type': 'application/json',
+              "Content-Type": "application/json",
             },
             body: JSON.stringify({
               token: data.data.verification_token,
@@ -114,15 +114,21 @@ export const useAuthStore = defineStore("auth", {
           if (verifyData.success) {
             // Now log the user in automatically
             await this.login(email, password);
-            return { success: true, message: 'Registration and login successful!' };
+            return {
+              success: true,
+              message: "Registration and login successful!",
+            };
           } else {
-            return { success: true, message: 'Registration successful! Please login.' };
+            return {
+              success: true,
+              message: "Registration successful! Please login.",
+            };
           }
         } else {
-          throw new Error(data.message || 'Registration failed');
+          throw new Error(data.message || "Registration failed");
         }
       } catch (error) {
-        console.error('Registration error:', error);
+        console.error("Registration error:", error);
         throw error;
       } finally {
         this.loading = false;

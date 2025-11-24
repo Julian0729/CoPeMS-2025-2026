@@ -31,6 +31,6 @@ app.config.globalProperties.$nextTick(() => {
     const authStore = useAuthStore();
     authStore.checkAuth();
   } catch (error) {
-    console.warn('Auth store initialization warning:', error);
+    console.warn("Auth store initialization warning:", error);
   }
 });
