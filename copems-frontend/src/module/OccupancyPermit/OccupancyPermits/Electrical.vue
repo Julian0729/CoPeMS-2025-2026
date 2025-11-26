@@ -29,8 +29,9 @@
             <!-- Main Content -->
             <div class="form-content">
               <p class="certification-text mb-3">
-                THIS IS TO CERTIFY THAT FINAL ELECTRICAL INSTALLATION HAS BEEN CONDUCTED
-                ON THE BUILDING AND/OR PREMISES COVERED BY BUILDING PERMIT NO
+                THIS IS TO CERTIFY THAT FINAL ELECTRICAL INSTALLATION HAS BEEN
+                CONDUCTED ON THE BUILDING AND/OR PREMISES COVERED BY BUILDING
+                PERMIT NO
                 <span
                   style="
                     display: inline-block;
@@ -52,9 +53,10 @@
                   "
                   >&nbsp;</span
                 >
-                AND THE SAME WERE FOUND COMPLETED IN ACCORDANCE WITH THE APPROVED PLANS
-                AND SPECIFICATIONS ON FILE WITH THE OFFICE OF THE BUILDING OFFICIAL AND IN
-                ACCORDANCE WITH PHILIPPINE ELECTRICAL CODE PROVISIONS.
+                AND THE SAME WERE FOUND COMPLETED IN ACCORDANCE WITH THE
+                APPROVED PLANS AND SPECIFICATIONS ON FILE WITH THE OFFICE OF THE
+                BUILDING OFFICIAL AND IN ACCORDANCE WITH PHILIPPINE ELECTRICAL
+                CODE PROVISIONS.
               </p>
               <!-- Applicant Name Box -->
               <table class="main-form-table mt-0">
@@ -62,7 +64,11 @@
                   <tr>
                     <td colspan="3" style="padding: 0; border: none">
                       <div class="applicant-box">
-                        <table class="applicant-table" cellspacing="0" cellpadding="0">
+                        <table
+                          class="applicant-table"
+                          cellspacing="0"
+                          cellpadding="0"
+                        >
                           <tr>
                             <td class="app-label-cell">NAME OF APPLICANT</td>
                             <td class="app-header-cell">LAST NAME</td>
@@ -73,7 +79,11 @@
                       </div>
                       <!-- Address Box -->
                       <div class="applicant-box">
-                        <table class="applicant-table" cellspacing="0" cellpadding="0">
+                        <table
+                          class="applicant-table"
+                          cellspacing="0"
+                          cellpadding="0"
+                        >
                           <tr>
                             <td class="app-label-cell">ADDRESS</td>
                             <td class="app-header-cell">NO.</td>
@@ -84,9 +94,15 @@
                         </table>
                       </div>
                       <div class="applicant-box">
-                        <table class="applicant-table" cellspacing="0" cellpadding="0">
+                        <table
+                          class="applicant-table"
+                          cellspacing="0"
+                          cellpadding="0"
+                        >
                           <tr>
-                            <td class="app-header-cell">LOCATION OF INSTALLATION: NO.</td>
+                            <td class="app-header-cell">
+                              LOCATION OF INSTALLATION: NO.
+                            </td>
                             <td class="app-header-cell">STREET</td>
                             <td class="app-header-cell">BARANGAY</td>
                             <td class="app-header-cell">CITY/MUNICIPALITY</td>
@@ -94,16 +110,28 @@
                         </table>
                       </div>
                       <div class="applicant-box">
-                        <table class="applicant-table" cellspacing="0" cellpadding="0">
+                        <table
+                          class="applicant-table"
+                          cellspacing="0"
+                          cellpadding="0"
+                        >
                           <tr>
-                            <td class="app-header-cell">TYPE OF OCCUPANCY OR USE</td>
+                            <td class="app-header-cell">
+                              TYPE OF OCCUPANCY OR USE
+                            </td>
                           </tr>
                         </table>
                       </div>
                       <div class="applicant-box">
-                        <table class="applicant-table" cellspacing="0" cellpadding="0">
+                        <table
+                          class="applicant-table"
+                          cellspacing="0"
+                          cellpadding="0"
+                        >
                           <tr>
-                            <td class="app-header-cell">START OF INSTALLATION</td>
+                            <td class="app-header-cell">
+                              START OF INSTALLATION
+                            </td>
                             <td class="app-header-cell">DATE OF COMPLETION</td>
                           </tr>
                         </table>
@@ -133,7 +161,11 @@
                         <table
                           cellspacing="0"
                           cellpadding="0"
-                          style="width: 100%; border-collapse: collapse; font-size: 10px"
+                          style="
+                            width: 100%;
+                            border-collapse: collapse;
+                            font-size: 10px;
+                          "
                         >
                           <tr>
                             <td
@@ -175,7 +207,12 @@
                               ></span
                               >LIGHT
                             </td>
-                            <td style="padding: 4px 8px 4px 32px; vertical-align: top">
+                            <td
+                              style="
+                                padding: 4px 8px 4px 32px;
+                                vertical-align: top;
+                              "
+                            >
                               <span
                                 style="
                                   display: inline-block;
@@ -201,7 +238,12 @@
                               ></span
                               >TOGGLE SWITCH
                             </td>
-                            <td style="padding: 4px 8px 4px 32px; vertical-align: top">
+                            <td
+                              style="
+                                padding: 4px 8px 4px 32px;
+                                vertical-align: top;
+                              "
+                            >
                               <span
                                 style="
                                   display: inline-block;
@@ -229,7 +271,12 @@
                               ></span
                               >CONVENIENCE/RECEPTCLE
                             </td>
-                            <td style="padding: 4px 8px 4px 32px; vertical-align: top">
+                            <td
+                              style="
+                                padding: 4px 8px 4px 32px;
+                                vertical-align: top;
+                              "
+                            >
                               <span
                                 style="
                                   display: inline-block;
@@ -255,7 +302,12 @@
                               ></span
                               >BELLS/BUZZLES
                             </td>
-                            <td style="padding: 4px 8px 4px 32px; vertical-align: top">
+                            <td
+                              style="
+                                padding: 4px 8px 4px 32px;
+                                vertical-align: top;
+                              "
+                            >
                               <span
                                 style="
                                   display: inline-block;
@@ -283,7 +335,12 @@
                               ></span
                               >SPO. AIRCON
                             </td>
-                            <td style="padding: 4px 8px 4px 32px; vertical-align: top">
+                            <td
+                              style="
+                                padding: 4px 8px 4px 32px;
+                                vertical-align: top;
+                              "
+                            >
                               <span
                                 style="
                                   display: inline-block;
@@ -309,7 +366,12 @@
                               ></span
                               >PUSH BUTTONS
                             </td>
-                            <td style="padding: 4px 8px 4px 32px; vertical-align: top">
+                            <td
+                              style="
+                                padding: 4px 8px 4px 32px;
+                                vertical-align: top;
+                              "
+                            >
                               <span
                                 style="
                                   display: inline-block;
@@ -336,7 +398,11 @@
                         <table
                           cellspacing="0"
                           cellpadding="0"
-                          style="width: 100%; border-collapse: collapse; font-size: 10px"
+                          style="
+                            width: 100%;
+                            border-collapse: collapse;
+                            font-size: 10px;
+                          "
                         >
                           <!-- Header for Loads -->
                           <tr>
@@ -383,9 +449,15 @@
                                 width: 33%;
                               "
                             >
-                              <div style="margin: 2px 0">_____ SPO, COOKING UNIT</div>
-                              <div style="margin: 2px 0">_____ SPO, WATER HEATER</div>
-                              <div style="margin: 2px 0">_____ SPO, WATER PUMP</div>
+                              <div style="margin: 2px 0">
+                                _____ SPO, COOKING UNIT
+                              </div>
+                              <div style="margin: 2px 0">
+                                _____ SPO, WATER HEATER
+                              </div>
+                              <div style="margin: 2px 0">
+                                _____ SPO, WATER PUMP
+                              </div>
                             </td>
                             <!-- Vertical divider -->
                             <td
@@ -403,10 +475,18 @@
                                 width: 34%;
                               "
                             >
-                              <div style="margin: 2px 0">_____ TOGGLE SWITCH</div>
-                              <div style="margin: 2px 0">_____ BELLS/BUZZERS</div>
-                              <div style="margin: 2px 0">_____ PUSH BUTTONS</div>
-                              <div style="margin: 2px 0">_____ FA DETECTORS</div>
+                              <div style="margin: 2px 0">
+                                _____ TOGGLE SWITCH
+                              </div>
+                              <div style="margin: 2px 0">
+                                _____ BELLS/BUZZERS
+                              </div>
+                              <div style="margin: 2px 0">
+                                _____ PUSH BUTTONS
+                              </div>
+                              <div style="margin: 2px 0">
+                                _____ FA DETECTORS
+                              </div>
                               <div style="margin: 2px 0">
                                 _____ OTHERS (See attached List)
                                 <div
@@ -423,12 +503,21 @@
                           <tr>
                             <td
                               colspan="5"
-                              style="border-top: 1px solid #444; padding: 6px 8px"
+                              style="
+                                border-top: 1px solid #444;
+                                padding: 6px 8px;
+                              "
                             >
                               <div
-                                style="display: flex; align-items: flex-end; gap: 10px"
+                                style="
+                                  display: flex;
+                                  align-items: flex-end;
+                                  gap: 10px;
+                                "
                               >
-                                <div style="min-width: 140px">2. Nature of works</div>
+                                <div style="min-width: 140px">
+                                  2. Nature of works
+                                </div>
                                 <div
                                   style="
                                     flex: 1;
@@ -549,7 +638,11 @@
                         <table
                           cellspacing="0"
                           cellpadding="0"
-                          style="width: 100%; border-collapse: collapse; font-size: 10px"
+                          style="
+                            width: 100%;
+                            border-collapse: collapse;
+                            font-size: 10px;
+                          "
                         >
                           <tr>
                             <td
@@ -591,7 +684,12 @@
                               ></span
                               >LIGHT
                             </td>
-                            <td style="padding: 4px 8px 4px 32px; vertical-align: top">
+                            <td
+                              style="
+                                padding: 4px 8px 4px 32px;
+                                vertical-align: top;
+                              "
+                            >
                               <span
                                 style="
                                   display: inline-block;
@@ -617,7 +715,12 @@
                               ></span
                               >TOGGLE SWITCH
                             </td>
-                            <td style="padding: 4px 8px 4px 32px; vertical-align: top">
+                            <td
+                              style="
+                                padding: 4px 8px 4px 32px;
+                                vertical-align: top;
+                              "
+                            >
                               <span
                                 style="
                                   display: inline-block;
@@ -645,7 +748,12 @@
                               ></span
                               >CONVENIENCE/RECEPTCLE
                             </td>
-                            <td style="padding: 4px 8px 4px 32px; vertical-align: top">
+                            <td
+                              style="
+                                padding: 4px 8px 4px 32px;
+                                vertical-align: top;
+                              "
+                            >
                               <span
                                 style="
                                   display: inline-block;
@@ -671,7 +779,12 @@
                               ></span
                               >BELLS/BUZZLES
                             </td>
-                            <td style="padding: 4px 8px 4px 32px; vertical-align: top">
+                            <td
+                              style="
+                                padding: 4px 8px 4px 32px;
+                                vertical-align: top;
+                              "
+                            >
                               <span
                                 style="
                                   display: inline-block;
@@ -699,7 +812,12 @@
                               ></span
                               >SPO. AIRCON
                             </td>
-                            <td style="padding: 4px 8px 4px 32px; vertical-align: top">
+                            <td
+                              style="
+                                padding: 4px 8px 4px 32px;
+                                vertical-align: top;
+                              "
+                            >
                               <span
                                 style="
                                   display: inline-block;
@@ -725,7 +843,12 @@
                               ></span
                               >PUSH BUTTONS
                             </td>
-                            <td style="padding: 4px 8px 4px 32px; vertical-align: top">
+                            <td
+                              style="
+                                padding: 4px 8px 4px 32px;
+                                vertical-align: top;
+                              "
+                            >
                               <span
                                 style="
                                   display: inline-block;
@@ -763,7 +886,11 @@
                         <table
                           cellspacing="0"
                           cellpadding="0"
-                          style="width: 100%; border-collapse: collapse; font-size: 10px"
+                          style="
+                            width: 100%;
+                            border-collapse: collapse;
+                            font-size: 10px;
+                          "
                         >
                           <!-- Row of three role checkboxes -->
                           <tr>
@@ -839,7 +966,12 @@
                                 "
                               ></span>
                             </td>
-                            <td style="padding: 6px 8px; border-top: 1px solid #444">
+                            <td
+                              style="
+                                padding: 6px 8px;
+                                border-top: 1px solid #444;
+                              "
+                            >
                               PRC REG. NO.<span
                                 style="
                                   border-bottom: 1px solid #000;
@@ -871,7 +1003,12 @@
                                 "
                               ></span>
                             </td>
-                            <td style="padding: 6px 8px; border-top: 1px solid #444">
+                            <td
+                              style="
+                                padding: 6px 8px;
+                                border-top: 1px solid #444;
+                              "
+                            >
                               VALIDITY<span
                                 style="
                                   border-bottom: 1px solid #000;
@@ -887,7 +1024,10 @@
                           <tr>
                             <td
                               colspan="3"
-                              style="padding: 6px 8px; border-top: 1px solid #444"
+                              style="
+                                padding: 6px 8px;
+                                border-top: 1px solid #444;
+                              "
                             >
                               ADDRESS:<span
                                 style="
@@ -936,7 +1076,12 @@
                                 "
                               ></span>
                             </td>
-                            <td style="padding: 6px 8px; border-top: 1px solid #444">
+                            <td
+                              style="
+                                padding: 6px 8px;
+                                border-top: 1px solid #444;
+                              "
+                            >
                               PLACE ISSUED<span
                                 style="
                                   border-bottom: 1px solid #000;
@@ -984,7 +1129,12 @@
                                 "
                               ></span>
                             </td>
-                            <td style="padding: 6px 8px; border-top: 1px solid #444">
+                            <td
+                              style="
+                                padding: 6px 8px;
+                                border-top: 1px solid #444;
+                              "
+                            >
                               TIN<span
                                 style="
                                   border-bottom: 1px solid #000;
@@ -1004,7 +1154,11 @@
                         <table
                           cellspacing="0"
                           cellpadding="0"
-                          style="width: 100%; border-collapse: collapse; font-size: 10px"
+                          style="
+                            width: 100%;
+                            border-collapse: collapse;
+                            font-size: 10px;
+                          "
                         >
                           <tr>
                             <!-- INSPECTED BY -->
@@ -1015,7 +1169,9 @@
                                 vertical-align: top;
                               "
                             >
-                              <div style="font-weight: bold; margin-bottom: 8px">
+                              <div
+                                style="font-weight: bold; margin-bottom: 8px"
+                              >
                                 INSPECTED BY:
                               </div>
                               <div
@@ -1071,7 +1227,9 @@
                               >
                                 RECOMMENDING APPROVAL:
                               </div>
-                              <div style="text-align: center; font-weight: bold">
+                              <div
+                                style="text-align: center; font-weight: bold"
+                              >
                                 GREGORY DL. MORENO
                               </div>
                               <div
@@ -1118,10 +1276,14 @@
                                 vertical-align: top;
                               "
                             >
-                              <div style="font-weight: bold; margin-bottom: 8px">
+                              <div
+                                style="font-weight: bold; margin-bottom: 8px"
+                              >
                                 APPROVED BY:
                               </div>
-                              <div style="text-align: center; font-weight: bold">
+                              <div
+                                style="text-align: center; font-weight: bold"
+                              >
                                 ALEXANDER N. CANING
                               </div>
                               <div
@@ -1167,7 +1329,13 @@
         >
           <div>
             <!-- Number of Stories / Costs Section -->
-            <div style="border: 1px solid #444; width: 100%; box-sizing: border-box">
+            <div
+              style="
+                border: 1px solid #444;
+                width: 100%;
+                box-sizing: border-box;
+              "
+            >
               <table
                 cellspacing="0"
                 cellpadding="0"
@@ -1208,17 +1376,25 @@
                 </tr>
                 <tr>
                   <td style="padding: 6px 8px; border-bottom: 1px solid #444">
-                    <div style="display: flex; align-items: flex-end; gap: 10px">
+                    <div
+                      style="display: flex; align-items: flex-end; gap: 10px"
+                    >
                       <div style="min-width: 60px">COST</div>
                       <div
-                        style="flex: 1; height: 14px; border-bottom: 1px solid #000"
+                        style="
+                          flex: 1;
+                          height: 14px;
+                          border-bottom: 1px solid #000;
+                        "
                       ></div>
                     </div>
                   </td>
                 </tr>
               </table>
               <div style="padding: 8px 10px; font-size: 10px">
-                <div style="margin: 4px 0">a.) Materials (Total Cost) &#8369;</div>
+                <div style="margin: 4px 0">
+                  a.) Materials (Total Cost) &#8369;
+                </div>
                 <div style="margin: 6px 0">
                   1. Electrical wires
                   <span
@@ -1318,7 +1494,9 @@
         <v-row no-gutters class="d-flex justify-space-between mt-4 no-print">
           <v-btn color="success" @click="downloadPDF">Download Form</v-btn>
           <div>
-            <v-btn color="primary" to="/applicant/SelectCompletionForms">Save</v-btn>
+            <v-btn color="primary" to="/applicant/SelectCompletionForms"
+              >Save</v-btn
+            >
           </div>
         </v-row>
       </v-container>
@@ -1327,7 +1505,7 @@
 </template>
 
 <script>
-import html2pdf from "html2pdf.js";
+import html2pdf from "html2pdf";
 
 export default {
   name: "BuildingPermitPDF",

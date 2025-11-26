@@ -272,7 +272,6 @@
                   elevation="2"
                   @click="validateAndProceed"
                   variant="elevated"
-                  to="/Applicant/bpconstruction"
                 >
                   Next<v-icon right>mdi-arrow-right</v-icon>
                 </v-btn>
@@ -330,7 +329,7 @@ export default defineComponent({
     async validateAndProceed() {
       const { valid } = await this.$refs.form.validate();
       if (valid) {
-        this.$router.push("/applicant/constructioninformation");
+        this.$router.push("/applicant/bpconstruction");
       }
     },
 

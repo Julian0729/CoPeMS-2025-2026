@@ -1,7 +1,11 @@
 <template>
   <v-app>
     <v-main class="grey-background">
-      <v-container fluid class="pa-4" style="max-width: 1000px; margin-top: 80px">
+      <v-container
+        fluid
+        class="pa-4"
+        style="max-width: 1000px; margin-top: 80px"
+      >
         <v-card class="pa-6 printable-form">
           <div class="text-right mb-2">
             <small>NBC FORM NO. B - 10</small>
@@ -31,14 +35,15 @@
 
             <div class="form-content">
               <p class="certification-text mb-3">
-                This is to certify that the building/structure covered by Building Permit
-                No.
+                This is to certify that the building/structure covered by
+                Building Permit No.
                 <span class="permit-field">&nbsp;</span> issued on
                 <span class="date-field">&nbsp;</span>
-                has been constructed and completed under our supervision, conforms with
-                the plans and specifications submitted and on file with the Office of the
-                Building Official, and complies with the provisions of the National
-                Building Code and Accessibility Law (BP Blg. 344).
+                has been constructed and completed under our supervision,
+                conforms with the plans and specifications submitted and on file
+                with the Office of the Building Official, and complies with the
+                provisions of the National Building Code and Accessibility Law
+                (BP Blg. 344).
               </p>
 
               <div class="form-row mb-0">
@@ -90,8 +95,12 @@
                 <tbody>
                   <tr>
                     <td class="label-cell" style="width: 30%"></td>
-                    <td class="header-cell text-center" style="width: 35%">PLANNED</td>
-                    <td class="header-cell text-center" style="width: 35%">ACTUAL</td>
+                    <td class="header-cell text-center" style="width: 35%">
+                      PLANNED
+                    </td>
+                    <td class="header-cell text-center" style="width: 35%">
+                      ACTUAL
+                    </td>
                   </tr>
                   <tr>
                     <td class="label-cell">DATE OF START OF CONSTRUCTION</td>
@@ -127,7 +136,9 @@
                   <tbody>
                     <tr>
                       <td class="cost-left number-col">1.</td>
-                      <td class="cost-left main-col">TOTAL COST OF MATERIALS:</td>
+                      <td class="cost-left main-col">
+                        TOTAL COST OF MATERIALS:
+                      </td>
                       <td class="cost-right currency-col">P</td>
                       <td class="cost-line"><span></span></td>
                     </tr>
@@ -153,7 +164,9 @@
                     </tr>
                     <tr class="subrow">
                       <td></td>
-                      <td class="sub-item">1.5. PREFAB STRUCTURAL STEEL (kg.)</td>
+                      <td class="sub-item">
+                        1.5. PREFAB STRUCTURAL STEEL (kg.)
+                      </td>
                       <td></td>
                     </tr>
                     <tr class="subrow">
@@ -163,15 +176,17 @@
                     </tr>
                     <tr>
                       <td class="cost-left number-col">2.</td>
-                      <td class="cost-left main-col">TOTAL COST OF DIRECT LABOR:</td>
+                      <td class="cost-left main-col">
+                        TOTAL COST OF DIRECT LABOR:
+                      </td>
                       <td class="cost-right currency-col">P</td>
                       <td class="cost-line"><span></span></td>
                     </tr>
                     <tr class="note-row">
                       <td></td>
                       <td colspan="3" class="note-text">
-                        This includes compensation whether by salary or contract for
-                        project architect/engineer down to laborers.
+                        This includes compensation whether by salary or contract
+                        for project architect/engineer down to laborers.
                       </td>
                     </tr>
                     <tr>
@@ -191,12 +206,15 @@
                     <tr class="note-row">
                       <td></td>
                       <td colspan="3" class="note-text">
-                        This includes professional services fees, permits and other fees
+                        This includes professional services fees, permits and
+                        other fees
                       </td>
                     </tr>
                     <tr class="total-row">
                       <td></td>
-                      <td class="total-label">TOTAL COST OF BUILDING/STRUCTURE</td>
+                      <td class="total-label">
+                        TOTAL COST OF BUILDING/STRUCTURE
+                      </td>
                       <td class="cost-right currency-col">P</td>
                       <td class="cost-line"><span></span></td>
                     </tr>
@@ -254,12 +272,16 @@
                       </table>
                       <table class="conforme-table mt-2">
                         <tr>
-                          <td class="conforme-label-cell" colspan="6">CONFORME:</td>
+                          <td class="conforme-label-cell" colspan="6">
+                            CONFORME:
+                          </td>
                         </tr>
                         <tr>
                           <td class="owner-line-cell" colspan="6">
                             <div class="owner-line-wrapper">
-                              <span class="signature-line owner-line-left"></span>
+                              <span
+                                class="signature-line owner-line-left"
+                              ></span>
                               <span class="date-inline owner-date"
                                 >Date<span class="short-line"></span
                               ></span>
@@ -342,20 +364,22 @@
 
                 <div class="notary-block mt-4">
                   <div class="jurat-heading">
-                    <span class="bold">REPUBLIC OF THE PHILIPPINES</span>) S.S<br />
+                    <span class="bold">REPUBLIC OF THE PHILIPPINES</span>)
+                    S.S<br />
                     CITY/MUNICIPALITY OF <span class="long-blank"></span>)
                   </div>
                   <p class="jurat-text mt-2">
                     BEFORE ME, at the City/Municipality of
                     <span class="mid-blank"></span>, on
-                    <span class="mid-blank"></span> personally appeared the persons whose
-                    signatures appear herein at the front and back of this page, known to
-                    me to be the same persons who executed this standard prescribed form
-                    and acknowledged to me that the same is their free and voluntary act
-                    and deed.
+                    <span class="mid-blank"></span> personally appeared the
+                    persons whose signatures appear herein at the front and back
+                    of this page, known to me to be the same persons who
+                    executed this standard prescribed form and acknowledged to
+                    me that the same is their free and voluntary act and deed.
                   </p>
                   <p class="jurat-text mt-2">
-                    WITNESS MY HAND AND SEAL on the date and place above written.
+                    WITNESS MY HAND AND SEAL on the date and place above
+                    written.
                   </p>
                   <div class="doc-lines mt-3">
                     <div class="doc-col left">
@@ -375,7 +399,8 @@
                     <div class="doc-col right text-center">
                       <div class="signature-line notary-line"></div>
                       <div class="role-label">
-                        NOTARY PUBLIC (Until December <span class="short-blank"></span>)
+                        NOTARY PUBLIC (Until December
+                        <span class="short-blank"></span>)
                       </div>
                     </div>
                   </div>
@@ -388,7 +413,10 @@
         <!-- PAGE 2: Blank for now -->
         <v-card class="pa-6 printable-form mt-8" style="min-height: 1200px">
           <div class="text-center mb-4">
-            <div class="text-subtitle-2" style="font-weight: bold; font-size: 16px">
+            <div
+              class="text-subtitle-2"
+              style="font-weight: bold; font-size: 16px"
+            >
               DESIGN PROFESSIONALS, PLANS AND SPECIFICATIONS:
             </div>
           </div>
@@ -407,7 +435,9 @@
               </div>
               <div style="padding: 8px 8px 0 8px">
                 <div class="d-flex align-center" style="margin-bottom: 8px">
-                  <div style="flex: 1; border-bottom: 1px solid #222; height: 18px"></div>
+                  <div
+                    style="flex: 1; border-bottom: 1px solid #222; height: 18px"
+                  ></div>
                   <div style="margin-left: 8px">
                     Date<span
                       style="
@@ -420,34 +450,67 @@
                     ></span>
                   </div>
                 </div>
-                <div class="text-center" style="font-size: 13px; margin-bottom: 8px">
+                <div
+                  class="text-center"
+                  style="font-size: 13px; margin-bottom: 8px"
+                >
                   (Signature Over Printed Name)
                 </div>
-                <table style="width: 100%; font-size: 13px; border-collapse: collapse">
+                <table
+                  style="
+                    width: 100%;
+                    font-size: 13px;
+                    border-collapse: collapse;
+                  "
+                >
                   <tr>
-                    <td style="border: 1px solid #222; width: 30%; padding: 2px 4px">
+                    <td
+                      style="
+                        border: 1px solid #222;
+                        width: 30%;
+                        padding: 2px 4px;
+                      "
+                    >
                       Address
                     </td>
                     <td style="border: 1px solid #222" colspan="2"></td>
                   </tr>
                   <tr>
-                    <td style="border: 1px solid #222; padding: 2px 4px">PRC. No</td>
-                    <td style="border: 1px solid #222; padding: 2px 4px">Validity</td>
+                    <td style="border: 1px solid #222; padding: 2px 4px">
+                      PRC. No
+                    </td>
+                    <td style="border: 1px solid #222; padding: 2px 4px">
+                      Validity
+                    </td>
                     <td style="border: 1px solid #222; padding: 2px 4px"></td>
                   </tr>
                   <tr>
-                    <td style="border: 1px solid #222; padding: 2px 4px">IAPOA No.</td>
-                    <td style="border: 1px solid #222; padding: 2px 4px">O.R. No.</td>
-                    <td style="border: 1px solid #222; padding: 2px 4px">Date Issued:</td>
+                    <td style="border: 1px solid #222; padding: 2px 4px">
+                      IAPOA No.
+                    </td>
+                    <td style="border: 1px solid #222; padding: 2px 4px">
+                      O.R. No.
+                    </td>
+                    <td style="border: 1px solid #222; padding: 2px 4px">
+                      Date Issued:
+                    </td>
                   </tr>
                   <tr>
-                    <td style="border: 1px solid #222; padding: 2px 4px">PTR. No</td>
-                    <td style="border: 1px solid #222; padding: 2px 4px">Date Issued</td>
+                    <td style="border: 1px solid #222; padding: 2px 4px">
+                      PTR. No
+                    </td>
+                    <td style="border: 1px solid #222; padding: 2px 4px">
+                      Date Issued
+                    </td>
                     <td style="border: 1px solid #222; padding: 2px 4px"></td>
                   </tr>
                   <tr>
-                    <td style="border: 1px solid #222; padding: 2px 4px">Issued at</td>
-                    <td style="border: 1px solid #222; padding: 2px 4px">TIN</td>
+                    <td style="border: 1px solid #222; padding: 2px 4px">
+                      Issued at
+                    </td>
+                    <td style="border: 1px solid #222; padding: 2px 4px">
+                      TIN
+                    </td>
                     <td style="border: 1px solid #222; padding: 2px 4px"></td>
                   </tr>
                 </table>
@@ -467,7 +530,9 @@
               </div>
               <div style="padding: 8px 8px 0 8px">
                 <div class="d-flex align-center" style="margin-bottom: 8px">
-                  <div style="flex: 1; border-bottom: 1px solid #222; height: 18px"></div>
+                  <div
+                    style="flex: 1; border-bottom: 1px solid #222; height: 18px"
+                  ></div>
                   <div style="margin-left: 8px">
                     Date<span
                       style="
@@ -480,29 +545,56 @@
                     ></span>
                   </div>
                 </div>
-                <div class="text-center" style="font-size: 13px; margin-bottom: 8px">
+                <div
+                  class="text-center"
+                  style="font-size: 13px; margin-bottom: 8px"
+                >
                   (Signature Over Printed Name)
                 </div>
-                <table style="width: 100%; font-size: 13px; border-collapse: collapse">
+                <table
+                  style="
+                    width: 100%;
+                    font-size: 13px;
+                    border-collapse: collapse;
+                  "
+                >
                   <tr>
-                    <td style="border: 1px solid #222; width: 30%; padding: 2px 4px">
+                    <td
+                      style="
+                        border: 1px solid #222;
+                        width: 30%;
+                        padding: 2px 4px;
+                      "
+                    >
                       Address
                     </td>
                     <td style="border: 1px solid #222" colspan="2"></td>
                   </tr>
                   <tr>
-                    <td style="border: 1px solid #222; padding: 2px 4px">PRC. No</td>
-                    <td style="border: 1px solid #222; padding: 2px 4px">Validity</td>
+                    <td style="border: 1px solid #222; padding: 2px 4px">
+                      PRC. No
+                    </td>
+                    <td style="border: 1px solid #222; padding: 2px 4px">
+                      Validity
+                    </td>
                     <td style="border: 1px solid #222; padding: 2px 4px"></td>
                   </tr>
                   <tr>
-                    <td style="border: 1px solid #222; padding: 2px 4px">PTR. No</td>
-                    <td style="border: 1px solid #222; padding: 2px 4px">Date Issued</td>
+                    <td style="border: 1px solid #222; padding: 2px 4px">
+                      PTR. No
+                    </td>
+                    <td style="border: 1px solid #222; padding: 2px 4px">
+                      Date Issued
+                    </td>
                     <td style="border: 1px solid #222; padding: 2px 4px"></td>
                   </tr>
                   <tr>
-                    <td style="border: 1px solid #222; padding: 2px 4px">Issued at</td>
-                    <td style="border: 1px solid #222; padding: 2px 4px">TIN</td>
+                    <td style="border: 1px solid #222; padding: 2px 4px">
+                      Issued at
+                    </td>
+                    <td style="border: 1px solid #222; padding: 2px 4px">
+                      TIN
+                    </td>
                     <td style="border: 1px solid #222; padding: 2px 4px"></td>
                   </tr>
                 </table>
@@ -525,7 +617,9 @@
               </div>
               <div style="padding: 8px 8px 0 8px">
                 <div class="d-flex align-center" style="margin-bottom: 8px">
-                  <div style="flex: 1; border-bottom: 1px solid #222; height: 18px"></div>
+                  <div
+                    style="flex: 1; border-bottom: 1px solid #222; height: 18px"
+                  ></div>
                   <div style="margin-left: 8px">
                     Date<span
                       style="
@@ -538,34 +632,67 @@
                     ></span>
                   </div>
                 </div>
-                <div class="text-center" style="font-size: 13px; margin-bottom: 8px">
+                <div
+                  class="text-center"
+                  style="font-size: 13px; margin-bottom: 8px"
+                >
                   (Signature Over Printed Name)
                 </div>
-                <table style="width: 100%; font-size: 13px; border-collapse: collapse">
+                <table
+                  style="
+                    width: 100%;
+                    font-size: 13px;
+                    border-collapse: collapse;
+                  "
+                >
                   <tr>
-                    <td style="border: 1px solid #222; width: 30%; padding: 2px 4px">
+                    <td
+                      style="
+                        border: 1px solid #222;
+                        width: 30%;
+                        padding: 2px 4px;
+                      "
+                    >
                       Address
                     </td>
                     <td style="border: 1px solid #222" colspan="2"></td>
                   </tr>
                   <tr>
-                    <td style="border: 1px solid #222; padding: 2px 4px">PRC. No</td>
-                    <td style="border: 1px solid #222; padding: 2px 4px">Validity</td>
+                    <td style="border: 1px solid #222; padding: 2px 4px">
+                      PRC. No
+                    </td>
+                    <td style="border: 1px solid #222; padding: 2px 4px">
+                      Validity
+                    </td>
                     <td style="border: 1px solid #222; padding: 2px 4px"></td>
                   </tr>
                   <tr>
-                    <td style="border: 1px solid #222; padding: 2px 4px">PTR. No.</td>
-                    <td style="border: 1px solid #222; padding: 2px 4px">O.R. No.</td>
-                    <td style="border: 1px solid #222; padding: 2px 4px">Date Issued:</td>
+                    <td style="border: 1px solid #222; padding: 2px 4px">
+                      PTR. No.
+                    </td>
+                    <td style="border: 1px solid #222; padding: 2px 4px">
+                      O.R. No.
+                    </td>
+                    <td style="border: 1px solid #222; padding: 2px 4px">
+                      Date Issued:
+                    </td>
                   </tr>
                   <tr>
-                    <td style="border: 1px solid #222; padding: 2px 4px">PTR. No</td>
-                    <td style="border: 1px solid #222; padding: 2px 4px">Date Issued</td>
+                    <td style="border: 1px solid #222; padding: 2px 4px">
+                      PTR. No
+                    </td>
+                    <td style="border: 1px solid #222; padding: 2px 4px">
+                      Date Issued
+                    </td>
                     <td style="border: 1px solid #222; padding: 2px 4px"></td>
                   </tr>
                   <tr>
-                    <td style="border: 1px solid #222; padding: 2px 4px">Issued at</td>
-                    <td style="border: 1px solid #222; padding: 2px 4px">TIN</td>
+                    <td style="border: 1px solid #222; padding: 2px 4px">
+                      Issued at
+                    </td>
+                    <td style="border: 1px solid #222; padding: 2px 4px">
+                      TIN
+                    </td>
                     <td style="border: 1px solid #222; padding: 2px 4px"></td>
                   </tr>
                 </table>
@@ -585,7 +712,9 @@
               </div>
               <div style="padding: 8px 8px 0 8px">
                 <div class="d-flex align-center" style="margin-bottom: 8px">
-                  <div style="flex: 1; border-bottom: 1px solid #222; height: 18px"></div>
+                  <div
+                    style="flex: 1; border-bottom: 1px solid #222; height: 18px"
+                  ></div>
                   <div style="margin-left: 8px">
                     Date<span
                       style="
@@ -598,29 +727,56 @@
                     ></span>
                   </div>
                 </div>
-                <div class="text-center" style="font-size: 13px; margin-bottom: 8px">
+                <div
+                  class="text-center"
+                  style="font-size: 13px; margin-bottom: 8px"
+                >
                   (Signature Over Printed Name)
                 </div>
-                <table style="width: 100%; font-size: 13px; border-collapse: collapse">
+                <table
+                  style="
+                    width: 100%;
+                    font-size: 13px;
+                    border-collapse: collapse;
+                  "
+                >
                   <tr>
-                    <td style="border: 1px solid #222; width: 30%; padding: 2px 4px">
+                    <td
+                      style="
+                        border: 1px solid #222;
+                        width: 30%;
+                        padding: 2px 4px;
+                      "
+                    >
                       Address
                     </td>
                     <td style="border: 1px solid #222" colspan="2"></td>
                   </tr>
                   <tr>
-                    <td style="border: 1px solid #222; padding: 2px 4px">PRC. No</td>
-                    <td style="border: 1px solid #222; padding: 2px 4px">Validity</td>
+                    <td style="border: 1px solid #222; padding: 2px 4px">
+                      PRC. No
+                    </td>
+                    <td style="border: 1px solid #222; padding: 2px 4px">
+                      Validity
+                    </td>
                     <td style="border: 1px solid #222; padding: 2px 4px"></td>
                   </tr>
                   <tr>
-                    <td style="border: 1px solid #222; padding: 2px 4px">PTR. No</td>
-                    <td style="border: 1px solid #222; padding: 2px 4px">Date Issued</td>
+                    <td style="border: 1px solid #222; padding: 2px 4px">
+                      PTR. No
+                    </td>
+                    <td style="border: 1px solid #222; padding: 2px 4px">
+                      Date Issued
+                    </td>
                     <td style="border: 1px solid #222; padding: 2px 4px"></td>
                   </tr>
                   <tr>
-                    <td style="border: 1px solid #222; padding: 2px 4px">Issued at</td>
-                    <td style="border: 1px solid #222; padding: 2px 4px">TIN</td>
+                    <td style="border: 1px solid #222; padding: 2px 4px">
+                      Issued at
+                    </td>
+                    <td style="border: 1px solid #222; padding: 2px 4px">
+                      TIN
+                    </td>
                     <td style="border: 1px solid #222; padding: 2px 4px"></td>
                   </tr>
                 </table>
@@ -642,7 +798,9 @@
               </div>
               <div style="padding: 8px 8px 0 8px">
                 <div class="d-flex align-center" style="margin-bottom: 8px">
-                  <div style="flex: 1; border-bottom: 1px solid #222; height: 18px"></div>
+                  <div
+                    style="flex: 1; border-bottom: 1px solid #222; height: 18px"
+                  ></div>
                   <div style="margin-left: 8px">
                     Date<span
                       style="
@@ -655,34 +813,67 @@
                     ></span>
                   </div>
                 </div>
-                <div class="text-center" style="font-size: 13px; margin-bottom: 8px">
+                <div
+                  class="text-center"
+                  style="font-size: 13px; margin-bottom: 8px"
+                >
                   (Signature Over Printed Name)
                 </div>
-                <table style="width: 100%; font-size: 13px; border-collapse: collapse">
+                <table
+                  style="
+                    width: 100%;
+                    font-size: 13px;
+                    border-collapse: collapse;
+                  "
+                >
                   <tr>
-                    <td style="border: 1px solid #222; width: 30%; padding: 2px 4px">
+                    <td
+                      style="
+                        border: 1px solid #222;
+                        width: 30%;
+                        padding: 2px 4px;
+                      "
+                    >
                       Address
                     </td>
                     <td style="border: 1px solid #222" colspan="2"></td>
                   </tr>
                   <tr>
-                    <td style="border: 1px solid #222; padding: 2px 4px">PRC. No</td>
-                    <td style="border: 1px solid #222; padding: 2px 4px">Validity</td>
+                    <td style="border: 1px solid #222; padding: 2px 4px">
+                      PRC. No
+                    </td>
+                    <td style="border: 1px solid #222; padding: 2px 4px">
+                      Validity
+                    </td>
                     <td style="border: 1px solid #222; padding: 2px 4px"></td>
                   </tr>
                   <tr>
-                    <td style="border: 1px solid #222; padding: 2px 4px">IAPOA No.</td>
-                    <td style="border: 1px solid #222; padding: 2px 4px">O.R. No.</td>
-                    <td style="border: 1px solid #222; padding: 2px 4px">Date Issued:</td>
+                    <td style="border: 1px solid #222; padding: 2px 4px">
+                      IAPOA No.
+                    </td>
+                    <td style="border: 1px solid #222; padding: 2px 4px">
+                      O.R. No.
+                    </td>
+                    <td style="border: 1px solid #222; padding: 2px 4px">
+                      Date Issued:
+                    </td>
                   </tr>
                   <tr>
-                    <td style="border: 1px solid #222; padding: 2px 4px">PTR. No</td>
-                    <td style="border: 1px solid #222; padding: 2px 4px">Date Issued</td>
+                    <td style="border: 1px solid #222; padding: 2px 4px">
+                      PTR. No
+                    </td>
+                    <td style="border: 1px solid #222; padding: 2px 4px">
+                      Date Issued
+                    </td>
                     <td style="border: 1px solid #222; padding: 2px 4px"></td>
                   </tr>
                   <tr>
-                    <td style="border: 1px solid #222; padding: 2px 4px">Issued at</td>
-                    <td style="border: 1px solid #222; padding: 2px 4px">TIN</td>
+                    <td style="border: 1px solid #222; padding: 2px 4px">
+                      Issued at
+                    </td>
+                    <td style="border: 1px solid #222; padding: 2px 4px">
+                      TIN
+                    </td>
                     <td style="border: 1px solid #222; padding: 2px 4px"></td>
                   </tr>
                 </table>
@@ -701,7 +892,9 @@
               </div>
               <div style="padding: 8px 8px 0 8px">
                 <div class="d-flex align-center" style="margin-bottom: 8px">
-                  <div style="flex: 1; border-bottom: 1px solid #222; height: 18px"></div>
+                  <div
+                    style="flex: 1; border-bottom: 1px solid #222; height: 18px"
+                  ></div>
                   <div style="margin-left: 8px">
                     Date<span
                       style="
@@ -714,29 +907,56 @@
                     ></span>
                   </div>
                 </div>
-                <div class="text-center" style="font-size: 13px; margin-bottom: 8px">
+                <div
+                  class="text-center"
+                  style="font-size: 13px; margin-bottom: 8px"
+                >
                   (Signature Over Printed Name)
                 </div>
-                <table style="width: 100%; font-size: 13px; border-collapse: collapse">
+                <table
+                  style="
+                    width: 100%;
+                    font-size: 13px;
+                    border-collapse: collapse;
+                  "
+                >
                   <tr>
-                    <td style="border: 1px solid #222; width: 30%; padding: 2px 4px">
+                    <td
+                      style="
+                        border: 1px solid #222;
+                        width: 30%;
+                        padding: 2px 4px;
+                      "
+                    >
                       Address
                     </td>
                     <td style="border: 1px solid #222" colspan="2"></td>
                   </tr>
                   <tr>
-                    <td style="border: 1px solid #222; padding: 2px 4px">PRC. No</td>
-                    <td style="border: 1px solid #222; padding: 2px 4px">Validity</td>
+                    <td style="border: 1px solid #222; padding: 2px 4px">
+                      PRC. No
+                    </td>
+                    <td style="border: 1px solid #222; padding: 2px 4px">
+                      Validity
+                    </td>
                     <td style="border: 1px solid #222; padding: 2px 4px"></td>
                   </tr>
                   <tr>
-                    <td style="border: 1px solid #222; padding: 2px 4px">PTR. No</td>
-                    <td style="border: 1px solid #222; padding: 2px 4px">Date Issued</td>
+                    <td style="border: 1px solid #222; padding: 2px 4px">
+                      PTR. No
+                    </td>
+                    <td style="border: 1px solid #222; padding: 2px 4px">
+                      Date Issued
+                    </td>
                     <td style="border: 1px solid #222; padding: 2px 4px"></td>
                   </tr>
                   <tr>
-                    <td style="border: 1px solid #222; padding: 2px 4px">Issued at</td>
-                    <td style="border: 1px solid #222; padding: 2px 4px">TIN</td>
+                    <td style="border: 1px solid #222; padding: 2px 4px">
+                      Issued at
+                    </td>
+                    <td style="border: 1px solid #222; padding: 2px 4px">
+                      TIN
+                    </td>
                     <td style="border: 1px solid #222; padding: 2px 4px"></td>
                   </tr>
                 </table>
@@ -759,7 +979,9 @@
               </div>
               <div style="padding: 8px 8px 0 8px">
                 <div class="d-flex align-center" style="margin-bottom: 8px">
-                  <div style="flex: 1; border-bottom: 1px solid #222; height: 18px"></div>
+                  <div
+                    style="flex: 1; border-bottom: 1px solid #222; height: 18px"
+                  ></div>
                   <div style="margin-left: 8px">
                     Date<span
                       style="
@@ -772,34 +994,67 @@
                     ></span>
                   </div>
                 </div>
-                <div class="text-center" style="font-size: 13px; margin-bottom: 8px">
+                <div
+                  class="text-center"
+                  style="font-size: 13px; margin-bottom: 8px"
+                >
                   (Signature Over Printed Name)
                 </div>
-                <table style="width: 100%; font-size: 13px; border-collapse: collapse">
+                <table
+                  style="
+                    width: 100%;
+                    font-size: 13px;
+                    border-collapse: collapse;
+                  "
+                >
                   <tr>
-                    <td style="border: 1px solid #222; width: 30%; padding: 2px 4px">
+                    <td
+                      style="
+                        border: 1px solid #222;
+                        width: 30%;
+                        padding: 2px 4px;
+                      "
+                    >
                       Address
                     </td>
                     <td style="border: 1px solid #222" colspan="2"></td>
                   </tr>
                   <tr>
-                    <td style="border: 1px solid #222; padding: 2px 4px">PRC. No</td>
-                    <td style="border: 1px solid #222; padding: 2px 4px">Validity</td>
+                    <td style="border: 1px solid #222; padding: 2px 4px">
+                      PRC. No
+                    </td>
+                    <td style="border: 1px solid #222; padding: 2px 4px">
+                      Validity
+                    </td>
                     <td style="border: 1px solid #222; padding: 2px 4px"></td>
                   </tr>
                   <tr>
-                    <td style="border: 1px solid #222; padding: 2px 4px">PTR. No.</td>
-                    <td style="border: 1px solid #222; padding: 2px 4px">O.R. No.</td>
-                    <td style="border: 1px solid #222; padding: 2px 4px">Date Issued:</td>
+                    <td style="border: 1px solid #222; padding: 2px 4px">
+                      PTR. No.
+                    </td>
+                    <td style="border: 1px solid #222; padding: 2px 4px">
+                      O.R. No.
+                    </td>
+                    <td style="border: 1px solid #222; padding: 2px 4px">
+                      Date Issued:
+                    </td>
                   </tr>
                   <tr>
-                    <td style="border: 1px solid #222; padding: 2px 4px">PTR. No</td>
-                    <td style="border: 1px solid #222; padding: 2px 4px">Date Issued</td>
+                    <td style="border: 1px solid #222; padding: 2px 4px">
+                      PTR. No
+                    </td>
+                    <td style="border: 1px solid #222; padding: 2px 4px">
+                      Date Issued
+                    </td>
                     <td style="border: 1px solid #222; padding: 2px 4px"></td>
                   </tr>
                   <tr>
-                    <td style="border: 1px solid #222; padding: 2px 4px">Issued at</td>
-                    <td style="border: 1px solid #222; padding: 2px 4px">TIN</td>
+                    <td style="border: 1px solid #222; padding: 2px 4px">
+                      Issued at
+                    </td>
+                    <td style="border: 1px solid #222; padding: 2px 4px">
+                      TIN
+                    </td>
                     <td style="border: 1px solid #222; padding: 2px 4px"></td>
                   </tr>
                 </table>
@@ -819,7 +1074,9 @@
               </div>
               <div style="padding: 8px 8px 0 8px">
                 <div class="d-flex align-center" style="margin-bottom: 8px">
-                  <div style="flex: 1; border-bottom: 1px solid #222; height: 18px"></div>
+                  <div
+                    style="flex: 1; border-bottom: 1px solid #222; height: 18px"
+                  ></div>
                   <div style="margin-left: 8px">
                     Date<span
                       style="
@@ -832,29 +1089,56 @@
                     ></span>
                   </div>
                 </div>
-                <div class="text-center" style="font-size: 13px; margin-bottom: 8px">
+                <div
+                  class="text-center"
+                  style="font-size: 13px; margin-bottom: 8px"
+                >
                   (Signature Over Printed Name)
                 </div>
-                <table style="width: 100%; font-size: 13px; border-collapse: collapse">
+                <table
+                  style="
+                    width: 100%;
+                    font-size: 13px;
+                    border-collapse: collapse;
+                  "
+                >
                   <tr>
-                    <td style="border: 1px solid #222; width: 30%; padding: 2px 4px">
+                    <td
+                      style="
+                        border: 1px solid #222;
+                        width: 30%;
+                        padding: 2px 4px;
+                      "
+                    >
                       Address
                     </td>
                     <td style="border: 1px solid #222" colspan="2"></td>
                   </tr>
                   <tr>
-                    <td style="border: 1px solid #222; padding: 2px 4px">PRC. No</td>
-                    <td style="border: 1px solid #222; padding: 2px 4px">Validity</td>
+                    <td style="border: 1px solid #222; padding: 2px 4px">
+                      PRC. No
+                    </td>
+                    <td style="border: 1px solid #222; padding: 2px 4px">
+                      Validity
+                    </td>
                     <td style="border: 1px solid #222; padding: 2px 4px"></td>
                   </tr>
                   <tr>
-                    <td style="border: 1px solid #222; padding: 2px 4px">PTR. No</td>
-                    <td style="border: 1px solid #222; padding: 2px 4px">Date Issued</td>
+                    <td style="border: 1px solid #222; padding: 2px 4px">
+                      PTR. No
+                    </td>
+                    <td style="border: 1px solid #222; padding: 2px 4px">
+                      Date Issued
+                    </td>
                     <td style="border: 1px solid #222; padding: 2px 4px"></td>
                   </tr>
                   <tr>
-                    <td style="border: 1px solid #222; padding: 2px 4px">Issued at</td>
-                    <td style="border: 1px solid #222; padding: 2px 4px">TIN</td>
+                    <td style="border: 1px solid #222; padding: 2px 4px">
+                      Issued at
+                    </td>
+                    <td style="border: 1px solid #222; padding: 2px 4px">
+                      TIN
+                    </td>
                     <td style="border: 1px solid #222; padding: 2px 4px"></td>
                   </tr>
                 </table>
@@ -862,7 +1146,10 @@
             </div>
           </div>
           <div class="text-center mb-4">
-            <div class="text-subtitle-2" style="font-weight: bold; font-size: 16px">
+            <div
+              class="text-subtitle-2"
+              style="font-weight: bold; font-size: 16px"
+            >
               SUPERVISORS OF SPECIALTY WORKS:
             </div>
           </div>
@@ -873,7 +1160,7 @@
 </template>
 
 <script>
-import html2pdf from "html2pdf.js";
+import html2pdf from "html2pdf";
 
 export default {
   name: "BuildingPermitPDF",

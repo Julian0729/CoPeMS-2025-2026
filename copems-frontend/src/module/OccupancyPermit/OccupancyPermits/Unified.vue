@@ -28,12 +28,19 @@
               </div>
             </div>
             <div class="row check-row">
-              <div class="check-options" style="justify-content: center; width: 100%">
-                <span class="check-label" style="font-weight: bold; font-size: 14px"
+              <div
+                class="check-options"
+                style="justify-content: center; width: 100%"
+              >
+                <span
+                  class="check-label"
+                  style="font-weight: bold; font-size: 14px"
                   >This also applies for:</span
                 >
                 <span class="checkbox">&#9633;</span>
-                <span style="font-weight: bold">FIRE SAFETY INSPECTION CERTIFICATE</span>
+                <span style="font-weight: bold"
+                  >FIRE SAFETY INSPECTION CERTIFICATE</span
+                >
               </div>
             </div>
             <div class="row info-row">
@@ -43,23 +50,46 @@
               <div class="info-line" style="flex: 1; width: 120px"></div>
             </div>
             <div class="row info-row">
-              <div class="info-label" style="flex: 1; text-align: left">Date Issued:</div>
+              <div class="info-label" style="flex: 1; text-align: left">
+                Date Issued:
+              </div>
               <div class="info-line" style="flex: 1; width: 100px"></div>
             </div>
             <div class="row info-row">
-              <div class="info-label" style="flex: 1; text-align: left">FSEC No.:</div>
+              <div class="info-label" style="flex: 1; text-align: left">
+                FSEC No.:
+              </div>
               <div class="info-line" style="flex: 1; width: 110px"></div>
             </div>
             <div class="row info-row">
-              <div class="info-label" style="flex: 1; text-align: left">Date Issued:</div>
+              <div class="info-label" style="flex: 1; text-align: left">
+                Date Issued:
+              </div>
               <div class="info-line" style="flex: 1; width: 100px"></div>
             </div>
-            <div class="row info-row" style="justify-content: flex-end; width: 100%">
-              <div style="display: flex; flex-direction: column; align-items: center">
-                <div class="info-line" style="width: 250px; margin-bottom: 2px"></div>
+            <div
+              class="row info-row"
+              style="justify-content: flex-end; width: 100%"
+            >
+              <div
+                style="
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                "
+              >
+                <div
+                  class="info-line"
+                  style="width: 250px; margin-bottom: 2px"
+                ></div>
                 <div
                   class="info-label"
-                  style="text-align: center; font-size: 14px; color: #222; width: 100px"
+                  style="
+                    text-align: center;
+                    font-size: 14px;
+                    color: #222;
+                    width: 100px;
+                  "
                 >
                   (Date)
                 </div>
@@ -97,13 +127,22 @@
                       margin-top: 8px;
                     "
                   >
-                    <div class="sub-label" style="width: 33%; text-align: center">
+                    <div
+                      class="sub-label"
+                      style="width: 33%; text-align: center"
+                    >
                       (Last Name)
                     </div>
-                    <div class="sub-label" style="width: 33%; text-align: center">
+                    <div
+                      class="sub-label"
+                      style="width: 33%; text-align: center"
+                    >
                       (Given Name)
                     </div>
-                    <div class="sub-label" style="width: 33%; text-align: center">
+                    <div
+                      class="sub-label"
+                      style="width: 33%; text-align: center"
+                    >
                       (Middle Initial)
                     </div>
                   </div>
@@ -126,13 +165,24 @@
                 <div class="info-line" style="flex: 1; width: auto"></div>
               </div>
               <div
-                style="display: flex; align-items: center; width: 100%; margin-top: 2px"
+                style="
+                  display: flex;
+                  align-items: center;
+                  width: 100%;
+                  margin-top: 2px;
+                "
               >
-                <div class="info-line" style="width: 40%; margin-right: 8px"></div>
+                <div
+                  class="info-line"
+                  style="width: 40%; margin-right: 8px"
+                ></div>
                 <div class="sub-label" style="width: 15%; text-align: center">
                   ZIP Code:
                 </div>
-                <div class="info-line" style="width: 20%; margin-right: 8px"></div>
+                <div
+                  class="info-line"
+                  style="width: 20%; margin-right: 8px"
+                ></div>
                 <div class="sub-label" style="width: 15%; text-align: center">
                   Contact No.:
                 </div>
@@ -147,55 +197,64 @@
             </div>
             <ul class="requirements-list">
               <li>
-                <span class="checkbox">&#9633;</span> Two (2) copies of accomplished
-                Unified Application form for Certificate of Occupancy, duly notarized;
+                <span class="checkbox">&#9633;</span> Two (2) copies of
+                accomplished Unified Application form for Certificate of
+                Occupancy, duly notarized;
               </li>
               <li>
-                <span class="checkbox">&#9633;</span> Two (2) copies of Certificate of
-                Completion, duly notarized;
+                <span class="checkbox">&#9633;</span> Two (2) copies of
+                Certificate of Completion, duly notarized;
               </li>
               <li>
-                <span class="checkbox">&#9633;</span> Construction Logbook, signed and
-                sealed by the Owner's Architect or Civil Engineer who undertook full-time
-                inspection and supervision;
+                <span class="checkbox">&#9633;</span> Construction Logbook,
+                signed and sealed by the Owner's Architect or Civil Engineer who
+                undertook full-time inspection and supervision;
               </li>
               <li>
-                <span class="checkbox">&#9633;</span> Two (2) photocopies of the valid
-                licenses of all involved professionals;
+                <span class="checkbox">&#9633;</span> Two (2) photocopies of the
+                valid licenses of all involved professionals;
               </li>
               <li>
-                <span class="checkbox">&#9633;</span> Photograph of the structure with
-                substantial completion showing front, sides, and rear areas;
+                <span class="checkbox">&#9633;</span> Photograph of the
+                structure with substantial completion showing front, sides, and
+                rear areas;
               </li>
               <li>
-                <span class="checkbox">&#9633;</span> Two (2) sets of As-Built Plans, if
-                there are changes in the building plans covered by the issued Building
-                Permit;
+                <span class="checkbox">&#9633;</span> Two (2) sets of As-Built
+                Plans, if there are changes in the building plans covered by the
+                issued Building Permit;
               </li>
               <li>
-                <span class="checkbox">&#9633;</span> Two (2) copies of Certificate of
-                Final Electrical Inspection;
+                <span class="checkbox">&#9633;</span> Two (2) copies of
+                Certificate of Final Electrical Inspection;
               </li>
               <li>
-                <span class="checkbox">&#9633;</span> Two (2) copies of Fire Safety
-                Inspection Certificate from the Bureau of Fire and Protection;
+                <span class="checkbox">&#9633;</span> Two (2) copies of Fire
+                Safety Inspection Certificate from the Bureau of Fire and
+                Protection;
               </li>
               <li>
-                <span class="checkbox">&#9633;</span> Sketch map indicating the location
-                of the project;
+                <span class="checkbox">&#9633;</span> Sketch map indicating the
+                location of the project;
               </li>
               <li style="display: flex; align-items: center">
                 <span class="checkbox">&#9633;</span> Others:
-                <span style="flex: 1; border-bottom: 1px solid #222; margin: 0 8px"></span
+                <span
+                  style="flex: 1; border-bottom: 1px solid #222; margin: 0 8px"
+                ></span
                 >.
               </li>
             </ul>
             <div class="row project-row">
-              <div class="info-label" style="min-width: 160px">Name of Project:</div>
+              <div class="info-label" style="min-width: 160px">
+                Name of Project:
+              </div>
               <div class="info-line" style="flex: 1"></div>
             </div>
             <div class="row project-row">
-              <div class="info-label" style="min-width: 160px">Location of Project:</div>
+              <div class="info-label" style="min-width: 160px">
+                Location of Project:
+              </div>
               <div class="info-line" style="flex: 1"></div>
             </div>
             <div class="project-details-grid">
@@ -206,22 +265,30 @@
                 <div class="info-line project-unified-line"></div>
               </div>
               <div class="project-details-row">
-                <div class="info-label" style="min-width: 220px">No. of Storey/s:</div>
+                <div class="info-label" style="min-width: 220px">
+                  No. of Storey/s:
+                </div>
                 <div class="info-line project-unified-line"></div>
               </div>
               <div class="project-details-row">
-                <div class="info-label" style="min-width: 220px">No. of Units:</div>
+                <div class="info-label" style="min-width: 220px">
+                  No. of Units:
+                </div>
                 <div class="info-line project-unified-line"></div>
               </div>
               <div class="project-details-row">
                 <div class="info-label" style="min-width: 220px">
                   Total Gross Floor Area
-                  <span style="font-size: 12px; color: #555">(Square Meters)</span>:
+                  <span style="font-size: 12px; color: #555"
+                    >(Square Meters)</span
+                  >:
                 </div>
                 <div class="info-line project-unified-line"></div>
               </div>
               <div class="project-details-row">
-                <div class="info-label" style="min-width: 220px">Date of Completion:</div>
+                <div class="info-label" style="min-width: 220px">
+                  Date of Completion:
+                </div>
                 <div class="info-line project-unified-line"></div>
               </div>
             </div>
@@ -236,10 +303,14 @@
               "
             >
               <div style="width: 379px">
-                <div style="font-size: 13px; margin-bottom: 19px; text-align: left">
+                <div
+                  style="font-size: 13px; margin-bottom: 19px; text-align: left"
+                >
                   Submitted by:
                 </div>
-                <div style="border-bottom: 1px solid #222; margin-bottom: 6px"></div>
+                <div
+                  style="border-bottom: 1px solid #222; margin-bottom: 6px"
+                ></div>
                 <div
                   style="
                     text-align: center;
@@ -250,7 +321,13 @@
                 >
                   APPLICANT/OWNER
                 </div>
-                <div style="text-align: center; font-size: 10px; margin-bottom: 5px">
+                <div
+                  style="
+                    text-align: center;
+                    font-size: 10px;
+                    margin-bottom: 5px;
+                  "
+                >
                   (Signature Over Printed Name)
                 </div>
                 <div
@@ -266,23 +343,41 @@
                       Community Tax Certificate No.
                     </div>
                     <div
-                      style="flex: 1; border-bottom: 1px solid #888; height: 14px"
+                      style="
+                        flex: 1;
+                        border-bottom: 1px solid #888;
+                        height: 14px;
+                      "
                     ></div>
                   </div>
                   <div style="display: flex; align-items: center">
-                    <div style="min-width: 80px; font-size: 12px">Date Issued:</div>
+                    <div style="min-width: 80px; font-size: 12px">
+                      Date Issued:
+                    </div>
                     <div
-                      style="flex: 1; border-bottom: 1px solid #888; height: 14px"
+                      style="
+                        flex: 1;
+                        border-bottom: 1px solid #888;
+                        height: 14px;
+                      "
                     ></div>
                   </div>
                   <div style="display: flex; align-items: center">
-                    <div style="min-width: 80px; font-size: 12px">Place Issued:</div>
+                    <div style="min-width: 80px; font-size: 12px">
+                      Place Issued:
+                    </div>
                     <div
-                      style="flex: 1; border-bottom: 1px solid #888; height: 14px"
+                      style="
+                        flex: 1;
+                        border-bottom: 1px solid #888;
+                        height: 14px;
+                      "
                     ></div>
                   </div>
                 </div>
-                <div style="font-size: 14px; margin-bottom: 2px; text-align: left">
+                <div
+                  style="font-size: 14px; margin-bottom: 2px; text-align: left"
+                >
                   Attested by:
                 </div>
                 <br />
@@ -299,7 +394,9 @@
                 </div>
                 <br />
                 <div style="height: 30px"></div>
-                <div style="border-bottom: 1px solid #222; margin-bottom: 6px"></div>
+                <div
+                  style="border-bottom: 1px solid #222; margin-bottom: 6px"
+                ></div>
                 <div
                   style="
                     text-align: center;
@@ -310,10 +407,22 @@
                 >
                   ARCHITECT OR CIVIL ENGINEER
                 </div>
-                <div style="text-align: center; font-size: 10px; margin-bottom: 2px">
+                <div
+                  style="
+                    text-align: center;
+                    font-size: 10px;
+                    margin-bottom: 2px;
+                  "
+                >
                   (Signed and Sealed Over Printed Name)
                 </div>
-                <div style="text-align: center; font-size: 12px; margin-bottom: 8px">
+                <div
+                  style="
+                    text-align: center;
+                    font-size: 12px;
+                    margin-bottom: 8px;
+                  "
+                >
                   Date
                   <span
                     style="
@@ -372,11 +481,15 @@
                 class="d-flex flex-column align-center text-center pa-6"
                 rounded="xl"
               >
-                <v-icon color="green" size="64" class="mb-4">mdi-check-circle</v-icon>
+                <v-icon color="green" size="64" class="mb-4"
+                  >mdi-check-circle</v-icon
+                >
                 <v-card-title class="text-h5 font-weight-bold"
                   >Application Completed</v-card-title
                 >
-                <v-card-text class="pb-2">Your Application Number is</v-card-text>
+                <v-card-text class="pb-2"
+                  >Your Application Number is</v-card-text
+                >
                 <div class="application-number-box my-4 px-6 py-3">
                   <span class="font-weight-bold">{{ applicationNumber }}</span>
                 </div>
@@ -402,7 +515,7 @@
 </template>
 
 <script>
-import html2pdf from "html2pdf.js";
+import html2pdf from "html2pdf";
 export default {
   name: "OccupancyPermitPDF",
   data() {
@@ -434,7 +547,10 @@ export default {
 
       const marginMm = 10;
       const pageMm = { w: 210, h: 297 };
-      const contentMm = { w: pageMm.w - marginMm * 2, h: pageMm.h - marginMm * 2 };
+      const contentMm = {
+        w: pageMm.w - marginMm * 2,
+        h: pageMm.h - marginMm * 2,
+      };
       const mmToPx = (mm) => (mm * 96) / 25.4;
 
       const availPx = { w: mmToPx(contentMm.w), h: mmToPx(contentMm.h) };

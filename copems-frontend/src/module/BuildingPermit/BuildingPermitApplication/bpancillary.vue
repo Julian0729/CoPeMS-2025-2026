@@ -1,191 +1,195 @@
 <template>
   <v-app>
     <v-main class="no-scroll">
-      <v-container fluid class="pa-0 content-area fill-height">
-        <v-row no-gutters class="fill-height">
-          <v-col cols="12" md="3" class="pa-0">
-            <v-card
-              flat
-              class="pa-4 quick-guide-card d-flex flex-column justify-space-between elevation-2"
-              style="
-                border-right: 1px solid #e0e0e0;
-                height: 100%;
-                background: #fcfcff;
-              "
-            >
-              <div>
-                <h4 class="mb-2 text-h5 font-weight-bold text-blue-darken-3">
-                  Building Permit Application
-                </h4>
-                <div class="text-subtitle-2 mb-6 text-blue-grey-darken-1">
-                  Follow these steps to complete your application
+      <v-row no-gutters class="fill-height" style="height: 100vh">
+        <v-col
+          cols="12"
+          md="3"
+          class="pa-0"
+          style="overflow: hidden; max-height: 100vh"
+        >
+          <v-card
+            flat
+            class="pa-4 quick-guide-card d-flex flex-column justify-space-between elevation-2"
+            style="
+              border-right: 1px solid #e0e0e0;
+              height: 100%;
+              background: #fcfcff;
+              overflow: hidden;
+            "
+          >
+            <div>
+              <h4 class="mb-2 text-h5 font-weight-bold text-blue-darken-3">
+                Building Permit Application
+              </h4>
+              <div class="text-subtitle-2 mb-6 text-blue-grey-darken-1">
+                Follow these steps to complete your application
+              </div>
+              <v-card
+                v-for="(step, index) in sidebarSteps"
+                :key="index"
+                flat
+                :color="sidebarStep === index ? 'blue-lighten-5' : '#f6f8fa'"
+                class="d-flex align-center pa-3 mb-4 rounded-lg quick-guide-step"
+                :class="{
+                  'clickable-step': true,
+                  'active-step': sidebarStep === index,
+                }"
+                @click="goToSidebarStep(index)"
+                elevation="sidebarStep === index ? 2 : 0"
+                style="transition: box-shadow 0.16s, background 0.16s"
+              >
+                <v-avatar
+                  :color="sidebarStep === index ? 'primary' : '#2563EB'"
+                  size="36"
+                  class="white--text mr-3 quick-guide-avatar"
+                >
+                  <span class="text-h6 font-weight-bold">
+                    {{ index + 1 }}
+                  </span>
+                </v-avatar>
+                <div class="font-weight-bold text-body-1 step-label">
+                  {{ step }}
                 </div>
-                <v-card
-                  v-for="(step, index) in sidebarSteps"
-                  :key="index"
-                  flat
-                  :color="sidebarStep === index ? 'blue-lighten-5' : '#f6f8fa'"
-                  class="d-flex align-center pa-3 mb-4 rounded-lg quick-guide-step"
-                  :class="{
-                    'clickable-step': true,
-                    'active-step': sidebarStep === index,
-                  }"
-                  @click="goToSidebarStep(index)"
-                  elevation="sidebarStep === index ? 2 : 0"
-                  style="transition: box-shadow 0.16s, background 0.16s"
-                >
-                  <v-avatar
-                    :color="sidebarStep === index ? 'primary' : '#2563EB'"
-                    size="36"
-                    class="white--text mr-3 quick-guide-avatar"
-                  >
-                    <span class="text-h6 font-weight-bold">
-                      {{ index + 1 }}
-                    </span>
-                  </v-avatar>
-                  <div class="font-weight-bold text-body-1 step-label">
-                    {{ step }}
-                  </div>
+              </v-card>
+            </div>
+            <v-spacer></v-spacer>
+            <div class="mt-4">
+              <v-btn
+                block
+                color="white"
+                outlined
+                to="/login"
+                class="text-capitalize font-weight-bold"
+                @click="handleLogout"
+              >
+                <v-icon left>mdi-logout</v-icon>
+                Logout
+              </v-btn>
+            </div>
+          </v-card>
+        </v-col>
+
+        <v-col cols="12" md="9" class="main-content-bg pa-6 main-content">
+          <div style="max-width: 1400px; margin: 0 auto">
+            <v-row class="mt-4" align="stretch">
+              <v-col cols="12" md="4">
+                <v-card class="pa-4 rounded-xl card-shadow">
+                  <v-card-title class="text-h6 font-weight-bold mb-2">
+                    <v-icon left color="#1565c0" class="mr-2"
+                      >mdi-information-outline</v-icon
+                    >
+                    Construction Type Guide
+                  </v-card-title>
+                  <v-expansion-panels flat multiple>
+                    <v-expansion-panel
+                      v-for="(item, i) in constructionTypes"
+                      :key="i"
+                      class="bg-transparent"
+                      elevation="0"
+                    >
+                      <v-expansion-panel-title
+                        class="font-weight-medium text-primary"
+                      >
+                        <v-icon left small color="#0000CC" class="mr-2"
+                          >mdi-domain</v-icon
+                        >
+                        {{ item.title }}
+                      </v-expansion-panel-title>
+                      <v-expansion-panel-text>
+                        <ul class="ml-4 mb-2">
+                          <li
+                            v-for="(form, j) in item.forms"
+                            :key="j"
+                            class="font-weight-regular text-grey-darken-2"
+                          >
+                            {{ form }}
+                          </li>
+                        </ul>
+                      </v-expansion-panel-text>
+                    </v-expansion-panel>
+                  </v-expansion-panels>
                 </v-card>
-              </div>
-              <v-spacer></v-spacer>
-              <div class="mt-4">
-                <v-btn
-                  block
-                  color="white"
-                  outlined
-                  to="/login"
-                  class="text-capitalize font-weight-bold"
-                  @click="handleLogout"
-                >
-                  <v-icon left>mdi-logout</v-icon>
-                  Logout
-                </v-btn>
-              </div>
-            </v-card>
-          </v-col>
+              </v-col>
 
-          <v-col cols="12" md="9" class="main-content-bg pa-6">
-            <v-container fluid style="max-width: 1400px">
-              <v-row class="mt-4" align="stretch">
-                <v-col cols="12" md="4">
-                  <v-card class="pa-4 rounded-xl card-shadow">
-                    <v-card-title class="text-h6 font-weight-bold mb-2">
-                      <v-icon left color="#1565c0" class="mr-2"
-                        >mdi-information-outline</v-icon
-                      >
-                      Construction Type Guide
-                    </v-card-title>
-                    <v-expansion-panels flat multiple>
-                      <v-expansion-panel
-                        v-for="(item, i) in constructionTypes"
-                        :key="i"
-                        class="bg-transparent"
-                        elevation="0"
-                      >
-                        <v-expansion-panel-title
-                          class="font-weight-medium text-primary"
-                        >
-                          <v-icon left small color="#0000CC" class="mr-2"
-                            >mdi-domain</v-icon
-                          >
-                          {{ item.title }}
-                        </v-expansion-panel-title>
-                        <v-expansion-panel-text>
-                          <ul class="ml-4 mb-2">
-                            <li
-                              v-for="(form, j) in item.forms"
-                              :key="j"
-                              class="font-weight-regular text-grey-darken-2"
-                            >
-                              {{ form }}
-                            </li>
-                          </ul>
-                        </v-expansion-panel-text>
-                      </v-expansion-panel>
-                    </v-expansion-panels>
-                  </v-card>
-                </v-col>
-
-                <v-col cols="12" md="8">
-                  <v-card class="pa-6 rounded-xl card-shadow">
-                    <v-card-title
-                      class="text-h5 font-weight-bold card-title-responsive mb-1 gradient-text"
+              <v-col cols="12" md="8">
+                <v-card class="pa-6 rounded-xl card-shadow">
+                  <v-card-title
+                    class="text-h5 font-weight-bold card-title-responsive mb-1 gradient-text"
+                  >
+                    <v-icon left color="#1565c0" class="mr-2"
+                      >mdi-file-document-multiple-outline</v-icon
                     >
-                      <v-icon left color="#1565c0" class="mr-2"
-                        >mdi-file-document-multiple-outline</v-icon
-                      >
-                      Ancillary Forms
-                    </v-card-title>
-                    <v-card-subtitle
-                      class="mt-1 text-wrap mb-4 text-grey-darken-1"
+                    Ancillary Forms
+                  </v-card-title>
+                  <v-card-subtitle
+                    class="mt-1 text-wrap mb-4 text-grey-darken-1"
+                  >
+                    Click on a document type to download its specific forms.
+                  </v-card-subtitle>
+                  <v-row class="mt-1" align="stretch" justify="center">
+                    <v-col
+                      v-for="(form, i) in ancillaryForms"
+                      :key="i"
+                      cols="12"
+                      sm="6"
+                      md="4"
+                      class="d-flex justify-center"
                     >
-                      Click on a document type to download its specific forms.
-                    </v-card-subtitle>
-                    <v-row class="mt-1" align="stretch" justify="center">
-                      <v-col
-                        v-for="(form, i) in ancillaryForms"
-                        :key="i"
-                        cols="12"
-                        sm="6"
-                        md="4"
-                        class="d-flex justify-center"
-                      >
-                        <v-card
-                          elevation="2"
-                          class="d-flex flex-column align-center justify-center pa-4 text-center rounded-lg hoverable-card transition-ease doc-card"
-                          @click="downloadForm(form.title)"
-                        >
-                          <div
-                            class="icon-bg mb-2 d-flex align-center justify-center"
-                          >
-                            <v-icon size="44" color="#0000CC">{{
-                              form.icon
-                            }}</v-icon>
-                          </div>
-                          <v-card-text
-                            class="pa-0 font-weight-medium form-title-text"
-                          >
-                            {{ form.title }}
-                          </v-card-text>
-                        </v-card>
-                      </v-col>
-                    </v-row>
-                  </v-card>
-
-                  <div class="d-flex justify-end mt-6 mb-8">
-                    <router-link
-                      to="/Applicant/bpuploadingofplans"
-                      style="text-decoration: none"
-                    >
-                      <v-btn
-                        color="blue-grey-lighten-4"
-                        class="mr-2 btn-rounded"
+                      <v-card
                         elevation="2"
-                        variant="tonal"
-                        size="large"
+                        class="d-flex flex-column align-center justify-center pa-4 text-center rounded-lg hoverable-card transition-ease doc-card"
+                        @click="downloadForm(form.title)"
                       >
-                        <v-icon left>mdi-arrow-left</v-icon>Back
-                      </v-btn>
-                    </router-link>
+                        <div
+                          class="icon-bg mb-2 d-flex align-center justify-center"
+                        >
+                          <v-icon size="44" color="#0000CC">{{
+                            form.icon
+                          }}</v-icon>
+                        </div>
+                        <v-card-text
+                          class="pa-0 font-weight-medium form-title-text"
+                        >
+                          {{ form.title }}
+                        </v-card-text>
+                      </v-card>
+                    </v-col>
+                  </v-row>
+                </v-card>
+
+                <div class="d-flex justify-end mt-6 mb-8">
+                  <router-link
+                    to="/Applicant/bpuploadingofplans"
+                    style="text-decoration: none"
+                  >
                     <v-btn
-                      color="blue-darken-3"
-                      class="btn-rounded"
+                      color="blue-grey-lighten-4"
+                      class="mr-2 btn-rounded"
                       elevation="2"
-                      @click="handleSaveAndRedirect"
-                      variant="elevated"
-                      to="/applicant/bpportal"
+                      variant="tonal"
                       size="large"
                     >
-                      Save
+                      <v-icon left>mdi-arrow-left</v-icon>Back
                     </v-btn>
-                  </div>
-                </v-col>
-              </v-row>
-            </v-container>
-          </v-col>
-        </v-row>
-      </v-container>
+                  </router-link>
+                  <v-btn
+                    color="blue-darken-3"
+                    class="btn-rounded"
+                    elevation="2"
+                    @click="handleSaveAndRedirect"
+                    variant="elevated"
+                    to="/applicant/bpportal"
+                    size="large"
+                  >
+                    Save
+                  </v-btn>
+                </div>
+              </v-col>
+            </v-row>
+          </div>
+        </v-col>
+      </v-row>
     </v-main>
   </v-app>
 </template>
@@ -298,10 +302,21 @@ function downloadForm(title) {
   display: flex;
   flex-direction: column;
   background: #f6fafd;
+  overflow: hidden;
 }
 .content-area {
   flex: 1;
   overflow-y: auto;
+  overflow-x: hidden;
+}
+.main-content {
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: 100vh;
+  padding: 0 !important;
+}
+.main-content > div {
+  padding: 24px;
 }
 .main-content-bg {
   background: #fafdff;
@@ -399,7 +414,7 @@ function downloadForm(title) {
     overflow-y: auto;
   }
   .v-main.no-scroll {
-    height: auto;
+    height: 100vh;
   }
   .quick-guide-card {
     height: auto !important;

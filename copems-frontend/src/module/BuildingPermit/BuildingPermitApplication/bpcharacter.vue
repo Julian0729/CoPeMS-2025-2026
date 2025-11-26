@@ -395,7 +395,6 @@
                   color="blue-darken-3"
                   class="btn-rounded"
                   elevation="2"
-                  to="/Applicant/bpsignatories"
                   @click="goToNextFormStep"
                   variant="elevated"
                 >
@@ -599,9 +598,13 @@ export default defineComponent({
       this.formValid =
         isDropdownSelected && projectDetailsFilled && isTotalCostValid;
     },
-    goToNextFormStep() {
-      if (this.formValid) {
-        this.formStepValue = "4";
+    async goToNextFormStep() {
+      if (this.$refs.form) {
+        const { valid } = await this.$refs.form.validate();
+        if (valid) {
+          this.formStepValue = "4";
+          this.router.push("/Applicant/bpsignatories");
+        }
       }
     },
 
