@@ -1,3 +1,4 @@
+
 <template>
   <v-app>
     <v-navigation-drawer app permanent>
@@ -10,7 +11,7 @@
             Construction Permit
           </div>
           <div class="text-caption font-weight-regular" style="color: #6c757d">
-            Management System
+            Management System Association
           </div>
         </div>
       </div>
