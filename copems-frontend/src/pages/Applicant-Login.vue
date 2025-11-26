@@ -114,7 +114,6 @@
                     color="primary"
                     size="large"
                     class="login-btn gradient-btn"
-                    to="/Applicant/bpowner"
                     type="submit"
                     :loading="loading"
                     :disabled="loading"
@@ -182,7 +181,7 @@ export default {
         // Redirect to appropriate dashboard based on user role
         // For now, redirect to applicant dashboard
         setTimeout(() => {
-          this.$router.push("/applicant/OPapply");
+          this.$router.push("/Applicant/bpowner");
         }, 1000);
       } catch (error) {
         this.alertType = "error";

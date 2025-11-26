@@ -25,9 +25,7 @@
                       :value="step.value"
                       :complete="formStepValue > step.value"
                       :color="
-                        formStepValue >= step.value
-                          ? 'blue-darken-1'
-                          : 'grey lighten-2'
+                        formStepValue >= step.value ? 'blue-darken-1' : 'grey lighten-2'
                       "
                       class="stepper-item-custom"
                     ></v-stepper-item>
@@ -52,8 +50,7 @@
                 <v-card-text>
                   <v-form ref="form" @submit.prevent="validateAndProceed">
                     <v-card class="mb-4 card-section">
-                      <v-card-title
-                        class="text-h6 card-title-responsive section-title"
+                      <v-card-title class="text-h6 card-title-responsive section-title"
                         ><v-icon left color="blue-darken-3" class="mr-2"
                           >mdi-account</v-icon
                         >OWNER/APPLICANT</v-card-title
@@ -124,8 +121,7 @@
                     </v-card>
 
                     <v-card class="mb-4 card-section">
-                      <v-card-title
-                        class="text-h6 card-title-responsive section-title"
+                      <v-card-title class="text-h6 card-title-responsive section-title"
                         ><v-icon left color="blue-darken-3" class="mr-2"
                           >mdi-domain</v-icon
                         >FOR CONSTRUCTION OWNED BY AN ENTERPRISE</v-card-title
@@ -151,9 +147,7 @@
                               class="textfield-50"
                               density="comfortable"
                               :disabled="!isOwnedByEnterprise"
-                              :rules="[
-                                isOwnedByEnterprise ? rules.required : true,
-                              ]"
+                              :rules="[isOwnedByEnterprise ? rules.required : true]"
                               color="blue-darken-3"
                               prepend-inner-icon="mdi-account-group-outline"
                               hide-details="auto"
@@ -165,8 +159,7 @@
                     </v-card>
 
                     <v-card class="card-section">
-                      <v-card-title
-                        class="text-h6 card-title-responsive section-title"
+                      <v-card-title class="text-h6 card-title-responsive section-title"
                         ><v-icon left color="blue-darken-3" class="mr-2"
                           >mdi-map-marker</v-icon
                         >ADDRESS</v-card-title
@@ -272,11 +265,29 @@
                   elevation="2"
                   @click="validateAndProceed"
                   variant="elevated"
-                  to="/Applicant/bpconstruction"
+                  :loading="saving"
+                  :disabled="saving"
                 >
-                  Next<v-icon right>mdi-arrow-right</v-icon>
+                  {{ saving ? "Saving..." : "Save & Next" }}
+                  <v-icon right>mdi-arrow-right</v-icon>
                 </v-btn>
               </div>
+
+              <!-- Snackbar for notifications -->
+              <v-snackbar
+                v-model="snackbar"
+                :color="snackbarColor"
+                :timeout="3000"
+                top
+                right
+              >
+                {{ snackbarMessage }}
+                <template v-slot:actions>
+                  <v-btn color="white" variant="text" @click="snackbar = false">
+                    Close
+                  </v-btn>
+                </template>
+              </v-snackbar>
             </v-container>
           </v-col>
         </v-row>
@@ -288,9 +299,11 @@
 <script>
 import { defineComponent } from "vue";
 import BPNavigation from "./bpnavigation.vue";
+import axios from "axios";
+
+const API_URL = "http://localhost:4003/api/bldg_owner";
 
 export default defineComponent({
-  // 3. CORRECTED: Changed component registration key
   components: { BPNavigation },
   name: "BuildingPermitPage",
   data() {
@@ -324,25 +337,112 @@ export default defineComponent({
         "Upload Building Plans & Lot Plans",
         "Download Filled-up Unified Application Form and Required Ancillary Permits ",
       ],
+
+      // UI state
+      saving: false,
+      snackbar: false,
+      snackbarMessage: "",
+      snackbarColor: "success",
     };
   },
   methods: {
     async validateAndProceed() {
       const { valid } = await this.$refs.form.validate();
       if (valid) {
-        this.$router.push("/applicant/constructioninformation");
+        await this.saveBuildingOwner();
+      }
+    },
+
+    async saveBuildingOwner() {
+      this.saving = true;
+      try {
+        const payload = {
+          last_name: this.lastName,
+          first_name: this.firstName,
+          middle_initial: this.middleInitial,
+          tin: this.tin,
+          is_enterprise: this.isOwnedByEnterprise ? 1 : 0,
+          form_of_ownership: this.formOfOwnership,
+          province: this.province,
+          city_municipality: this.city,
+          barangay: this.barangay,
+          house_no: this.houseNo,
+          street: this.street,
+          contact_no: this.contactNo,
+        };
+
+        const response = await axios.post(API_URL, payload);
+
+        if (response.data.success) {
+          // Store the building owner ID for next steps
+          const buildingOwnerId = response.data.data.bldg_owner_id;
+          localStorage.setItem("currentBuildingOwnerId", buildingOwnerId);
+          localStorage.setItem("buildingOwnerData", JSON.stringify(payload));
+
+          this.snackbarMessage = "Building owner information saved successfully!";
+          this.snackbarColor = "success";
+          this.snackbar = true;
+
+          // Navigate to next step after short delay
+          setTimeout(() => {
+            this.$router.push("/Applicant/bpconstruction");
+          }, 1000);
+        } else {
+          throw new Error(response.data.message || "Failed to save data");
+        }
+      } catch (error) {
+        console.error("Error saving building owner:", error);
+        this.snackbarMessage =
+          error.response?.data?.message ||
+          error.message ||
+          "Failed to save building owner information";
+        this.snackbarColor = "error";
+        this.snackbar = true;
+      } finally {
+        this.saving = false;
       }
     },
 
     handleLogout() {
       console.log("User logged out");
+      localStorage.removeItem("currentBuildingOwnerId");
+      localStorage.removeItem("buildingOwnerData");
+      this.$router.push("/login");
     },
+
     goToStep(index) {
       this.sidebarStep = index;
       if (index === 0) {
         console.log("Navigating to step 1 details...");
       }
     },
+
+    loadSavedData() {
+      const savedData = localStorage.getItem("buildingOwnerData");
+      if (savedData) {
+        try {
+          const data = JSON.parse(savedData);
+          this.lastName = data.last_name;
+          this.firstName = data.first_name;
+          this.middleInitial = data.middle_initial;
+          this.tin = data.tin;
+          this.isOwnedByEnterprise = data.is_enterprise === 1;
+          this.formOfOwnership = data.form_of_ownership;
+          this.province = data.province;
+          this.city = data.city_municipality;
+          this.barangay = data.barangay;
+          this.houseNo = data.house_no;
+          this.street = data.street;
+          this.contactNo = data.contact_no;
+        } catch (error) {
+          console.error("Error loading saved data:", error);
+        }
+      }
+    },
+  },
+  mounted() {
+    // Load any previously saved data when component mounts
+    this.loadSavedData();
   },
   watch: {
     isOwnedByEnterprise(newVal) {
