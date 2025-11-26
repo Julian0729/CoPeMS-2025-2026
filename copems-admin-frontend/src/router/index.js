@@ -95,6 +95,33 @@ const router = createRouter({
               "@/modules/OccupancyPermit/Admin-opInspection/ReportViewing.vue"
             ),
         },
+
+        {
+          path: "ComplianceMonitoring",
+          name: "ComplianceMonitoring",
+          component: () =>
+            import("@/modules/ComplianceMonitoring/Compliance/compliance.vue"), // Or any other component for the root
+        },
+
+        {
+          path: "rqmonitoring",
+          name: "rqmonitoring",
+          component: () =>
+            import(
+              "@/modules/ComplianceMonitoring/RQMonitoring/rqmonitoring.vue"
+            ), // Or any other component for the root
+        },
+
+        {
+          path: "applicantinfo",
+          name: "applicantinfo",
+          component: () =>
+            import(
+              "@/modules/ComplianceMonitoring/ApplicantInfo/applicantinfo.vue"
+            ), // Or any other component for the root
+        },
+
+        // Compliance Monitoring Router
       ],
     },
   ],
