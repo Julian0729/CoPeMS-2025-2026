@@ -114,6 +114,7 @@
                               :rules="[rules.required]"
                               prepend-inner-icon="mdi-account"
                               color="blue-darken-3"
+                              persistent-hint
                             ></v-text-field>
                           </v-col>
                           <v-col cols="12" sm="4">
@@ -679,6 +680,23 @@
                 </v-card-text>
               </v-card>
 
+              <v-alert
+                v-if="showValidationError"
+                type="error"
+                variant="tonal"
+                class="mb-4"
+                closable
+                @update:model-value="showValidationError = $event"
+              >
+                <strong
+                  >Please fill out all required fields before
+                  submitting.</strong
+                >
+                <p class="mb-0 text-caption mt-1">
+                  Check the highlighted fields above for errors.
+                </p>
+              </v-alert>
+
               <div class="d-flex justify-end mt-6 mb-8">
                 <v-btn
                   color="blue-grey-lighten-4"
@@ -694,7 +712,6 @@
                   class="btn-rounded"
                   elevation="2"
                   variant="elevated"
-                  to="/Applicant/bpuploadingofplans"
                   @click="submitApplication"
                 >
                   Submit<v-icon right>mdi-check</v-icon>
@@ -879,6 +896,7 @@ export default defineComponent({
       ],
       showApplicationNumberDialog: false,
       generatedApplicationNumber: "",
+      showValidationError: false,
     };
   },
 
@@ -960,7 +978,16 @@ export default defineComponent({
         this.router.push("/applicant/applicantdetails");
       }
     },
-    submitApplication() {
+    async submitApplication() {
+      // Validate form before submission
+      const { valid } = await this.$refs.form.validate();
+      if (!valid) {
+        this.showValidationError = true;
+        return; // Prevent submission if form is invalid
+      }
+
+      this.showValidationError = false;
+
       // Generate application number
       const timestamp = Date.now().toString().slice(-6);
       const randomNum = Math.floor(Math.random() * 10000)
@@ -971,7 +998,7 @@ export default defineComponent({
     },
     closeApplicationDialog() {
       this.showApplicationNumberDialog = false;
-      this.router.push("/applicantlayout/uploadingofplans");
+      this.$router.push("/Applicant/bpuploadingofplans");
     },
   },
 });

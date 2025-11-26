@@ -162,6 +162,17 @@
                 </v-row>
                 <v-row justify="end" class="mt-2">
                   <v-col cols="auto" class="d-flex align-center ga-2">
+                    <v-alert
+                      v-if="showUploadError"
+                      type="error"
+                      variant="tonal"
+                      closable
+                      class="mb-0"
+                      @update:model-value="showUploadError = $event"
+                    >
+                      Please upload at least one building plan before
+                      proceeding.
+                    </v-alert>
                     <v-btn
                       variant="text"
                       color="red-darken-1"
@@ -174,7 +185,6 @@
                       dark
                       class="rounded-pill text-none font-weight-bold"
                       elevation="2"
-                      to="/Applicant/bpancillary"
                       @click="submitAllPlans"
                     >
                       Submit All Plans
@@ -259,6 +269,7 @@ const planUploads = ref([
 
 const uploadedFiles = ref(new Array(planUploads.value.length).fill(null));
 const showSuccessDialog = ref(false);
+const showUploadError = ref(false);
 const fileInputs = ref([]);
 
 const handleFileUpload = (index, file) => {
@@ -275,8 +286,21 @@ const clearAllFiles = () => {
 
 const submitAllPlans = () => {
   const plansToSubmit = uploadedFiles.value.filter((file) => file !== null);
+
+  // Check if at least one plan is uploaded
+  if (plansToSubmit.length === 0) {
+    showUploadError.value = true;
+    return; // Prevent submission if no files are uploaded
+  }
+
+  showUploadError.value = false;
   console.log("Submitting:", plansToSubmit);
   showSuccessDialog.value = true;
+
+  // Navigate after showing success dialog
+  setTimeout(() => {
+    router.push("/Applicant/bpancillary");
+  }, 1000);
 };
 
 const closeSuccessDialog = () => {

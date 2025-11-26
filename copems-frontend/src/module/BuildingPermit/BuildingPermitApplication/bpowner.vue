@@ -265,8 +265,7 @@
                   elevation="2"
                   @click="validateAndProceed"
                   variant="elevated"
-                  :loading="saving"
-                  :disabled="saving"
+                  to="/Applicant/bpconstruction"
                 >
                   {{ saving ? "Saving..." : "Save & Next" }}
                   <v-icon right>mdi-arrow-right</v-icon>
@@ -349,57 +348,7 @@ export default defineComponent({
     async validateAndProceed() {
       const { valid } = await this.$refs.form.validate();
       if (valid) {
-        await this.saveBuildingOwner();
-      }
-    },
-
-    async saveBuildingOwner() {
-      this.saving = true;
-      try {
-        const payload = {
-          last_name: this.lastName,
-          first_name: this.firstName,
-          middle_initial: this.middleInitial,
-          tin: this.tin,
-          is_enterprise: this.isOwnedByEnterprise ? 1 : 0,
-          form_of_ownership: this.formOfOwnership,
-          province: this.province,
-          city_municipality: this.city,
-          barangay: this.barangay,
-          house_no: this.houseNo,
-          street: this.street,
-          contact_no: this.contactNo,
-        };
-
-        const response = await axios.post(API_URL, payload);
-
-        if (response.data.success) {
-          // Store the building owner ID for next steps
-          const buildingOwnerId = response.data.data.bldg_owner_id;
-          localStorage.setItem("currentBuildingOwnerId", buildingOwnerId);
-          localStorage.setItem("buildingOwnerData", JSON.stringify(payload));
-
-          this.snackbarMessage = "Building owner information saved successfully!";
-          this.snackbarColor = "success";
-          this.snackbar = true;
-
-          // Navigate to next step after short delay
-          setTimeout(() => {
-            this.$router.push("/Applicant/bpconstruction");
-          }, 1000);
-        } else {
-          throw new Error(response.data.message || "Failed to save data");
-        }
-      } catch (error) {
-        console.error("Error saving building owner:", error);
-        this.snackbarMessage =
-          error.response?.data?.message ||
-          error.message ||
-          "Failed to save building owner information";
-        this.snackbarColor = "error";
-        this.snackbar = true;
-      } finally {
-        this.saving = false;
+        this.$router.push("/applicant/constructioninformation");
       }
     },
 

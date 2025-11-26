@@ -304,7 +304,6 @@
                   elevation="2"
                   @click="nextStep"
                   variant="elevated"
-                  to="/Applicant/bpcharacter"
                 >
                   Next<v-icon right>mdi-arrow-right</v-icon>
                 </v-btn>

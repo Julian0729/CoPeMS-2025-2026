@@ -89,12 +89,20 @@ const router = createRouter({
               "@/module/BuildingPermit/BuildingPermitApplication/bpuploadingofplans.vue"
             ),
         },
-                {
+        {
           path: "bpancillary",
           name: "bpancillary",
           component: () =>
             import(
               "@/module/BuildingPermit/BuildingPermitApplication/bpancillary.vue"
+            ),
+        },
+        {
+          path: "bpportal",
+          name: "bpportal",
+          component: () =>
+            import(
+              "@/module/BuildingPermit/BuildingPermitApplication/bpportal.vue"
             ),
         },
         {
