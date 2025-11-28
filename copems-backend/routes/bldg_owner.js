@@ -1,6 +1,7 @@
-const express = require("express");
+import express from "express";
+import BuildingOwnerController from "../controllers/BuildingOwnerController.js";
+
 const router = express.Router();
-const BuildingOwnerController = require("../controllers/BuildingOwnerController");
 
 // GET all building owners
 router.get("/", BuildingOwnerController.getAllBldgOwners);
@@ -17,4 +18,4 @@ router.put("/:id", BuildingOwnerController.updateBldgOwner);
 // DELETE building owner by ID
 router.delete("/:id", BuildingOwnerController.deleteBldgOwner);
 
-module.exports = router;
+export default router;

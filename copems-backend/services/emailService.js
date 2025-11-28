@@ -1,5 +1,7 @@
-const axios = require("axios");
-require("dotenv").config();
+import axios from "axios";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 class EmailService {
   constructor() {
@@ -137,4 +139,4 @@ class EmailService {
   }
 }
 
-module.exports = new EmailService();
+export default new EmailService();

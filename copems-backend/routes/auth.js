@@ -1,7 +1,8 @@
-const express = require("express");
+import express from "express";
+import AuthController from "../controllers/authController.js";
+import { verifyToken, requireEmailVerification } from "../middleware/auth.js";
+
 const router = express.Router();
-const AuthController = require("../controllers/authController");
-const { verifyToken, requireEmailVerification } = require("../middleware/auth");
 
 // Public routes
 router.post("/register", AuthController.register);
@@ -17,4 +18,4 @@ router.get(
   AuthController.getProfile
 );
 
-module.exports = router;
+export default router;

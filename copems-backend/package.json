@@ -1,6 +1,7 @@
 {
   "name": "copems-backend",
   "version": "1.0.0",
+  "type": "module",
   "description": "Backend API for COPEMS (Certificate of Occupancy Permit Electronic Management System)",
   "main": "server.js",
   "scripts": {

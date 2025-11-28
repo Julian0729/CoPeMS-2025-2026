@@ -1,4 +1,4 @@
-const { pool } = require("../config/database");
+import { pool } from "../config/database.js";
 
 // Error handler helper
 const handleDbError = (error, response) => {
@@ -159,7 +159,7 @@ async function deleteBldgOwner(request, response) {
   }
 }
 
-module.exports = {
+export default {
   getAllBldgOwners,
   getBldgOwnerById,
   insertBldgOwner,

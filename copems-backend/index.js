@@ -3,14 +3,18 @@ import cors from "cors";
 import "dotenv/config";
 
 import auth from "./routes/auth.js";
-import bldg_owner_procedures from "./routes/procedures/bldg_owner_procedures.js";
+import bpConstructionRoutes from "./routes/bp_construction.js";
+import characterOfOccupancyRoutes from "./routes/character_of_occupancy.js";
+import projectDetailsRoutes from "./routes/project_details.js";
 
 const app = express();
 const PORT = 4000;
 
 const routes = [
   { path: "/api/auth", handler: auth },
-  { path: "/api/bldg-owner-procedures", handler: bldg_owner_procedures },
+  { path: "/api/bp_construction", handler: bpConstructionRoutes },
+  { path: "/api/occupancy", handler: characterOfOccupancyRoutes },
+  { path: "/api/project-details", handler: projectDetailsRoutes },
 ];
 
 app.use(cors());

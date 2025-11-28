@@ -265,7 +265,8 @@
                   elevation="2"
                   @click="validateAndProceed"
                   variant="elevated"
-                  to="/Applicant/bpconstruction"
+                  :loading="saving"
+                  :disabled="saving"
                 >
                   {{ saving ? "Saving..." : "Save & Next" }}
                   <v-icon right>mdi-arrow-right</v-icon>
@@ -298,9 +299,7 @@
 <script>
 import { defineComponent } from "vue";
 import BPNavigation from "./bpnavigation.vue";
-import axios from "axios";
-
-const API_URL = "http://localhost:4003/api/bldg_owner";
+import buildingOwnerService from "@/services/buildingOwnerService.js";
 
 export default defineComponent({
   components: { BPNavigation },
@@ -314,6 +313,7 @@ export default defineComponent({
         { title: "Use or Character of Occupancy", value: 3 },
         { title: "Signatories Details", value: 4 },
       ],
+      buildingOwnerId: null,
       lastName: null,
       firstName: null,
       middleInitial: null,
@@ -345,37 +345,126 @@ export default defineComponent({
     };
   },
   methods: {
+    async saveBuildingOwner() {
+      try {
+        this.saving = true;
+        this.snackbarMessage = "";
+
+        const ownerData = {
+          last_name: this.lastName,
+          first_name: this.firstName,
+          middle_initial: this.middleInitial,
+          tin: this.tin,
+          is_enterprise: this.isOwnedByEnterprise,
+          form_of_ownership: this.formOfOwnership,
+          province: this.province,
+          city_municipality: this.city,
+          barangay: this.barangay,
+          house_no: this.houseNo,
+          street: this.street,
+          contact_no: this.contactNo,
+        };
+
+        let result;
+        if (this.buildingOwnerId) {
+          // Update existing record
+          result = await buildingOwnerService.update(this.buildingOwnerId, ownerData);
+        } else {
+          // Create new record
+          result = await buildingOwnerService.create(ownerData);
+        }
+
+        if (result.success) {
+          this.snackbarMessage = "Building owner data saved successfully!";
+          this.snackbarColor = "success";
+          this.snackbar = true;
+
+          // Extract the building owner ID from the response
+          if (result.data?.data?.bldg_owner_id) {
+            this.buildingOwnerId = result.data.data.bldg_owner_id;
+          }
+
+          // Store the ID in localStorage for later use
+          localStorage.setItem("bldg_owner_id", this.buildingOwnerId);
+
+          // Store the form data in localStorage as backup
+          localStorage.setItem("buildingOwnerData", JSON.stringify(result.data.data));
+
+          return true;
+        } else {
+          this.snackbarMessage = result.message || "Failed to save building owner data";
+          this.snackbarColor = "error";
+          this.snackbar = true;
+          console.error("Error saving building owner data:", result.error);
+          return false;
+        }
+      } catch (error) {
+        this.snackbarMessage = "An unexpected error occurred";
+        this.snackbarColor = "error";
+        this.snackbar = true;
+        console.error("Error in saveBuildingOwner:", error);
+        return false;
+      } finally {
+        this.saving = false;
+      }
+    },
+
     async validateAndProceed() {
       const { valid } = await this.$refs.form.validate();
       if (valid) {
-        this.$router.push("/applicant/constructioninformation");
+        // Save data before proceeding
+        const saved = await this.saveBuildingOwner();
+        if (saved) {
+          this.$router.push("/applicant/bpconstruction");
+        }
       }
     },
 
-    handleLogout() {
-      console.log("User logged out");
-      localStorage.removeItem("currentBuildingOwnerId");
-      localStorage.removeItem("buildingOwnerData");
-      this.$router.push("/login");
-    },
-
-    goToStep(index) {
-      this.sidebarStep = index;
-      if (index === 0) {
-        console.log("Navigating to step 1 details...");
+    async loadExistingData() {
+      const savedId = localStorage.getItem("bldg_owner_id");
+      if (savedId) {
+        try {
+          const result = await buildingOwnerService.getById(savedId);
+          if (result.success && result.data?.data) {
+            const data = result.data.data;
+            this.buildingOwnerId = data.bldg_owner_id;
+            this.lastName = data.last_name;
+            this.firstName = data.first_name;
+            this.middleInitial = data.middle_initial;
+            this.tin = data.tin;
+            this.isOwnedByEnterprise =
+              data.is_enterprise === 1 || data.is_enterprise === true;
+            this.formOfOwnership = data.form_of_ownership;
+            this.province = data.province;
+            this.city = data.city_municipality;
+            this.barangay = data.barangay;
+            this.houseNo = data.house_no;
+            this.street = data.street;
+            this.contactNo = data.contact_no;
+          }
+        } catch (error) {
+          console.error("Error loading building owner data:", error);
+          // Fallback to localStorage if API call fails
+          this.loadLocalStorageData();
+        }
+      } else {
+        // Load from localStorage as fallback
+        this.loadLocalStorageData();
       }
     },
 
-    loadSavedData() {
+    loadLocalStorageData() {
       const savedData = localStorage.getItem("buildingOwnerData");
       if (savedData) {
         try {
           const data = JSON.parse(savedData);
+          this.buildingOwnerId = data.bldg_owner_id;
           this.lastName = data.last_name;
           this.firstName = data.first_name;
           this.middleInitial = data.middle_initial;
           this.tin = data.tin;
-          this.isOwnedByEnterprise = data.is_enterprise === 1;
+          this.isOwnedByEnterprise =
+            data.is_enterprise === 1 || data.is_enterprise === true;
           this.formOfOwnership = data.form_of_ownership;
           this.province = data.province;
           this.city = data.city_municipality;
@@ -388,10 +477,25 @@ export default defineComponent({
         }
       }
     },
+
+    handleLogout() {
+      console.log("User logged out");
+      localStorage.removeItem("bldg_owner_id");
+      localStorage.removeItem("buildingOwnerData");
+      localStorage.removeItem("bp_construction_id");
+      this.$router.push("/login");
+    },
+
+    goToStep(index) {
+      this.sidebarStep = index;
+      if (index === 0) {
+        console.log("Navigating to step 1 details...");
+      }
+    },
   },
   mounted() {
     // Load any previously saved data when component mounts
-    this.loadSavedData();
+    this.loadExistingData();
   },
   watch: {
     isOwnedByEnterprise(newVal) {

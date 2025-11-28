@@ -1,9 +1,9 @@
-const {
+import {
   createProcedures,
   dropProcedures,
-} = require("../routes/procedures/bldg_owner_procedures");
+} from "../routes/procedures/bldg_owner_procedures.js";
 
-exports.up = async function (knex) {
+export async function up(knex) {
   const hasTable = await knex.schema.hasTable("bldg_owner");
 
   if (!hasTable) {
@@ -25,9 +25,9 @@ exports.up = async function (knex) {
   }
 
   await createProcedures(knex);
-};
+}
 
-exports.down = async function (knex) {
-  await knex.schema.dropTable("bldg_owner");
+export async function down(knex) {
   await dropProcedures(knex);
-};
+  await knex.schema.dropTable("bldg_owner");
+}

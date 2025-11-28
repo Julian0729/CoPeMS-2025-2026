@@ -226,13 +226,13 @@ export default defineComponent({
       selectedApplicationType: null,
       validationFailed: false,
       applicantData: {
-        lastName: "DELA CRUZ",
-        firstName: "JUAN",
-        middleInitial: "P.",
-        street: "123 Main St.",
-        barangay: "San Roque",
-        city: "Legazpi City",
-        contactNo: "0917-123-4567",
+        lastName: "",
+        firstName: "",
+        middleInitial: "",
+        street: "",
+        barangay: "",
+        city: "",
+        contactNo: "",
       },
     };
   },
@@ -248,6 +248,9 @@ export default defineComponent({
     },
     handleLogout() {
       console.log("User logged out");
+      localStorage.removeItem("currentBuildingOwnerId");
+      localStorage.removeItem("buildingOwnerData");
+      this.$router.push("/login");
     },
     goToStep(index) {
       this.sidebarStep = index;
@@ -255,6 +258,29 @@ export default defineComponent({
         console.log("Navigating to step 1 details...");
       }
     },
+
+    loadSavedData() {
+      const savedData = localStorage.getItem("buildingOwnerData");
+      if (savedData) {
+        try {
+          const data = JSON.parse(savedData);
+          this.applicantData.lastName = data.last_name || "";
+          this.applicantData.firstName = data.first_name || "";
+          this.applicantData.middleInitial = data.middle_initial || "";
+          this.applicantData.street = data.street || "";
+          this.applicantData.barangay = data.barangay || "";
+          this.applicantData.city = data.city_municipality || "";
+          this.applicantData.contactNo = data.contact_no || "";
+        } catch (error) {
+          console.error("Error loading saved data:", error);
+        }
+      }
+    },
+  },
+
+  mounted() {
+    // Load data from localStorage when component mounts
+    this.loadSavedData();
   },
   watch: {
     selectedApplicationType(newValue) {

@@ -1,4 +1,4 @@
-const jwt = require("jsonwebtoken");
+import jwt from "jsonwebtoken";
 
 // Middleware to verify JWT token
 const verifyToken = (req, res, next) => {
@@ -36,7 +36,4 @@ const requireEmailVerification = (req, res, next) => {
   next();
 };
 
-module.exports = {
-  verifyToken,
-  requireEmailVerification,
-};
+export { verifyToken, requireEmailVerification };
