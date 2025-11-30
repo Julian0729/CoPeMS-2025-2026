@@ -16,7 +16,6 @@ export async function up(knex) {
       table.string("current_tax_dec_no", 50).nullable();
       table.string("scope_of_work", 100).nullable();
 
-      // Add foreign key constraint to barangay_list
       table
         .foreign("barangay")
         .references("barangay_name")

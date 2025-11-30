@@ -1,6 +1,5 @@
 import { pool } from "../config/database.js";
 
-// Error handler helper
 const handleDbError = (error, response) => {
   console.error("Database error:", error);
   return response.status(500).json({
@@ -10,9 +9,6 @@ const handleDbError = (error, response) => {
   });
 };
 
-// --- CRUD Operations for Project Details ---
-
-// fetch all project details
 async function getAllProjectDetails(request, response) {
   try {
     const [data] = await pool.query("CALL GetAllProjectDetails()");
@@ -25,7 +21,6 @@ async function getAllProjectDetails(request, response) {
   }
 }
 
-// fetch project details by ID
 async function getProjectDetailsById(request, response) {
   const { id } = request.params;
   try {
@@ -46,11 +41,10 @@ async function getProjectDetailsById(request, response) {
   }
 }
 
-// insert new project details
 async function insertProjectDetails(request, response) {
   try {
     const {
-      application_id, // Assuming a foreign key is passed here
+      application_id,
       occupancy_classified,
       total_estimated_cost,
       number_of_units,
@@ -98,7 +92,6 @@ async function insertProjectDetails(request, response) {
   }
 }
 
-// update project details data by ID
 async function updateProjectDetails(request, response) {
   const { id } = request.params;
   try {
@@ -151,14 +144,13 @@ async function updateProjectDetails(request, response) {
       success: true,
       message: "Project Details updated successfully",
       data:
-        data && data[0] && data[0][0] ? data[0][0] : { project_details_id: id }, // Return ID if no data is returned
+        data && data[0] && data[0][0] ? data[0][0] : { project_details_id: id },
     });
   } catch (error) {
     return handleDbError(error, response);
   }
 }
 
-// delete project details by ID
 async function deleteProjectDetails(request, response) {
   const { id } = request.params;
   try {

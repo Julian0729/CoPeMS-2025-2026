@@ -1,6 +1,5 @@
 import { pool } from "../config/database.js";
 
-// Error handler helper
 const handleDbError = (error, response) => {
   console.error("Database error:", error);
   return response.status(500).json({
@@ -10,10 +9,8 @@ const handleDbError = (error, response) => {
   });
 };
 
-// fetch all construction records
 async function getAllBpConstructions(request, response) {
   try {
-    // Assuming a stored procedure named GetAllBpConstructions exists
     const [data] = await pool.query("CALL GetAllBpConstructions()");
     response.json({
       success: true,
@@ -24,11 +21,9 @@ async function getAllBpConstructions(request, response) {
   }
 }
 
-// fetch construction record by ID
 async function getBpConstructionById(request, response) {
   const { id } = request.params;
   try {
-    // Assuming a stored procedure named GetBpConstructionById exists
     const [data] = await pool.query("CALL GetBpConstructionById(?)", [id]);
 
     if (data[0].length === 0) {
@@ -46,7 +41,6 @@ async function getBpConstructionById(request, response) {
   }
 }
 
-// insert a new construction record
 async function insertBpConstruction(request, response) {
   try {
     const {
@@ -58,7 +52,6 @@ async function insertBpConstruction(request, response) {
       scope_of_work,
     } = request.body;
 
-    // Call procedure with scope_of_work
     const [data] = await pool.query(
       "CALL InsertBpConstruction(?, ?, ?, ?, ?, ?)",
       [barangay, blk_no, street, tct_no, current_tax_dec_no, scope_of_work]
@@ -74,7 +67,6 @@ async function insertBpConstruction(request, response) {
   }
 }
 
-// update construction record data by ID
 async function updateBpConstruction(request, response) {
   const { id } = request.params;
   try {
@@ -87,7 +79,6 @@ async function updateBpConstruction(request, response) {
       scope_of_work,
     } = request.body;
 
-    // Call procedure with scope_of_work
     const [data] = await pool.query(
       "CALL UpdateBpConstruction(?, ?, ?, ?, ?, ?, ?)",
       [
@@ -118,11 +109,9 @@ async function updateBpConstruction(request, response) {
   }
 }
 
-// delete construction record by ID
 async function deleteBpConstruction(request, response) {
   const { id } = request.params;
   try {
-    // Assuming a stored procedure named DeleteBpConstruction exists
     await pool.query("CALL DeleteBpConstruction(?)", [id]);
     response.json({
       success: true,

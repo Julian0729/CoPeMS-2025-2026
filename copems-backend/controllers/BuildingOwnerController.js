@@ -1,6 +1,5 @@
 import { pool } from "../config/database.js";
 
-// Error handler helper
 const handleDbError = (error, response) => {
   console.error("Database error:", error);
   return response.status(500).json({
@@ -10,7 +9,6 @@ const handleDbError = (error, response) => {
   });
 };
 
-// fetch all building owners
 async function getAllBldgOwners(request, response) {
   try {
     const [data] = await pool.query("CALL GetAllBldgOwners()");
@@ -23,7 +21,6 @@ async function getAllBldgOwners(request, response) {
   }
 }
 
-// fetch building owner by ID
 async function getBldgOwnerById(request, response) {
   const { id } = request.params;
   try {
@@ -44,7 +41,6 @@ async function getBldgOwnerById(request, response) {
   }
 }
 
-// insert a new building owner
 async function insertBldgOwner(request, response) {
   try {
     const {
@@ -90,7 +86,6 @@ async function insertBldgOwner(request, response) {
   }
 }
 
-// update building owner data by ID
 async function updateBldgOwner(request, response) {
   const { id } = request.params;
   try {
@@ -145,7 +140,6 @@ async function updateBldgOwner(request, response) {
   }
 }
 
-// delete building owner by ID
 async function deleteBldgOwner(request, response) {
   const { id } = request.params;
   try {

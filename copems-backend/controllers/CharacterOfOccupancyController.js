@@ -1,10 +1,8 @@
 import { pool } from "../config/database.js";
 
-// --- Database Table Names ---
 const groupsTableName = "character_of_occupancy";
 const categoriesTableName = "character_of_occupancy_categories";
 
-// Error handler helper
 const handleDbError = (error, response) => {
   console.error("Database error:", error);
   return response.status(500).json({
@@ -14,16 +12,9 @@ const handleDbError = (error, response) => {
   });
 };
 
-// --- Controller Functions ---
-
-/**
- * Fetch all Character of Occupancy Groups (e.g., A, B, C, J-1)
- */
 async function getAllOccupancyGroups(request, response) {
   try {
-    // Use stored procedure
     const [rows] = await pool.query("CALL GetAllOccupancyGroups()");
-    // MySQL returns [result, ...] for CALL
     response.json({
       success: true,
       data: rows[0],
@@ -33,13 +24,9 @@ async function getAllOccupancyGroups(request, response) {
   }
 }
 
-/**
- * Fetch a specific Character of Occupancy Group by its ID (e.g., 'A')
- */
 async function getOccupancyGroupById(request, response) {
   const { groupId } = request.params;
   try {
-    // Use stored procedure
     const [rows] = await pool.query("CALL GetOccupancyGroupById(?)", [groupId]);
     const data = rows[0];
     if (!data || data.length === 0) {
@@ -57,13 +44,9 @@ async function getOccupancyGroupById(request, response) {
   }
 }
 
-/**
- * Fetch all Categories for a specific Character of Occupancy Group (e.g., all categories under 'A')
- */
 async function getCategoriesByGroupId(request, response) {
   const { groupId } = request.params;
   try {
-    // Use stored procedure
     const [rows] = await pool.query("CALL GetCategoriesByGroupId(?)", [
       groupId,
     ]);
@@ -76,14 +59,9 @@ async function getCategoriesByGroupId(request, response) {
   }
 }
 
-/**
- * Fetch all Groups along with their associated Categories in a hierarchical structure
- */
 async function getFullOccupancyStructure(request, response) {
   try {
-    // Use stored procedure for joined data
     const [rows] = await pool.query("CALL GetFullOccupancyStructure()");
-    // Transform flat result into hierarchical structure
     const flat = rows[0];
     const groupMap = {};
     flat.forEach((row) => {
@@ -111,11 +89,6 @@ async function getFullOccupancyStructure(request, response) {
   }
 }
 
-// Export the controller functions
-/**
- * Save user's selection of group and category
- * Expects: { group_id, category_id, user_id (optional), ... }
- */
 async function saveUserSelection(request, response) {
   const { group_id, category_id, user_id } = request.body;
   if (!group_id || !category_id) {
