@@ -120,6 +120,11 @@ const router = createRouter({
               "@/modules/ComplianceMonitoring/ApplicantInfo/applicantinfo.vue"
             ), // Or any other component for the root
         },
+        {
+          path: "Testingarea",
+          name: "Testingarea",
+          component: () => import("@/modules/OccupancyPermit/Testingarea.vue"), // Or any other component for the root
+        },
 
         // Compliance Monitoring Router
       ],
