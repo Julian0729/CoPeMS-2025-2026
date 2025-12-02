@@ -1,8 +1,8 @@
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const crypto = require("crypto");
-const { pool } = require("../config/database");
-const emailService = require("../services/emailService");
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import crypto from "crypto";
+import { pool } from "../config/database.js";
+import emailService from "../services/emailService.js";
 
 class AuthController {
   // Register new user without sending email (frontend will handle email)
@@ -406,4 +406,4 @@ class AuthController {
   }
 }
 
-module.exports = AuthController;
+export default AuthController;

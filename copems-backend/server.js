@@ -1,8 +1,9 @@
-const express = require("express");
-const cors = require("cors");
-require("dotenv").config();
+import express from "express";
+import cors from "cors";
+import dotenv from "dotenv";
+import { testConnection } from "./config/database.js";
 
-const { testConnection } = require("./config/database");
+dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -12,7 +13,9 @@ app.use(
   cors({
     origin: [
       "http://localhost:3000",
+      "http://localhost:3001",
       "http://localhost:5173",
+      "http://localhost:5174",
       process.env.CORS_ORIGIN,
     ].filter(Boolean),
     credentials: true,
@@ -25,7 +28,15 @@ app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 
 // Routes
-app.use("/api/user", require("./routes/auth"));
+import authRoutes from "./routes/auth.js";
+import bldgOwnerRoutes from "./routes/bldg_owner.js";
+import bpConstructionRoutes from "./routes/bp_construction.js";
+import characterOfOccupancyRoutes from "./routes/character_of_occupancy.js";
+
+app.use("/api/user", authRoutes);
+app.use("/api/bldg_owner", bldgOwnerRoutes);
+app.use("/api/bp_construction", bpConstructionRoutes);
+app.use("/api/occupancy", characterOfOccupancyRoutes);
 
 // Health check endpoint
 app.get("/api/health", (req, res) => {

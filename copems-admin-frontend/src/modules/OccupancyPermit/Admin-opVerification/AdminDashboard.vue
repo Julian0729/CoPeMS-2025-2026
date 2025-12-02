@@ -384,9 +384,28 @@ const getAvatarColor = (initials) => {
   return defined[initials] ?? stringToHslColor(initials, 45, 75);
 };
 
+// Helper function to determine the route based on the status
+const getRouteForStatus = (status) => {
+  switch (status) {
+    case "Pending":
+      return "/admin/OPchecklist";
+    case "Verified":
+      return "/admin/OPverified";
+    case "Return":
+      return "/admin/OPreturn";
+    // Add more cases as needed for other statuses
+    default:
+      // Fallback route
+      return "/admin/OPdefaultdetails";
+  }
+};
+
 const viewDetails = (item) => {
+  const status = applicantStatus(item);
+  const route = getRouteForStatus(status);
+
   router.push({
-    path: "/admin/checklistforOP",
+    path: route, // Dynamically determined route
     query: { applicationNumber: item.applicationNumber },
     state: { applicantData: item, isInitialLoad: true },
   });

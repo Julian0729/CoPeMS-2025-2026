@@ -515,7 +515,7 @@
 </template>
 
 <script>
-import html2pdf from "html2pdf";
+import html2pdf from "html2pdf.js";
 export default {
   name: "OccupancyPermitPDF",
   data() {

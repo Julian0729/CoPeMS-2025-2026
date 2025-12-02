@@ -24,83 +24,88 @@
                     value="1"
                     :complete="parseInt(formStepValue) > 1"
                     :color="
-                      parseInt(formStepValue) >= 1
-                        ? 'blue-darken-1'
-                        : 'grey lighten-2'
+                      parseInt(formStepValue) >= 1 ? 'blue-darken-1' : 'grey lighten-2'
                     "
                     class="stepper-item-custom"
-                  ></v-stepper-item>
+                  />
                   <v-divider
                     :thickness="3"
                     :style="{
-                      'border-color':
-                        parseInt(formStepValue) > 1 ? '#1976D2' : '#e0e0e0',
+                      'border-color': parseInt(formStepValue) > 1 ? '#1976D2' : '#e0e0e0',
                     }"
                     class="mx-2"
                   ></v-divider>
-
                   <v-stepper-item
                     title="Construction Information"
                     value="2"
                     :complete="parseInt(formStepValue) > 2"
                     :color="
-                      parseInt(formStepValue) >= 2
-                        ? 'blue-darken-1'
-                        : 'grey lighten-2'
+                      parseInt(formStepValue) >= 2 ? 'blue-darken-1' : 'grey lighten-2'
                     "
                     class="stepper-item-custom"
-                  ></v-stepper-item>
+                  />
                   <v-divider
                     :thickness="3"
                     :style="{
-                      'border-color':
-                        parseInt(formStepValue) > 2 ? '#1976D2' : '#e0e0e0',
+                      'border-color': parseInt(formStepValue) > 2 ? '#1976D2' : '#e0e0e0',
                     }"
                     class="mx-2"
                   ></v-divider>
-
                   <v-stepper-item
                     title="Use or Character of Occupancy"
                     value="3"
                     :complete="parseInt(formStepValue) > 3"
                     :color="
-                      parseInt(formStepValue) >= 3
-                        ? 'blue-darken-1'
-                        : 'grey lighten-2'
+                      parseInt(formStepValue) >= 3 ? 'blue-darken-1' : 'grey lighten-2'
                     "
                     class="stepper-item-custom"
-                  ></v-stepper-item>
+                  />
                   <v-divider
                     :thickness="3"
                     :style="{
-                      'border-color':
-                        parseInt(formStepValue) > 3 ? '#1976D2' : '#e0e0e0',
+                      'border-color': parseInt(formStepValue) > 3 ? '#1976D2' : '#e0e0e0',
                     }"
                     class="mx-2"
                   ></v-divider>
-
                   <v-stepper-item
                     title="Signatories Details"
                     value="4"
                     :complete="parseInt(formStepValue) > 4"
                     :color="
-                      parseInt(formStepValue) >= 4
-                        ? 'blue-darken-1'
-                        : 'grey lighten-2'
+                      parseInt(formStepValue) >= 4 ? 'blue-darken-1' : 'grey lighten-2'
                     "
                     class="stepper-item-custom"
-                  ></v-stepper-item>
+                  />
                 </v-stepper-header>
               </v-stepper>
 
               <v-card class="my-2 pa-4 card-shadow">
+                <!-- Success/Error Messages -->
+                <v-alert
+                  v-if="successMessage"
+                  type="success"
+                  dismissible
+                  @click:close="successMessage = ''"
+                  class="mb-4"
+                >
+                  {{ successMessage }}
+                </v-alert>
+
+                <v-alert
+                  v-if="errorMessage"
+                  type="error"
+                  dismissible
+                  @click:close="errorMessage = ''"
+                  class="mb-4"
+                >
+                  {{ errorMessage }}
+                </v-alert>
+
                 <v-card-text>
                   <v-form ref="form" v-model="formValid">
                     <div v-if="formStepValue === '2'">
                       <v-card class="mb-4 card-section">
-                        <v-card-title
-                          class="text-h6 card-title-responsive section-title"
-                        >
+                        <v-card-title class="text-h6 card-title-responsive section-title">
                           <v-icon left color="blue-darken-3" class="mr-2"
                             >mdi-map-marker</v-icon
                           >
@@ -151,9 +156,7 @@
                       </v-card>
 
                       <v-card class="mb-4 card-section">
-                        <v-card-title
-                          class="text-h6 card-title-responsive section-title"
-                        >
+                        <v-card-title class="text-h6 card-title-responsive section-title">
                           <v-icon left color="blue-darken-3" class="mr-2"
                             >mdi-file-document-outline</v-icon
                           >
@@ -191,9 +194,7 @@
                       </v-card>
 
                       <v-card class="mb-4 card-section">
-                        <v-card-title
-                          class="text-h6 card-title-responsive section-title"
-                        >
+                        <v-card-title class="text-h6 card-title-responsive section-title">
                           <v-icon left color="blue-darken-3" class="mr-2"
                             >mdi-hammer-wrench</v-icon
                           >
@@ -203,9 +204,7 @@
                         <v-card-text>
                           <v-row dense>
                             <v-col cols="12">
-                              <div class="input-label">
-                                Select Scope of Work
-                              </div>
+                              <div class="input-label">Select Scope of Work</div>
                               <v-select
                                 v-model="selectedScope"
                                 :items="scopeOfWork"
@@ -239,13 +238,8 @@
                       </v-card>
                     </div>
 
-                    <v-card
-                      class="mb-4 card-section"
-                      v-if="formStepValue === '3'"
-                    >
-                      <v-card-title
-                        class="text-h6 card-title-responsive section-title"
-                      >
+                    <v-card class="mb-4 card-section" v-if="formStepValue === '3'">
+                      <v-card-title class="text-h6 card-title-responsive section-title">
                         <v-icon left color="blue-darken-3" class="mr-2"
                           >mdi-domain</v-icon
                         >
@@ -285,10 +279,7 @@
               </v-card>
 
               <div class="d-flex justify-end mt-6 mb-8">
-                <router-link
-                  to="/applicant/bpowner"
-                  style="text-decoration: none"
-                >
+                <router-link to="/applicant/bpowner" style="text-decoration: none">
                   <v-btn
                     color="blue-grey-lighten-4"
                     class="mr-2 btn-rounded"
@@ -304,8 +295,11 @@
                   elevation="2"
                   @click="nextStep"
                   variant="elevated"
+                  :loading="isLoading"
+                  :disabled="isLoading"
                 >
-                  Next<v-icon right>mdi-arrow-right</v-icon>
+                  {{ isLoading ? "Saving..." : "Next"
+                  }}<v-icon right>mdi-arrow-right</v-icon>
                 </v-btn>
               </div>
             </v-container>
@@ -320,10 +314,12 @@
 import { defineComponent } from "vue";
 import { useRouter } from "vue-router";
 import BPNavigation from "./bpnavigation.vue";
+import bpConstructionService from "@/services/bpConstructionService";
 
 export default defineComponent({
   name: "BuildingPermitStep2",
   components: { BPNavigation },
+
   setup() {
     const router = useRouter();
     return { router };
@@ -340,6 +336,12 @@ export default defineComponent({
 
       tctNo: "",
       taxDecNo: "",
+
+      // Loading and error states
+      isLoading: false,
+      errorMessage: "",
+      successMessage: "",
+      constructionId: null, // Store the created record ID
 
       selectedScope: [],
       otherDetails: "",
@@ -406,30 +408,15 @@ export default defineComponent({
           "RESIDENTIAL R-1, R-2",
           "OTHERS",
         ],
-        "GROUP B: RESIDENTIAL": [
-          "HOTEL",
-          "MOTEL",
-          "TOWNHOUSE",
-          "DORMITORY",
-          "OTHERS",
-        ],
+        "GROUP B: RESIDENTIAL": ["HOTEL", "MOTEL", "TOWNHOUSE", "DORMITORY", "OTHERS"],
         "GROUP C: EDUCATIONAL & RECREATIONAL": [
           "SCHOOL BUILDING",
           "SCHOOL AUDITORIUM, GYMNASIUM",
           "OTHERS",
         ],
-        "GROUP E: COMMERCIAL": [
-          "BANK",
-          "STORE",
-          "SHOPPING CENTER/MALL",
-          "OTHERS",
-        ],
+        "GROUP E: COMMERCIAL": ["BANK", "STORE", "SHOPPING CENTER/MALL", "OTHERS"],
         "GROUP F: LIGHT INDUSTRIAL": ["FACTORY/PLANT", "OTHERS"],
-        "GROUP G: MEDIUM INDUSTRIAL": [
-          "STORAGE/WAREHOUSE",
-          "FACTORY",
-          "OTHERS",
-        ],
+        "GROUP G: MEDIUM INDUSTRIAL": ["STORAGE/WAREHOUSE", "FACTORY", "OTHERS"],
         "GROUP H: ASSEMBLY": ["THEATER, AUDITORIUM", "OTHERS"],
         "GROUP I: ASSEMBLY": ["COLISEUM, SPORTS COMPLEX", "OTHERS"],
         "GROUP J: AGRICULTURAL & ACCESSORIES": [
@@ -452,9 +439,7 @@ export default defineComponent({
       return Object.keys(this.groupCategoryData);
     },
     categories() {
-      return this.selectedGroup
-        ? this.groupCategoryData[this.selectedGroup]
-        : [];
+      return this.selectedGroup ? this.groupCategoryData[this.selectedGroup] : [];
     },
   },
   watch: {
@@ -463,11 +448,71 @@ export default defineComponent({
     },
   },
   methods: {
+    async saveConstructionData() {
+      try {
+        this.isLoading = true;
+        this.errorMessage = "";
+        this.successMessage = "";
+
+        const constructionData = {
+          barangay: this.barangay,
+          blk_no: this.blkNo,
+          street: this.street,
+          tct_no: this.tctNo,
+          current_tax_dec_no: this.taxDecNo,
+          scope_of_work: this.selectedScope.join(", "), // Convert array to string
+        };
+
+        let result;
+        if (this.constructionId) {
+          // Update existing record
+          result = await bpConstructionService.update(
+            this.constructionId,
+            constructionData
+          );
+        } else {
+          // Create new record
+          result = await bpConstructionService.create(constructionData);
+        }
+
+        if (result.success) {
+          this.successMessage = "Construction data saved successfully!";
+          if (result.data?.data?.bp_construction_id) {
+            this.constructionId = result.data.data.bp_construction_id;
+          }
+
+          // Store the construction ID in localStorage for later use
+          localStorage.setItem("bp_construction_id", this.constructionId);
+
+          return true;
+        } else {
+          this.errorMessage = result.message || "Failed to save construction data";
+          console.error("Error saving construction data:", result.error);
+          return false;
+        }
+      } catch (error) {
+        this.errorMessage = "An unexpected error occurred";
+        console.error("Error in saveConstructionData:", error);
+        return false;
+      } finally {
+        this.isLoading = false;
+      }
+    },
+
     async nextStep() {
       let validationPassed = true;
       if (this.formStepValue === "2") {
         const { valid } = await this.$refs.form.validate();
         validationPassed = valid;
+
+        if (validationPassed) {
+          // Save construction data before moving to next step
+          const saved = await this.saveConstructionData();
+          if (!saved) {
+            // Don't proceed if save failed
+            return;
+          }
+        }
       }
 
       if (validationPassed) {
@@ -476,7 +521,28 @@ export default defineComponent({
         this.formStepValue = nextStepNumber.toString();
 
         if (nextStepNumber === 3) {
-          this.router.push("/Applicant/character");
+          this.$router.push("/applicant/bpcharacter");
+        }
+      }
+    },
+
+    async loadConstructionData() {
+      const savedId = localStorage.getItem("bp_construction_id");
+      if (savedId) {
+        try {
+          const result = await bpConstructionService.getById(savedId);
+          if (result.success && result.data?.data) {
+            const data = result.data.data;
+            this.constructionId = data.bp_construction_id;
+            this.barangay = data.barangay;
+            this.blkNo = data.blk_no;
+            this.street = data.street;
+            this.tctNo = data.tct_no;
+            this.taxDecNo = data.current_tax_dec_no;
+            this.selectedScope = data.scope_of_work ? data.scope_of_work.split(", ") : [];
+          }
+        } catch (error) {
+          console.error("Error loading construction data:", error);
         }
       }
     },
@@ -491,6 +557,10 @@ export default defineComponent({
         this.$router.push("/applicant/applicantdetails");
       }
     },
+  },
+  mounted() {
+    // Load existing construction data if available
+    this.loadConstructionData();
   },
 });
 </script>
