@@ -21,7 +21,46 @@ const router = createRouter({
       component: () => import("@/layouts/Adminlayout.vue"),
       children: [
         // Building Permit Admin routes can be added here
-
+        {
+          path: "ListPlan",
+          name: "ListPlan",
+          component: () =>
+            import(
+              "@/modules/BuildingPermit/Admin-bpEvaluators/ListPlan.vue"
+            ),
+        },
+        {
+          path: "PlanInformation",
+          name: "PlanInformation",
+          component: () =>
+            import(
+              "@/modules/BuildingPermit/Admin-bpEvaluators/PlanInformation.vue"
+            ),
+        },
+        {
+          path: "PlanEvaluation",
+          name: "PlanEvaluation",
+          component: () =>
+            import(
+              "@/modules/BuildingPermit/Admin-bpEvaluators/PlanEvaluation.vue"
+            ),
+        },
+        {
+          path: "ApprovedPlans",
+          name: "ApprovedPlans",
+          component: () =>
+            import(
+              "@/modules/BuildingPermit/Admin-bpVerification/ApprovedPlans.vue"
+            ),
+        },
+        {
+          path: "PhysicalPlanVerification",
+          name: "PhysicalPlanVerification",
+          component: () =>
+            import(
+              "@/modules/BuildingPermit/Admin-bpVerification/PhysicalPlanVerification.vue"
+            ),
+        },
         // Occupancy Permit Admin routes can be added here
         {
           path: "AdminDashboard",
