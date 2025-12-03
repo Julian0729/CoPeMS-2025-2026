@@ -390,10 +390,10 @@ export default {
 
       // --- DATA ---
       mockEvaluatorProfile: {
-        name: "Alyssa C. Alvarez",
-        title: "Architect",
-        specialty: "Architectural",
-        image: "https://cdn.vuetifyjs.com/images/john.jpg",
+        name: "Zoe Lumanta",
+        title: "Administrative Aide",
+        specialty: "Administrative Aide",
+        image: "https://randomuser.me/api/portraits/men/32.jpg",
       },
 
       headers: [
