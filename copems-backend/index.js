@@ -7,6 +7,7 @@ import bpConstructionRoutes from "./routes/bp_construction.js";
 import characterOfOccupancyRoutes from "./routes/character_of_occupancy.js";
 import projectDetailsRoutes from "./routes/project_details.js";
 import occupancyTypeRoutes from "./routes/occupancy_type.js";
+import engineerInformationRoutes from "./routes/engineer_information.js";
 
 const app = express();
 const PORT = 4000;
@@ -17,6 +18,7 @@ const routes = [
   { path: "/api/occupancy", handler: characterOfOccupancyRoutes },
   { path: "/api/project-details", handler: projectDetailsRoutes },
   { path: "/api/occupancy-type", handler: occupancyTypeRoutes },
+  { path: "/api/engineer-information", handler: engineerInformationRoutes },
 ];
 
 app.use(cors());
