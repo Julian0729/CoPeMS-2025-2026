@@ -1,5 +1,5 @@
 <template>
-  <v-app class="bg-slate-50">
+  <v-app class="bg-slate-50" style="height: 100vh; overflow: hidden">
     <v-app-bar
       flat
       color="white"
@@ -52,12 +52,10 @@
           <v-menu location="bottom end">
             <template #activator="{ props }">
               <v-btn variant="text" :style="s.profileBtn" v-bind="props">
-                <v-avatar size="32" class="mx-2">
-                  <v-img
-                    :alt="mockEvaluatorProfile.name"
-                    :src="mockEvaluatorProfile.image"
-                    cover
-                  />
+                <v-avatar size="32" class="mx-2" color="blue-darken-2">
+                  <span class="text-white font-weight-bold text-caption">
+                    {{ getInitials(mockEvaluatorProfile.name) }}
+                  </span>
                 </v-avatar>
                 <div class="d-flex flex-column text-left">
                   <span
@@ -99,7 +97,68 @@
       </v-container>
     </v-app-bar>
 
-    <v-main class="bg-grey-lighten-5">
+    <v-navigation-drawer
+      permanent
+      location="left"
+      width="280"
+      class="elevation-0 border-none"
+      style="
+        top: 88px !important;
+        height: calc(100vh - 88px);
+        z-index: 1005;
+        background-color: white;
+        overflow: hidden;
+      "
+    >
+      <v-list class="pa-4">
+        <v-list-item
+          v-for="(item, i) in navItems"
+          :key="i"
+          :value="item"
+          color="primary"
+          rounded="lg"
+          class="mb-1"
+          link
+        >
+          <template v-slot:prepend>
+            <v-icon :icon="item.icon" class="text-medium-emphasis"></v-icon>
+          </template>
+
+          <v-list-item-title
+            class="font-weight-medium text-body-2 text-high-emphasis"
+          >
+            {{ item.title }}
+          </v-list-item-title>
+
+          <template v-slot:append v-if="item.hasSubmenu">
+            <v-icon icon="mdi-chevron-right" size="small"></v-icon>
+          </template>
+        </v-list-item>
+      </v-list>
+
+      <template v-slot:append>
+        <div class="pa-4">
+          <v-list-item
+            link
+            @click="logout"
+            rounded="lg"
+            class="text-grey-darken-2"
+          >
+            <template v-slot:prepend>
+              <v-icon icon="mdi-logout-variant"></v-icon>
+            </template>
+            <v-list-item-title class="font-weight-medium text-body-2">
+              Logout
+            </v-list-item-title>
+          </v-list-item>
+        </div>
+      </template>
+    </v-navigation-drawer>
+
+    <v-main
+      class="bg-grey-lighten-5"
+      style="padding-top: 88px; height: 100vh; overflow-y: auto"
+    >
       <div class="page-container px-3 pb-8 mt-6">
         <div class="d-flex align-center mb-4 px-2">
           <v-icon color="#2563eb" class="mr-3" size="32"
@@ -566,6 +625,30 @@ const s = {
   },
 };
 
+// --- NAVIGATION DATA ---
+const navItems = [
+  {
+    title: "Building Permit",
+    icon: "mdi-office-building-outline",
+    hasSubmenu: false,
+  },
+  {
+    title: "Locational Clearance",
+    icon: "mdi-map-marker-outline",
+    hasSubmenu: false,
+  },
+  {
+    title: "Compliance Monitoring",
+    icon: "mdi-clipboard-list-outline",
+    hasSubmenu: true,
+  },
+  {
+    title: "Occupancy Permit",
+    icon: "mdi-key-variant",
+    hasSubmenu: false,
+  },
+];
+
 const route = useRoute();
 const activeTab = ref("application");
 
@@ -650,6 +733,15 @@ const mockEvaluatorProfile = ref({
   specialty: "Administrative Aide",
   image: "https://randomuser.me/api/portraits/men/32.jpg",
 });
+
+// --- NEW HELPER: Get Initials ---
+const getInitials = (name: string) => {
+  const parts = name.split(" ");
+  if (parts.length >= 2) {
+    return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+  }
+  return name.substring(0, 2).toUpperCase();
+};
 
 const logout = () => {
   console.log("Logout clicked");
