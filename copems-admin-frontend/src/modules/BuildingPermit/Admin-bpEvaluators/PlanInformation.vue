@@ -50,7 +50,10 @@
         overflow: hidden;
       "
     >
-      <div :style="s.topToolbar" style="flex-shrink: 0">
+      <div
+        :style="s.topToolbar"
+        style="flex-shrink: 0; position: sticky; top: 0; z-index: 10"
+      >
         <div class="left d-flex align-center">
           <v-icon color="#3b82f6" class="mr-2">mdi-office-building</v-icon>
           <h3 class="mb-0 font-weight-bold" :style="s.textToolbar">
@@ -133,12 +136,12 @@
       </div>
 
       <div
-        class="d-flex flex-wrap pa-6 flex-grow-1 overflow-y-auto"
-        style="min-height: 0"
+        class="d-flex flex-wrap pa-6 flex-grow-1"
+        style="min-height: 0; overflow: hidden; gap: 20px"
       >
         <div
-          class="d-flex flex-column mb-6"
-          style="flex: 2; min-width: 350px; margin-right: 20px"
+          class="d-flex flex-column"
+          style="flex: 2; min-width: 350px; flex-shrink: 0"
         >
           <v-card
             elevation="2"
@@ -295,9 +298,16 @@
               </v-list>
             </div>
           </v-card>
+
+          <div class="overflow-y-auto" style="flex-grow: 1; min-height: 0">
+            <!-- This is a placeholder for scrollable content if needed -->
+          </div>
         </div>
 
-        <div class="d-flex flex-column" style="flex: 1; min-width: 300px">
+        <div
+          class="d-flex flex-column overflow-y-auto"
+          style="flex: 1; min-width: 300px; min-height: 0"
+        >
           <v-card
             elevation="2"
             class="rounded-lg mb-5"
@@ -658,9 +668,9 @@ const logout = () => {
 const goToEvaluationPage = (plan) => {
   console.log(`Navigating to evaluation for: ${plan.name}`);
   router.push({
-    name: "PlanEvaluation",
+    name: "PlanEvaluationAssessment",
     query: {
-      applicationNumber: selectedApplicant.value.applicationNumber,
+      applicationData: JSON.stringify(selectedApplicant.value),
       planType: plan.planType,
       planName: plan.name,
     },

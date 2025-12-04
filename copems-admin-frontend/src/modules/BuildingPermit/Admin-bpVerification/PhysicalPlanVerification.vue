@@ -484,7 +484,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, computed, watch } from "vue";
+import { useRoute } from "vue-router";
+
+const route = useRoute();
 
 // --- Layout Styles ---
 const s = {
@@ -523,6 +526,25 @@ const mockEvaluatorProfile = ref({
 const logout = () => {
   console.log("Logout clicked");
 };
+
+// --- Parse application data from route query ---
+const currentApplication = ref(null);
+
+watch(
+  () => route.query.applicationData,
+  (newData) => {
+    if (newData) {
+      try {
+        const dataStr = Array.isArray(newData) ? newData[0] : newData;
+        currentApplication.value = JSON.parse(dataStr);
+        console.log("Application data updated:", currentApplication.value);
+      } catch (e) {
+        console.error("Failed to parse application data:", e);
+      }
+    }
+  },
+  { immediate: true }
+);
 
 // --- Document Checklist Data (REACTIVE & INTERACTIVE) ---
 // Transformed items into objects with { text, checked } properties
@@ -627,14 +649,18 @@ const togglePlan = (index: number) => {
   selectedPlan.value = selectedPlan.value === index ? null : index;
 };
 
-// --- Evaluation Summary Data ---
-const evaluationData = {
+// --- Evaluation Summary Data with dynamic application info ---
+const evaluationData = computed(() => ({
   application: {
-    controlNo: "2024-BP-001234",
-    applicantName: "Juan dela Cruz",
-    projectName: "Commercial Building Construction",
-    projectLocation: "123 Rizal Avenue, Manila",
-    dateReceived: "November 15, 2024",
+    controlNo: currentApplication.value?.controlNo || "2024-BP-001234",
+    applicantName: currentApplication.value?.applicantName || "Juan dela Cruz",
+    projectName:
+      currentApplication.value?.projectName ||
+      "Commercial Building Construction",
+    projectLocation:
+      currentApplication.value?.projectLocation || "123 Rizal Avenue, Manila",
+    dateReceived:
+      currentApplication.value?.dateTimeReceived || "November 15, 2024",
   },
   evaluations: [
     {
@@ -709,7 +735,7 @@ const evaluationData = {
     buildingOfficial: "Engr. Vicente Alvarez",
     date: "November 20, 2024",
   },
-};
+}));
 </script>
 
 <style scoped>

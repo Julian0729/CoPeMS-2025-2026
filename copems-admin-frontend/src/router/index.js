@@ -37,12 +37,13 @@ const router = createRouter({
               "@/modules/BuildingPermit/Admin-bpEvaluators/PlanInformation.vue"
             ),
         },
+
         {
-          path: "PlanEvaluation",
-          name: "PlanEvaluation",
+          path: "PlanEvaluationAssessment",
+          name: "PlanEvaluationAssessment",
           component: () =>
             import(
-              "@/modules/BuildingPermit/Admin-bpEvaluators/PlanEvaluation.vue"
+              "@/modules/BuildingPermit/Admin-bpEvaluators/PlanEvaluationAssessment.vue"
             ),
         },
         {
@@ -60,6 +61,7 @@ const router = createRouter({
             import(
               "@/modules/BuildingPermit/Admin-bpVerification/PhysicalPlanVerification.vue"
             ),
+          props: true,
         },
         // Occupancy Permit Admin routes can be added here
         {

@@ -568,8 +568,13 @@ export default {
       return this.stringToHslColor(initials, 45, 75);
     },
     viewPlan(item) {
-      // Dialog functionality removed.
-      console.log("Verify Physical clicked for:", item.applicationNumber);
+      // Navigate to PhysicalPlanVerification with the selected application data
+      this.$router.push({
+        name: "PhysicalPlanVerification",
+        query: {
+          applicationData: JSON.stringify(item),
+        },
+      });
     },
   },
 };
