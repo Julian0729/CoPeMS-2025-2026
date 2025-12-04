@@ -1,9 +1,16 @@
 <template>
-  <v-app>
-    <v-app-bar flat color="#0000CC" dark height="88" app class="elevation-4">
+  <v-app class="bg-slate-50">
+    <v-app-bar
+      flat
+      color="white"
+      height="88"
+      class="elevation-4 border-b"
+      app
+      style="position: fixed; top: 0; z-index: 1006"
+    >
       <v-container
         fluid
-        class="d-flex align-center py-0"
+        class="d-flex align-center py-0 h-100"
         style="max-width: 100%"
       >
         <div class="d-flex align-center">
@@ -20,7 +27,7 @@
               style="
                 font-size: 12px;
                 font-weight: 400;
-                color: white;
+                color: Black;
                 line-height: 1.2;
               "
             >
@@ -30,7 +37,7 @@
               style="
                 font-size: 15px;
                 font-weight: 700;
-                color: white;
+                color: Black;
                 line-height: 1.2;
               "
             >
@@ -38,102 +45,36 @@
             </div>
           </div>
         </div>
-      </v-container>
-    </v-app-bar>
 
-    <v-main style="background-color: #f5f6fa; padding-top: 88px">
-      <div :style="s.topToolbar">
-        <div class="left d-flex align-center">
-          <v-icon color="#3b82f6" class="mr-2">mdi-office-building</v-icon>
-          <h3 class="mb-0 font-weight-bold" :style="s.textToolbar">
-            Building Permit Application
-          </h3>
-        </div>
-        <div class="right d-flex align-center">
-          <v-menu :close-on-content-click="false" location="bottom end">
-            <template v-slot:activator="{ props }">
-              <v-btn
-                variant="text"
-                :style="s.profileBtn"
-                v-bind="props"
-                class="mr-2"
-              >
-              </v-btn>
-            </template>
-            <v-card min-width="320" max-width="400" class="rounded-lg">
-              <v-card-title
-                class="d-flex justify-space-between align-center text-subtitle-1 font-weight-bold py-3"
-              >
-                <span>Applications to Evaluate</span>
-                <v-btn
-                  icon
-                  size="small"
-                  variant="text"
-                  @click="closeNotifications"
-                >
-                  <v-icon>mdi-close</v-icon>
-                </v-btn>
-              </v-card-title>
-              <v-divider></v-divider>
-              <v-list dense>
-                <v-list-item
-                  v-for="(app, i) in filteredApplicationsToEvaluate"
-                  :key="i"
-                  class="py-2"
-                >
-                  <template v-slot:prepend>
-                    <v-avatar
-                      size="40"
-                      :color="getAvatarColor(app.initials)"
-                      class="text-white font-weight-bold"
-                    >
-                      {{ app.initials }}
-                    </v-avatar>
-                  </template>
-                  <v-list-item-title class="font-weight-bold text-body-2">{{
-                    app.name
-                  }}</v-list-item-title>
-                  <v-list-item-subtitle class="text-caption">{{
-                    app.message
-                  }}</v-list-item-subtitle>
-                  <template v-slot:append>
-                    <v-chip
-                      size="x-small"
-                      label
-                      :color="getStatusColor(app.status)"
-                      >{{ app.status }}</v-chip
-                    >
-                  </template>
-                </v-list-item>
-              </v-list>
-            </v-card>
-          </v-menu>
+        <v-spacer></v-spacer>
 
-          <v-menu :close-on-content-click="true" location="bottom end">
+        <div class="d-flex align-center gap-2">
+          <v-menu location="bottom end">
             <template #activator="{ props }">
               <v-btn variant="text" :style="s.profileBtn" v-bind="props">
-                <v-avatar size="32" class="mx-2">
-                  <v-img
-                    :alt="mockEvaluatorProfile.name"
-                    :src="mockEvaluatorProfile.image"
-                  />
+                <v-avatar size="32" class="mx-2" color="blue-darken-2">
+                  <span class="text-white font-weight-bold text-caption">
+                    {{ getInitials(mockEvaluatorProfile.name) }}
+                  </span>
                 </v-avatar>
                 <div class="d-flex flex-column text-left">
                   <span
                     class="text-caption font-weight-bold"
                     style="color: #555; white-space: nowrap"
-                    >{{ mockEvaluatorProfile.name }}</span
                   >
+                    {{ mockEvaluatorProfile.name }}
+                  </span>
                   <span
                     class="text-caption font-weight-medium"
                     style="color: #888; white-space: nowrap"
-                    >{{ mockEvaluatorProfile.title }}</span
                   >
+                    {{ mockEvaluatorProfile.title }}
+                  </span>
                 </div>
                 <v-icon class="ml-1" size="small">mdi-chevron-down</v-icon>
               </v-btn>
             </template>
-            <v-card min-width="250" class="mt-1">
+            <v-card min-width="200" class="mt-1 border shadow-sm">
               <v-list density="compact" nav>
                 <v-list-item>
                   <v-list-item-title class="font-weight-bold">{{
@@ -152,8 +93,67 @@
             </v-card>
           </v-menu>
         </div>
-      </div>
+      </v-container>
+    </v-app-bar>
 
+    <v-navigation-drawer
+      permanent
+      location="left"
+      width="280"
+      class="elevation-0 border-none"
+      style="
+        top: 88px !important;
+        height: calc(100vh - 88px);
+        z-index: 1005;
+        background-color: white;
+      "
+    >
+      <v-list class="pa-4">
+        <v-list-item
+          v-for="(item, i) in navItems"
+          :key="i"
+          :value="item"
+          color="primary"
+          rounded="lg"
+          class="mb-1"
+          link
+        >
+          <template v-slot:prepend>
+            <v-icon :icon="item.icon" class="text-medium-emphasis"></v-icon>
+          </template>
+
+          <v-list-item-title
+            class="font-weight-medium text-body-2 text-high-emphasis"
+          >
+            {{ item.title }}
+          </v-list-item-title>
+
+          <template v-slot:append v-if="item.hasSubmenu">
+            <v-icon icon="mdi-chevron-right" size="small"></v-icon>
+          </template>
+        </v-list-item>
+      </v-list>
+
+      <template v-slot:append>
+        <div class="pa-4">
+          <v-list-item
+            link
+            @click="logout"
+            rounded="lg"
+            class="text-grey-darken-2"
+          >
+            <template v-slot:prepend>
+              <v-icon icon="mdi-logout-variant"></v-icon>
+            </template>
+            <v-list-item-title class="font-weight-medium text-body-2">
+              Logout
+            </v-list-item-title>
+          </v-list-item>
+        </div>
+      </template>
+    </v-navigation-drawer>
+
+    <v-main style="background-color: #f5f6fa; padding-top: 88px">
       <div :style="s.pageContainer">
         <v-row class="mb-6">
           <v-col
@@ -242,6 +242,7 @@
             </thead>
             <tbody>
               <tr v-for="item in filteredPlans" :key="item.applicationNumber">
+                <td class="text-left">{{ item.applicationNumber }}</td>
                 <td class="text-left py-2">
                   <div class="d-flex align-center">
                     <v-avatar
@@ -254,8 +255,6 @@
                   </div>
                 </td>
 
-                <td class="text-left">{{ item.applicationNumber }}</td>
-                <td class="text-left">{{ item.projectType }}</td>
                 <td class="text-left">{{ item.submissionDate }}</td>
 
                 <td class="text-left">
@@ -297,6 +296,29 @@ export default {
     return {
       search: "",
       activeFilterApps: "Total",
+      // --- NEW NAVIGATION DATA ---
+      navItems: [
+        {
+          title: "Building Permit",
+          icon: "mdi-office-building-outline",
+          hasSubmenu: false,
+        },
+        {
+          title: "Locational Clearance",
+          icon: "mdi-map-marker-outline",
+          hasSubmenu: false,
+        },
+        {
+          title: "Compliance Monitoring",
+          icon: "mdi-clipboard-list-outline",
+          hasSubmenu: true,
+        },
+        {
+          title: "Occupancy Permit",
+          icon: "mdi-key-variant",
+          hasSubmenu: false,
+        },
+      ],
       // --- STYLES ---
       s: {
         topToolbar: {
@@ -397,11 +419,10 @@ export default {
       },
 
       headers: [
-        { title: "Applicant Name", key: "applicantName" },
         { title: "Application Number", key: "applicationNumber" },
-        { title: "Project Type", key: "projectType" },
-        { title: "Submission Date", key: "submissionDate" },
-        { title: "Physical Status", key: "physicalStatus" },
+        { title: "Applicant Name", key: "applicantName" },
+        { title: "Date Submitted", key: "submissionDate" },
+        { title: "Status", key: "physicalStatus" },
         { title: "Action", key: "action" },
       ],
       approvedPlans: [
@@ -443,26 +464,7 @@ export default {
       ],
 
       // Notifications
-      applicationsToEvaluate: [
-        {
-          name: "Jin Degusman",
-          initials: "JD",
-          applicationId: "BP-2024-000123-T",
-          message: "Architectural evaluation required",
-          status: "Pending",
-          read: false,
-          discipline: "Architectural",
-        },
-        {
-          name: "David Tolo",
-          initials: "DT",
-          applicationId: "BP-2024-000567-T",
-          message: "Structural review required",
-          status: "Pending",
-          read: false,
-          discipline: "Structural",
-        },
-      ],
+      applicationsToEvaluate: [],
     };
   },
   computed: {
@@ -531,24 +533,20 @@ export default {
       }
       return filtered;
     },
-    filteredApplicationsToEvaluate() {
-      return this.applicationsToEvaluate.filter(
-        (app) => app.discipline === this.mockEvaluatorProfile.specialty
-      );
-    },
-    unreadNotificationsCount() {
-      return this.filteredApplicationsToEvaluate.filter((n) => !n.read).length;
-    },
   },
   methods: {
+    getInitials(name) {
+      const parts = name.split(" ");
+      if (parts.length >= 2) {
+        return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+      }
+      return name.substring(0, 2).toUpperCase();
+    },
     logout() {
       console.log("Logging out");
     },
     filterByStatus(status) {
       this.activeFilterApps = status;
-    },
-    closeNotifications() {
-      this.filteredApplicationsToEvaluate.forEach((n) => (n.read = true));
     },
     getStatusColor(status) {
       return status === "Verified"
@@ -568,7 +566,6 @@ export default {
       return this.stringToHslColor(initials, 45, 75);
     },
     viewPlan(item) {
-      // Navigate to PhysicalPlanVerification with the selected application data
       this.$router.push({
         name: "PhysicalPlanVerification",
         query: {

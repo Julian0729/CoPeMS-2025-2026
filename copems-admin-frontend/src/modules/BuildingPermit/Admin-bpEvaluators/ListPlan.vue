@@ -1,9 +1,16 @@
 <template>
-  <v-app>
-    <v-app-bar flat color="#0000CC" dark height="88" app class="elevation-4">
+  <v-app class="bg-slate-50">
+    <v-app-bar
+      flat
+      color="white"
+      height="88"
+      class="elevation-4 border-b"
+      app
+      style="position: fixed; top: 0; z-index: 1006"
+    >
       <v-container
         fluid
-        class="d-flex align-center py-0"
+        class="d-flex align-center py-0 h-100"
         style="max-width: 100%"
       >
         <div class="d-flex align-center">
@@ -20,7 +27,7 @@
               style="
                 font-size: 12px;
                 font-weight: 400;
-                color: white;
+                color: Black;
                 line-height: 1.2;
               "
             >
@@ -30,7 +37,7 @@
               style="
                 font-size: 15px;
                 font-weight: 700;
-                color: white;
+                color: Black;
                 line-height: 1.2;
               "
             >
@@ -38,43 +45,37 @@
             </div>
           </div>
         </div>
-      </v-container>
-    </v-app-bar>
 
-    <v-main style="background-color: #f5f6fa; padding-top: 88px">
-      <div :style="s.topToolbar">
-        <div class="left d-flex align-center">
-          <v-icon color="#3b82f6" class="mr-2">mdi-office-building</v-icon>
-          <h3 class="mb-0 font-weight-bold" :style="s.textToolbar">
-            Building Permit Application
-          </h3>
-        </div>
-        <div class="right d-flex align-center">
-          <v-menu :close-on-content-click="true" location="bottom end">
+        <v-spacer></v-spacer>
+
+        <div class="d-flex align-center">
+          <v-menu location="bottom end">
             <template #activator="{ props }">
               <v-btn variant="text" :style="s.profileBtn" v-bind="props">
-                <v-avatar size="32" class="mx-2">
-                  <v-img
-                    :alt="mockEvaluatorProfile.name"
-                    :src="mockEvaluatorProfile.avatar"
-                  />
+                <v-avatar size="32" class="mx-2" color="blue-darken-2">
+                  <span class="text-white font-weight-bold text-caption">
+                    {{ getInitials(mockEvaluatorProfile.name) }}
+                  </span>
                 </v-avatar>
                 <div class="d-flex flex-column text-left">
                   <span
                     class="text-caption font-weight-bold"
                     style="color: #555; white-space: nowrap"
-                    >{{ mockEvaluatorProfile.name }}</span
                   >
+                    {{ mockEvaluatorProfile.name }}
+                  </span>
                   <span
                     class="text-caption font-weight-medium"
                     style="color: #888; white-space: nowrap"
-                    >{{ mockEvaluatorProfile.title }}</span
                   >
+                    {{ mockEvaluatorProfile.title }}
+                  </span>
                 </div>
                 <v-icon class="ml-1" size="small">mdi-chevron-down</v-icon>
               </v-btn>
             </template>
-            <v-card min-width="250" class="mt-1">
+
+            <v-card min-width="200" class="mt-1 border shadow-sm">
               <v-list density="compact" nav>
                 <v-list-item>
                   <v-list-item-title class="font-weight-bold">
@@ -85,24 +86,18 @@
                   </v-list-item-subtitle>
                 </v-list-item>
                 <v-divider class="my-1"></v-divider>
-                <v-list-item to="/profile" link>
-                  <template #prepend>
-                    <v-icon>mdi-account-outline</v-icon>
-                  </template>
-                  <v-list-item-title>My Profile</v-list-item-title>
-                </v-list-item>
                 <v-list-item link @click="logout" class="text-red-darken-1">
-                  <template #prepend>
-                    <v-icon>mdi-logout</v-icon>
-                  </template>
+                  <template #prepend><v-icon>mdi-logout</v-icon></template>
                   <v-list-item-title>Log Out</v-list-item-title>
                 </v-list-item>
               </v-list>
             </v-card>
           </v-menu>
         </div>
-      </div>
+      </v-container>
+    </v-app-bar>
 
+    <v-main style="background-color: #f5f6fa; padding-top: 88px">
       <div :style="s.pageContainer">
         <v-row class="mb-6">
           <v-col
@@ -198,6 +193,7 @@
                 v-for="item in filteredApplicants"
                 :key="item.applicationNumber"
               >
+                <td class="text-left">{{ item.applicationNumber }}</td>
                 <td class="text-left py-2">
                   <div class="d-flex align-center">
                     <v-avatar
@@ -209,7 +205,6 @@
                     <span>{{ item.name }}</span>
                   </div>
                 </td>
-                <td class="text-left">{{ item.applicationNumber }}</td>
                 <td class="text-left">{{ item.dateSubmitted }}</td>
                 <td class="text-left">
                   <span
@@ -258,6 +253,14 @@ const mockEvaluatorProfile = ref({
   initials: "ZL",
   avatar: "https://cdn.vuetifyjs.com/images/john.jpg",
 });
+
+const getInitials = (name) => {
+  const parts = name.split(" ");
+  if (parts.length >= 2) {
+    return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+  }
+  return name.substring(0, 2).toUpperCase();
+};
 
 const applicants = ref([
   {
@@ -422,8 +425,8 @@ const getAvatarColor = (initials) => {
 };
 
 const headers = [
-  { title: "Applicant Name", key: "name", sortable: false },
   { title: "Application Number", key: "applicationNumber", sortable: false },
+  { title: "Applicant Name", key: "name", sortable: false },
   { title: "Date Submitted", key: "dateSubmitted", sortable: true },
   { title: "Status", key: "status", sortable: true },
   { title: "Action", key: "action", sortable: false },

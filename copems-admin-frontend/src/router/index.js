@@ -39,11 +39,11 @@ const router = createRouter({
         },
 
         {
-          path: "PlanEvaluationAssessment",
-          name: "PlanEvaluationAssessment",
+          path: "PlanEvaluation",
+          name: "PlanEvaluation",
           component: () =>
             import(
-              "@/modules/BuildingPermit/Admin-bpEvaluators/PlanEvaluationAssessment.vue"
+              "@/modules/BuildingPermit/Admin-bpEvaluators/PlanEvaluation.vue"
             ),
         },
         {

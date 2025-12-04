@@ -1,9 +1,16 @@
 <template>
-  <v-app>
-    <v-app-bar flat color="#0000CC" dark height="88" app class="elevation-4">
+  <v-app class="bg-slate-50" style="height: 100vh; overflow: hidden">
+    <v-app-bar
+      flat
+      color="white"
+      height="88"
+      class="elevation-4 border-b"
+      app
+      style="position: fixed; top: 0; z-index: 1006"
+    >
       <v-container
         fluid
-        class="d-flex align-center py-0"
+        class="d-flex align-center py-0 h-100"
         style="max-width: 100%"
       >
         <div class="d-flex align-center">
@@ -20,7 +27,7 @@
               style="
                 font-size: 12px;
                 font-weight: 400;
-                color: white;
+                color: Black;
                 line-height: 1.2;
               "
             >
@@ -30,7 +37,7 @@
               style="
                 font-size: 15px;
                 font-weight: 700;
-                color: white;
+                color: Black;
                 line-height: 1.2;
               "
             >
@@ -38,28 +45,17 @@
             </div>
           </div>
         </div>
-      </v-container>
-    </v-app-bar>
 
-    <v-main style="background-color: #f5f6fa; padding-top: 88px">
-      <div :style="s.topToolbar">
-        <div class="left d-flex align-center">
-          <v-icon color="#3b82f6" class="mr-2">mdi-office-building</v-icon>
-          <h3 class="mb-0 font-weight-bold" :style="s.textToolbar">
-            Building Permit Application
-          </h3>
-        </div>
+        <v-spacer></v-spacer>
 
-        <div class="right d-flex align-center">
+        <div class="d-flex align-center">
           <v-menu location="bottom end">
             <template #activator="{ props }">
               <v-btn variant="text" :style="s.profileBtn" v-bind="props">
-                <v-avatar size="32" class="mx-2">
-                  <v-img
-                    :alt="mockEvaluatorProfile.name"
-                    :src="mockEvaluatorProfile.image"
-                    cover
-                  />
+                <v-avatar size="32" class="mx-2" color="blue-darken-2">
+                  <span class="text-white font-weight-bold text-caption">
+                    {{ getInitials(mockEvaluatorProfile.name) }}
+                  </span>
                 </v-avatar>
                 <div class="d-flex flex-column text-left">
                   <span
@@ -82,12 +78,12 @@
             <v-card min-width="200" class="mt-1 border shadow-sm">
               <v-list density="compact" nav>
                 <v-list-item>
-                  <v-list-item-title class="font-weight-bold">{{
-                    mockEvaluatorProfile.name
-                  }}</v-list-item-title>
-                  <v-list-item-subtitle>{{
-                    mockEvaluatorProfile.specialty
-                  }}</v-list-item-subtitle>
+                  <v-list-item-title class="font-weight-bold">
+                    {{ mockEvaluatorProfile.name }}
+                  </v-list-item-title>
+                  <v-list-item-subtitle>
+                    {{ mockEvaluatorProfile.specialty }}
+                  </v-list-item-subtitle>
                 </v-list-item>
                 <v-divider class="my-1"></v-divider>
                 <v-list-item link @click="logout" class="text-red-darken-1">
@@ -98,17 +94,99 @@
             </v-card>
           </v-menu>
         </div>
-      </div>
+      </v-container>
+    </v-app-bar>
 
-      <div :style="s.pageContainer">
-        <v-card class="rounded-lg overflow-hidden border mb-6" flat>
+    <v-navigation-drawer
+      permanent
+      location="left"
+      width="280"
+      class="elevation-0 border-none"
+      style="
+        top: 88px !important;
+        height: calc(100vh - 88px);
+        z-index: 1005;
+        background-color: white;
+        overflow: hidden;
+      "
+    >
+      <v-list class="pa-4">
+        <v-list-item
+          v-for="(item, i) in navItems"
+          :key="i"
+          :value="item"
+          color="primary"
+          rounded="lg"
+          class="mb-1"
+          link
+        >
+          <template v-slot:prepend>
+            <v-icon :icon="item.icon" class="text-medium-emphasis"></v-icon>
+          </template>
+
+          <v-list-item-title
+            class="font-weight-medium text-body-2 text-high-emphasis"
+          >
+            {{ item.title }}
+          </v-list-item-title>
+
+          <template v-slot:append v-if="item.hasSubmenu">
+            <v-icon icon="mdi-chevron-right" size="small"></v-icon>
+          </template>
+        </v-list-item>
+      </v-list>
+
+      <template v-slot:append>
+        <div class="pa-4">
+          <v-list-item
+            link
+            @click="logout"
+            rounded="lg"
+            class="text-grey-darken-2"
+          >
+            <template v-slot:prepend>
+              <v-icon icon="mdi-logout-variant"></v-icon>
+            </template>
+            <v-list-item-title class="font-weight-medium text-body-2">
+              Logout
+            </v-list-item-title>
+          </v-list-item>
+        </div>
+      </template>
+    </v-navigation-drawer>
+
+    <v-main
+      class="bg-grey-lighten-5"
+      style="padding-top: 88px; height: 100vh; overflow-y: auto"
+    >
+      <div class="page-container px-3 pb-8 mt-6">
+        <div class="d-flex align-center mb-4 px-2">
+          <v-icon color="#2563eb" class="mr-3" size="32"
+            >mdi-office-building</v-icon
+          >
+          <h1 class="text-h4 font-weight-bold text-grey-darken-4">
+            Building Permit Application
+          </h1>
+        </div>
+
+        <v-card
+          class="rounded-xl border-0 shadow-sm overflow-hidden"
+          color="white"
+          min-height="700"
+        >
           <v-tabs
             v-model="activeTab"
             color="primary"
             bg-color="white"
-            class="border-b"
+            class="border-b px-6"
+            height="60"
+            slider-color="primary"
           >
-            <v-tab value="application" class="text-capitalize">
+            <v-tab
+              value="application"
+              class="text-body-2 font-weight-medium text-capitalize"
+              rounded="t-lg"
+            >
               <v-icon
                 start
                 icon="mdi-file-document-outline"
@@ -116,7 +194,11 @@
               ></v-icon>
               Application Form
             </v-tab>
-            <v-tab value="evaluation" class="text-capitalize">
+            <v-tab
+              value="evaluation"
+              class="text-body-2 font-weight-medium text-capitalize"
+              rounded="t-lg"
+            >
               <v-icon
                 start
                 icon="mdi-clipboard-check-outline"
@@ -124,26 +206,46 @@
               ></v-icon>
               Evaluation Summary
             </v-tab>
-            <v-tab value="plans" class="text-capitalize">
+            <v-tab
+              value="plans"
+              class="text-body-2 font-weight-medium text-capitalize"
+              rounded="t-lg"
+            >
               <v-icon start icon="mdi-file-check-outline" class="mr-2"></v-icon>
               PDF Plans
+              <v-badge
+                content="5"
+                color="grey-lighten-2"
+                text-color="grey-darken-3"
+                inline
+                class="ml-2"
+              ></v-badge>
             </v-tab>
-            <v-tab value="checklist" class="text-capitalize">
+            <v-tab
+              value="checklist"
+              class="text-body-2 font-weight-medium text-capitalize"
+              rounded="t-lg"
+            >
               <v-icon start icon="mdi-format-list-checks" class="mr-2"></v-icon>
               Checklist
             </v-tab>
           </v-tabs>
 
-          <div class="pa-6 bg-white" style="min-height: 500px">
+          <div class="pa-6 pa-md-8 bg-white">
             <v-window v-model="activeTab">
               <v-window-item value="application">
-                <v-card class="rounded-lg" flat>
+                <v-card
+                  class="rounded-lg bg-grey-lighten-5 border-dashed pa-4"
+                  flat
+                  height="600"
+                >
                   <v-img
                     src="https://placehold.co/800x1000/png?text=Unified+Application+Form+Preview"
                     alt="Unified Application Form"
                     cover
-                    class="bg-grey-lighten-2"
-                    aspect-ratio="0.8"
+                    class="rounded elevation-2 mx-auto"
+                    max-width="800"
+                    height="100%"
                   >
                     <template v-slot:placeholder>
                       <div
@@ -160,107 +262,143 @@
               </v-window-item>
 
               <v-window-item value="evaluation">
-                <div class="d-flex flex-column gap-4">
-                  <v-card class="rounded-lg pa-4" flat border>
-                    <h3
-                      class="text-h6 font-weight-medium text-grey-darken-4 mb-4"
+                <v-row>
+                  <v-col cols="12" md="4">
+                    <v-card
+                      class="rounded-lg bg-grey-lighten-5 pa-6 sticky-card"
+                      flat
                     >
-                      Application Details
-                    </h3>
-                    <v-row dense>
-                      <v-col cols="12" sm="6">
-                        <div class="text-caption text-grey-darken-1">
-                          Control No.
-                        </div>
+                      <div class="text-overline text-grey-darken-1 mb-4">
+                        Project Information
+                      </div>
+                      <div class="mb-5">
+                        <div class="text-caption text-grey">Control Number</div>
                         <div
-                          class="text-body-2 font-weight-medium text-grey-darken-3"
+                          class="text-body-1 font-weight-bold text-grey-darken-4 font-monospace"
                         >
                           {{ evaluationData.application.controlNo }}
                         </div>
-                      </v-col>
-                      <v-col cols="12" sm="6">
-                        <div class="text-caption text-grey-darken-1">
-                          Date Received
-                        </div>
-                        <div
-                          class="text-body-2 font-weight-medium text-grey-darken-3"
-                        >
-                          {{ evaluationData.application.dateReceived }}
-                        </div>
-                      </v-col>
-                      <v-col cols="12" class="mt-2">
-                        <div class="text-caption text-grey-darken-1">
-                          Applicant
-                        </div>
+                      </div>
+                      <v-divider class="my-4 border-dashed"></v-divider>
+                      <div class="mb-4">
+                        <div class="text-caption text-grey">Applicant</div>
                         <div
                           class="text-body-2 font-weight-medium text-grey-darken-3"
                         >
                           {{ evaluationData.application.applicantName }}
                         </div>
-                      </v-col>
-                      <v-col cols="12" class="mt-2">
-                        <div class="text-caption text-grey-darken-1">
-                          Project
-                        </div>
+                      </div>
+                      <div class="mb-4">
+                        <div class="text-caption text-grey">Project Type</div>
                         <div
                           class="text-body-2 font-weight-medium text-grey-darken-3"
                         >
                           {{ evaluationData.application.projectName }}
                         </div>
-                      </v-col>
-                      <v-col cols="12" class="mt-2">
-                        <div class="text-caption text-grey-darken-1">
-                          Location
-                        </div>
+                      </div>
+                      <div class="mb-4">
+                        <div class="text-caption text-grey">Location</div>
                         <div
                           class="text-body-2 font-weight-medium text-grey-darken-3"
                         >
                           {{ evaluationData.application.projectLocation }}
                         </div>
-                      </v-col>
-                    </v-row>
-                  </v-card>
-
-                  <v-card class="rounded-lg pa-4" flat border>
-                    <h3
-                      class="text-h6 font-weight-medium text-grey-darken-4 mb-4"
-                    >
-                      Plan Evaluations
-                    </h3>
-
-                    <div
-                      v-for="(evaluation, index) in evaluationData.evaluations"
-                      :key="index"
-                    >
-                      <div
-                        class="py-4"
-                        :class="{
-                          'border-b':
-                            index !== evaluationData.evaluations.length - 1,
-                        }"
-                      >
+                      </div>
+                      <div class="mb-0">
+                        <div class="text-caption text-grey">Date Received</div>
                         <div
-                          class="d-flex justify-space-between align-start mb-2"
+                          class="text-body-2 font-weight-medium text-grey-darken-3"
                         >
+                          {{ evaluationData.application.dateReceived }}
+                        </div>
+                      </div>
+                    </v-card>
+                  </v-col>
+
+                  <v-col cols="12" md="8">
+                    <div class="d-flex flex-column gap-4">
+                      <v-alert
+                        border="start"
+                        border-color="success"
+                        color="green-lighten-5"
+                        class="mb-4 rounded-lg"
+                      >
+                        <div class="d-flex justify-space-between align-center">
                           <div>
                             <div
-                              class="text-subtitle-1 font-weight-medium text-grey-darken-3"
+                              class="text-caption text-success font-weight-bold text-uppercase mb-1"
                             >
-                              {{ evaluation.title }}
+                              Overall Status
                             </div>
-                            <div class="text-caption text-grey-darken-1">
-                              {{ evaluation.evaluator }}
+                            <div
+                              class="text-h6 font-weight-bold text-green-darken-4"
+                            >
+                              {{ evaluationData.recommendation.recommendation }}
+                            </div>
+                            <div class="text-caption text-green-darken-3 mt-1">
+                              Signed by
+                              {{
+                                evaluationData.recommendation.buildingOfficial
+                              }}
+                              on
+                              {{ evaluationData.recommendation.date }}
                             </div>
                           </div>
-                          <div class="text-right">
-                            <div class="text-caption text-grey-darken-1 mb-1">
-                              {{ evaluation.date }}
+                          <v-icon color="success" size="40"
+                            >mdi-check-decagram</v-icon
+                          >
+                        </div>
+                      </v-alert>
+
+                      <div
+                        class="text-subtitle-1 font-weight-bold text-grey-darken-4 mb-2"
+                      >
+                        Department Evaluations
+                      </div>
+
+                      <v-card
+                        v-for="(
+                          evaluation, index
+                        ) in evaluationData.evaluations"
+                        :key="index"
+                        class="rounded-lg border mb-3 transition-swing"
+                        flat
+                      >
+                        <div class="pa-4">
+                          <div
+                            class="d-flex justify-space-between align-start mb-3"
+                          >
+                            <div class="d-flex align-center">
+                              <v-avatar
+                                color="blue-lighten-5"
+                                rounded
+                                size="40"
+                                class="mr-3"
+                              >
+                                <v-icon color="blue-darken-2" size="20"
+                                  >mdi-file-certificate-outline</v-icon
+                                >
+                              </v-avatar>
+                              <div>
+                                <div
+                                  class="text-subtitle-2 font-weight-bold text-grey-darken-4"
+                                >
+                                  {{ evaluation.title }}
+                                </div>
+                                <div class="text-caption text-grey-darken-1">
+                                  Evaluated by {{ evaluation.evaluator }}
+                                </div>
+                              </div>
                             </div>
                             <v-chip
-                              size="x-small"
-                              color="green-darken-1"
-                              variant="flat"
-                              class="font-weight-medium"
+                              size="small"
+                              :color="
+                                evaluation.status === 'approved'
+                                  ? 'success'
+                                  : 'warning'
+                              "
+                              variant="tonal"
+                              class="font-weight-bold"
                             >
                               {{
                                 evaluation.status === "approved"
@@ -269,211 +407,201 @@
                               }}
                             </v-chip>
                           </div>
-                        </div>
-
-                        <div class="mt-2">
-                          <div
-                            class="text-caption text-grey-darken-2 font-weight-medium mb-1"
-                          >
-                            Findings:
+                          <div class="bg-grey-lighten-5 rounded pa-3">
+                            <div
+                              class="text-caption font-weight-bold text-grey-darken-2 mb-2"
+                            >
+                              Findings & Remarks:
+                            </div>
+                            <div
+                              v-for="(finding, fIndex) in evaluation.findings"
+                              :key="fIndex"
+                              class="d-flex align-start gap-2 mb-1"
+                            >
+                              <v-icon
+                                icon="mdi-check-circle-outline"
+                                size="14"
+                                color="green"
+                                class="mt-1"
+                              ></v-icon>
+                              <span class="text-caption text-grey-darken-3">{{
+                                finding
+                              }}</span>
+                            </div>
                           </div>
-                          <div
-                            v-for="(finding, fIndex) in evaluation.findings"
-                            :key="fIndex"
-                            class="d-flex align-start gap-2 mb-1"
-                          >
-                            <v-icon
-                              icon="mdi-circle-small"
-                              size="small"
-                              color="grey-lighten-1"
-                              class="mt-1"
-                            ></v-icon>
-                            <span class="text-body-2 text-grey-darken-2">{{
-                              finding
-                            }}</span>
-                          </div>
                         </div>
-                      </div>
+                      </v-card>
                     </div>
-                  </v-card>
-
-                  <v-card class="rounded-lg pa-4" flat border>
-                    <h3
-                      class="text-h6 font-weight-medium text-grey-darken-4 mb-4"
-                    >
-                      Final Recommendation
-                    </h3>
-                    <div class="d-flex align-start gap-3 mb-4">
-                      <v-icon
-                        icon="mdi-checkbox-marked"
-                        color="grey-darken-4"
-                        class="mt-1"
-                      ></v-icon>
-                      <div>
-                        <div
-                          class="text-body-1 font-weight-bold text-grey-darken-4"
-                        >
-                          {{ evaluationData.recommendation.recommendation }}
-                        </div>
-                        <div class="text-caption text-grey-darken-1 mt-1">
-                          All plans have been evaluated and found compliant with
-                          applicable building codes and regulations.
-                        </div>
-                      </div>
-                    </div>
-
-                    <v-divider class="mb-3"></v-divider>
-
-                    <div class="d-flex justify-space-between align-end">
-                      <div>
-                        <div class="text-caption text-grey-darken-1">
-                          Building Official
-                        </div>
-                        <div
-                          class="text-body-2 font-weight-medium text-grey-darken-3"
-                        >
-                          {{ evaluationData.recommendation.buildingOfficial }}
-                        </div>
-                      </div>
-                      <div class="text-right">
-                        <div class="text-caption text-grey-darken-1">
-                          Date Completed
-                        </div>
-                        <div
-                          class="text-body-2 font-weight-medium text-grey-darken-3"
-                        >
-                          {{ evaluationData.recommendation.date }}
-                        </div>
-                      </div>
-                    </div>
-                  </v-card>
-                </div>
+                  </v-col>
+                </v-row>
               </v-window-item>
 
               <v-window-item value="plans">
-                <div class="d-flex flex-column gap-3">
-                  <v-card
-                    v-for="(plan, index) in pdfPlans"
-                    :key="index"
-                    class="rounded-lg mb-3"
-                    flat
-                    border
-                  >
-                    <div class="pa-4">
-                      <div class="d-flex align-center justify-space-between">
-                        <div class="d-flex align-center">
-                          <v-avatar color="grey-lighten-4" rounded class="mr-3">
-                            <v-icon color="grey-darken-1"
-                              >mdi-file-document-outline</v-icon
-                            >
-                          </v-avatar>
-                          <div>
-                            <div
-                              class="text-subtitle-1 font-weight-medium text-grey-darken-3"
-                            >
-                              {{ plan.name }}
-                            </div>
-                            <div class="text-caption text-grey-darken-1">
-                              {{ plan.evaluator }} • {{ plan.date }}
-                            </div>
-                          </div>
-                        </div>
-                        <v-btn
-                          :variant="
-                            selectedPlan === index ? 'outlined' : 'text'
-                          "
-                          :color="
-                            selectedPlan === index
-                              ? 'grey-darken-3'
-                              : 'grey-darken-1'
-                          "
-                          size="small"
-                          prepend-icon="mdi-eye"
-                          @click="togglePlan(index)"
-                        >
-                          {{ selectedPlan === index ? "Close" : "View" }}
-                        </v-btn>
-                      </div>
+                <v-row>
+                  <v-col cols="12" md="4">
+                    <div class="text-overline text-grey-darken-1 mb-2">
+                      Available Documents
                     </div>
+                    <v-list class="bg-transparent pa-0">
+                      <v-list-item
+                        v-for="(plan, index) in pdfPlans"
+                        :key="index"
+                        @click="togglePlan(index)"
+                        rounded="lg"
+                        :active="selectedPlan === index"
+                        active-color="primary"
+                        class="mb-2 border bg-white"
+                        :elevation="selectedPlan === index ? 2 : 0"
+                      >
+                        <template #prepend>
+                          <v-icon
+                            :color="selectedPlan === index ? 'primary' : 'grey'"
+                            >mdi-file-pdf-box</v-icon
+                          >
+                        </template>
+                        <v-list-item-title
+                          class="font-weight-medium text-body-2"
+                        >
+                          {{ plan.name }}
+                        </v-list-item-title>
+                        <v-list-item-subtitle class="text-caption">
+                          {{ plan.date }}
+                        </v-list-item-subtitle>
+                        <template #append>
+                          <v-chip
+                            size="x-small"
+                            color="success"
+                            variant="tonal"
+                            class="ml-2"
+                            >Approved</v-chip
+                          >
+                        </template>
+                      </v-list-item>
+                    </v-list>
+                  </v-col>
 
-                    <v-expand-transition>
-                      <div v-if="selectedPlan === index">
-                        <v-divider></v-divider>
-                        <div class="bg-grey-lighten-5 pa-4">
+                  <v-col cols="12" md="8">
+                    <v-fade-transition mode="out-in">
+                      <div v-if="selectedPlan !== null" class="h-100">
+                        <div
+                          class="d-flex align-center justify-space-between mb-3"
+                        >
+                          <h3 class="text-subtitle-1 font-weight-bold">
+                            {{ pdfPlans[selectedPlan].name }}
+                          </h3>
+                          <v-btn
+                            size="small"
+                            variant="text"
+                            color="grey"
+                            prepend-icon="mdi-download"
+                            >Download</v-btn
+                          >
+                        </div>
+                        <v-card
+                          class="rounded-lg border overflow-hidden"
+                          height="600"
+                          flat
+                        >
                           <iframe
                             :src="
-                              plan.pdfUrl + '#toolbar=0&navpanes=0&scrollbar=1'
+                              pdfPlans[selectedPlan].pdfUrl +
+                              '#toolbar=0&navpanes=0&scrollbar=1'
                             "
                             width="100%"
-                            height="500"
-                            style="
-                              border: 1px solid #e2e8f0;
-                              border-radius: 4px;
-                              background: white;
-                            "
-                            :title="plan.name"
+                            height="100%"
+                            style="border: none"
+                            title="Plan Viewer"
                           ></iframe>
+                        </v-card>
+                      </div>
+                      <div
+                        v-else
+                        class="d-flex align-center justify-center h-100 rounded-lg border-dashed bg-grey-lighten-5"
+                        style="min-height: 400px"
+                      >
+                        <div class="text-center">
+                          <v-icon size="64" color="grey-lighten-2" class="mb-4"
+                            >mdi-file-document-outline</v-icon
+                          >
+                          <div class="text-body-2 text-grey">
+                            Select a plan from the list to preview
+                          </div>
                         </div>
                       </div>
-                    </v-expand-transition>
-                  </v-card>
-                </div>
+                    </v-fade-transition>
+                  </v-col>
+                </v-row>
               </v-window-item>
 
               <v-window-item value="checklist">
-                <v-card class="pa-4 rounded-lg" flat border>
-                  <div class="mb-4">
-                    <h3 class="text-h6 font-weight-bold text-grey-darken-3">
-                      Documentary Requirements
-                    </h3>
-                    <p class="text-body-2 text-grey-darken-1">
-                      Building Permit Application
-                    </p>
-                  </div>
-
-                  <div
-                    v-for="(section, sIndex) in documentaryData.sections"
-                    :key="sIndex"
-                    class="mb-6"
-                  >
-                    <v-sheet color="grey-lighten-4" class="pa-2 mb-2 rounded">
-                      <span
-                        class="text-subtitle-2 font-weight-bold text-grey-darken-3"
-                        >{{ section.title }}</span
-                      >
-                    </v-sheet>
-
-                    <div class="d-flex flex-column gap-2">
-                      <div
-                        v-for="(item, iIndex) in section.items"
-                        :key="iIndex"
-                        class="d-flex align-start py-1 cursor-pointer checklist-item"
-                        @click="item.checked = !item.checked"
-                      >
-                        <v-icon
-                          :icon="
-                            item.checked
-                              ? 'mdi-checkbox-marked'
-                              : 'mdi-checkbox-blank-outline'
-                          "
-                          size="small"
-                          :color="item.checked ? 'primary' : 'grey-lighten-1'"
-                          class="mr-2 mt-1"
-                        ></v-icon>
-                        <span
-                          class="text-body-2"
-                          :class="
-                            item.checked
-                              ? 'text-grey-darken-3 font-weight-medium'
-                              : 'text-grey-darken-2'
-                          "
-                        >
-                          {{ item.text }}
-                        </span>
-                      </div>
+                <v-row justify="center">
+                  <v-col cols="12" md="10">
+                    <div class="mb-6 text-center">
+                      <h3 class="text-h6 font-weight-bold text-grey-darken-3">
+                        Documentary Requirements
+                      </h3>
+                      <p class="text-body-2 text-grey">
+                        Building Permit Application
+                      </p>
                     </div>
-                  </div>
-                </v-card>
+
+                    <div
+                      v-for="(section, sIndex) in documentaryData.sections"
+                      :key="sIndex"
+                      class="mb-8"
+                    >
+                      <div class="d-flex align-center mb-4">
+                        <v-avatar color="primary" size="24" class="mr-3">
+                          <span
+                            class="text-caption font-weight-bold text-white"
+                            >{{ sIndex + 1 }}</span
+                          >
+                        </v-avatar>
+                        <span
+                          class="text-subtitle-1 font-weight-bold text-grey-darken-4"
+                          >{{ section.title }}</span
+                        >
+                        <v-divider class="ml-4"></v-divider>
+                      </div>
+
+                      <v-row dense>
+                        <v-col
+                          cols="12"
+                          sm="6"
+                          v-for="(item, iIndex) in section.items"
+                          :key="iIndex"
+                        >
+                          <v-sheet
+                            class="d-flex align-start pa-3 rounded-lg border cursor-pointer transition-fast-in-fast-out"
+                            :class="
+                              item.checked
+                                ? 'bg-blue-lighten-5 border-blue'
+                                : 'bg-white'
+                            "
+                            @click="item.checked = !item.checked"
+                          >
+                            <v-checkbox-btn
+                              v-model="item.checked"
+                              color="primary"
+                              density="compact"
+                              class="mt-n1 ml-n1"
+                            ></v-checkbox-btn>
+                            <span
+                              class="text-body-2 ml-2"
+                              :class="
+                                item.checked
+                                  ? 'text-grey-darken-4 font-weight-medium'
+                                  : 'text-grey-darken-1'
+                              "
+                            >
+                              {{ item.text }}
+                            </span>
+                          </v-sheet>
+                        </v-col>
+                      </v-row>
+                    </div>
+                  </v-col>
+                </v-row>
               </v-window-item>
             </v-window>
           </div>
@@ -484,27 +612,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch } from "vue";
+import { ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
 
-const route = useRoute();
-
-// --- Layout Styles ---
+// 's' object for the inserted profile button style
 const s = {
-  topToolbar: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: "12px 24px",
-    background: "#fff",
-    borderBottom: "1px solid #e8eaf0",
-  },
-  textToolbar: { color: "#111827" },
-  pageContainer: {
-    maxWidth: "1460px",
-    margin: "16px auto 0",
-    padding: "0 12px",
-  },
   profileBtn: {
     backgroundColor: "transparent",
     boxShadow: "none",
@@ -513,9 +625,108 @@ const s = {
   },
 };
 
+// --- NAVIGATION DATA ---
+const navItems = [
+  {
+    title: "Building Permit",
+    icon: "mdi-office-building-outline",
+    hasSubmenu: false,
+  },
+  {
+    title: "Locational Clearance",
+    icon: "mdi-map-marker-outline",
+    hasSubmenu: false,
+  },
+  {
+    title: "Compliance Monitoring",
+    icon: "mdi-clipboard-list-outline",
+    hasSubmenu: true,
+  },
+  {
+    title: "Occupancy Permit",
+    icon: "mdi-key-variant",
+    hasSubmenu: false,
+  },
+];
+
+const route = useRoute();
 const activeTab = ref("application");
 
-// --- Profile & Header Data ---
+// Variable to store the selected application data
+let selectedApplicationData: any = null;
+
+// --- Evaluation Summary Data ---
+const evaluationData = ref({
+  application: {
+    controlNo: "",
+    applicantName: "",
+    projectName: "",
+    projectLocation: "",
+    dateReceived: "",
+  },
+  evaluations: [
+    {
+      title: "Architectural Plans",
+      evaluator: "Arch. Roberto Garcia",
+      date: "November 17, 2024",
+      status: "approved",
+      findings: [
+        "Building design complies with National Building Code",
+        "Floor plans show proper room dimensions",
+        "Fire exits properly indicated",
+      ],
+    },
+    {
+      title: "Civil/Structural Plans",
+      evaluator: "Engr. Maria Santos",
+      date: "November 17, 2024",
+      status: "approved",
+      findings: [
+        "Structural design meets NSCP 2015",
+        "Foundation design appropriate for soil bearing",
+      ],
+    },
+    {
+      title: "Electrical Plans",
+      evaluator: "Engr. Pedro Reyes",
+      date: "November 17, 2024",
+      status: "pending",
+      findings: ["Waiting for load schedule revision"],
+    },
+  ],
+  recommendation: {
+    status: "approved",
+    recommendation: "FOR APPROVAL",
+    buildingOfficial: "Engr. Vicente Alvarez",
+    date: "November 20, 2024",
+  },
+});
+
+// Initialize selected application data on mount
+onMounted(() => {
+  if (route.query.applicationData) {
+    try {
+      selectedApplicationData = JSON.parse(
+        route.query.applicationData as string
+      );
+      // Update evaluation data with the selected application
+      evaluationData.value.application = {
+        controlNo: selectedApplicationData.controlNo || "2024-BP-001234",
+        applicantName: selectedApplicationData.applicantName || "Unknown",
+        projectName: selectedApplicationData.projectName || "Project Name",
+        projectLocation: selectedApplicationData.projectLocation || "Location",
+        dateReceived:
+          selectedApplicationData.dateTimeReceived ||
+          selectedApplicationData.submissionDate ||
+          "N/A",
+      };
+    } catch (error) {
+      console.error("Failed to parse applicationData:", error);
+    }
+  }
+});
+
+// --- Profile Data ---
 const mockEvaluatorProfile = ref({
   name: "Zoe Lumanta",
   title: "Administrative Aide",
@@ -523,31 +734,20 @@ const mockEvaluatorProfile = ref({
   image: "https://randomuser.me/api/portraits/men/32.jpg",
 });
 
+// --- NEW HELPER: Get Initials ---
+const getInitials = (name: string) => {
+  const parts = name.split(" ");
+  if (parts.length >= 2) {
+    return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+  }
+  return name.substring(0, 2).toUpperCase();
+};
+
 const logout = () => {
   console.log("Logout clicked");
 };
 
-// --- Parse application data from route query ---
-const currentApplication = ref(null);
-
-watch(
-  () => route.query.applicationData,
-  (newData) => {
-    if (newData) {
-      try {
-        const dataStr = Array.isArray(newData) ? newData[0] : newData;
-        currentApplication.value = JSON.parse(dataStr);
-        console.log("Application data updated:", currentApplication.value);
-      } catch (e) {
-        console.error("Failed to parse application data:", e);
-      }
-    }
-  },
-  { immediate: true }
-);
-
-// --- Document Checklist Data (REACTIVE & INTERACTIVE) ---
-// Transformed items into objects with { text, checked } properties
+// --- Document Checklist Data ---
 const documentaryData = ref({
   sections: [
     {
@@ -599,46 +799,37 @@ const documentaryData = ref({
   ],
 });
 
-// --- PDF Plans Data & Logic ---
-const selectedPlan = ref<number | null>(null);
-
+// --- PDF Plans Data ---
+const selectedPlan = ref<number | null>(0);
 const pdfPlans = [
   {
     name: "Architectural Plans",
-    date: "November 17, 2024",
-    evaluator: "Arch. Roberto Garcia",
+    date: "Nov 17, 2024",
+    evaluator: "Arch. Garcia",
     status: "Approved",
     pdfUrl:
       "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
   },
   {
     name: "Civil/Structural Plans",
-    date: "November 17, 2024",
-    evaluator: "Engr. Maria Santos",
+    date: "Nov 17, 2024",
+    evaluator: "Engr. Santos",
     status: "Approved",
     pdfUrl:
       "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
   },
   {
     name: "Mechanical Plan",
-    date: "November 18, 2024",
-    evaluator: "Engr. Lisa Tan",
+    date: "Nov 18, 2024",
+    evaluator: "Engr. Tan",
     status: "Approved",
     pdfUrl:
       "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
   },
   {
     name: "Electrical Plans",
-    date: "November 18, 2024",
-    evaluator: "Engr. Pedro Reyes",
-    status: "Approved",
-    pdfUrl:
-      "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
-  },
-  {
-    name: "Plumbing Plans",
-    date: "November 19, 2024",
-    evaluator: "Engr. Jose Cruz",
+    date: "Nov 18, 2024",
+    evaluator: "Engr. Reyes",
     status: "Approved",
     pdfUrl:
       "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
@@ -646,109 +837,47 @@ const pdfPlans = [
 ];
 
 const togglePlan = (index: number) => {
-  selectedPlan.value = selectedPlan.value === index ? null : index;
+  selectedPlan.value = index;
 };
-
-// --- Evaluation Summary Data with dynamic application info ---
-const evaluationData = computed(() => ({
-  application: {
-    controlNo: currentApplication.value?.controlNo || "2024-BP-001234",
-    applicantName: currentApplication.value?.applicantName || "Juan dela Cruz",
-    projectName:
-      currentApplication.value?.projectName ||
-      "Commercial Building Construction",
-    projectLocation:
-      currentApplication.value?.projectLocation || "123 Rizal Avenue, Manila",
-    dateReceived:
-      currentApplication.value?.dateTimeReceived || "November 15, 2024",
-  },
-  evaluations: [
-    {
-      title: "Architectural Plans",
-      evaluator: "Arch. Roberto Garcia",
-      date: "November 17, 2024",
-      status: "approved",
-      findings: [
-        "Building design complies with National Building Code (PD 1096)",
-        "Floor plans show proper room dimensions and spatial requirements",
-        "Fire exits and emergency egress properly indicated",
-        "Accessibility features comply with BP 344 (Accessibility Law)",
-        "Building height and setback requirements met",
-      ],
-    },
-    {
-      title: "Civil/Structural Plans",
-      evaluator: "Engr. Maria Santos",
-      date: "November 17, 2024",
-      status: "approved",
-      findings: [
-        "Structural design meets NSCP (National Structural Code of the Philippines)",
-        "Foundation design appropriate for soil bearing capacity",
-        "Seismic design parameters properly calculated for Seismic Zone 4",
-        "Reinforcement details and specifications clearly indicated",
-        "Load calculations verified and acceptable",
-      ],
-    },
-    {
-      title: "Mechanical Plan",
-      evaluator: "Engr. Lisa Tan",
-      date: "November 18, 2024",
-      status: "approved",
-      findings: [
-        "HVAC system design adequate for building occupancy load",
-        "Ventilation requirements comply with building code standards",
-        "Equipment specifications and capacity properly indicated",
-        "Fire dampers and smoke control systems included",
-        "Energy efficiency measures incorporated in design",
-      ],
-    },
-    {
-      title: "Electrical Plans",
-      evaluator: "Engr. Pedro Reyes",
-      date: "November 18, 2024",
-      status: "approved",
-      findings: [
-        "Electrical design complies with Philippine Electrical Code (PEC)",
-        "Power load calculations verified and adequate",
-        "Emergency lighting and power backup systems included",
-        "Grounding and lightning protection properly designed",
-        "Circuit breaker specifications and panel schedules complete",
-      ],
-    },
-    {
-      title: "Plumbing Plans",
-      evaluator: "Engr. Jose Cruz",
-      date: "November 19, 2024",
-      status: "approved",
-      findings: [
-        "Plumbing design complies with National Plumbing Code",
-        "Water supply system properly sized and designed",
-        "Drainage and sewerage system meets code requirements",
-        "Fixture units and pipe sizing calculations verified",
-        "Water conservation fixtures specified",
-      ],
-    },
-  ],
-  recommendation: {
-    status: "approved",
-    recommendation: "FOR APPROVAL. FOR ORDER OF PAYMENT",
-    buildingOfficial: "Engr. Vicente Alvarez",
-    date: "November 20, 2024",
-  },
-}));
 </script>
 
 <style scoped>
-.v-card {
-  border-color: #e2e8f0 !important;
+/* Utility for centering page content */
+.page-container {
+  max-width: 1460px;
+  margin: 0 auto;
 }
 
-.hover-bg:hover {
-  background-color: rgba(0, 0, 0, 0.04);
+/* Custom transitions */
+.cursor-pointer {
+  cursor: pointer;
 }
 
-.checklist-item:hover {
-  background-color: rgba(0, 0, 0, 0.02);
-  border-radius: 4px;
+.hover-opacity:hover {
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+.border-blue {
+  border-color: #1867c0 !important;
+}
+
+/* Sticky card for evaluation details */
+.sticky-card {
+  position: sticky;
+  top: 110px; /* Adjusted since header is fixed */
+}
+
+/* Make font slightly nicer if system font allows */
+.v-application {
+  font-family: "Inter", "Roboto", sans-serif !important;
+}
+
+/* Subtle shadows */
+.shadow-sm {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.06) !important;
+}
+
+.font-monospace {
+  font-family: "Courier New", Courier, monospace;
 }
 </style>
