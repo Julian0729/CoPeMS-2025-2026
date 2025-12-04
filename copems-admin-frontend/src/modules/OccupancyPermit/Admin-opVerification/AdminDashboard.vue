@@ -1,7 +1,11 @@
 <template>
   <v-app>
-    <v-app-bar flat color="#0000CC" dark height="88" app class="elevation-4">
-      <v-container fluid class="d-flex align-center py-0" style="max-width: 100%">
+    <v-app-bar flat color="#ffffff" dark height="88" app class="elevation-4">
+      <v-container
+        fluid
+        class="d-flex align-center py-0 justify-space-between"
+        style="max-width: 100%"
+      >
         <div class="d-flex align-center">
           <v-img
             src="https://www2.naga.gov.ph/wp-content/uploads/2022/05/Naga_City_Official_Seal-1.png"
@@ -12,79 +16,21 @@
             class="me-4"
           />
           <div>
-            <div
-              style="font-size: 12px; font-weight: 400; color: white; line-height: 1.2"
-            >
-              REPUBLIC OF THE PHILIPPINES
-            </div>
-            <div
-              style="font-size: 15px; font-weight: 700; color: white; line-height: 1.2"
-            >
-              CITY GOVERNMENT OF NAGA
-            </div>
+            <div class="header-subtitle">REPUBLIC OF THE PHILIPPINES</div>
+            <div class="header-title">CITY GOVERNMENT OF NAGA</div>
           </div>
         </div>
-      </v-container>
-    </v-app-bar>
-    <v-navigation-drawer app permanent width="250" class="border-e">
-      <div class="drawer-header">
-        <v-icon size="36" class="me-2" color="#007bff">mdi-office-building</v-icon>
-        <div>
-          <div class="text-h7 font-weight-bold" style="line-height: 1.2">
-            Construction Permit
-          </div>
-          <div class="text-caption font-weight-regular" style="color: #6c757d">
-            Management System
-          </div>
-        </div>
-      </div>
-      <div class="d-flex flex-column">
-        <v-list nav dense class="py-0 flex-grow-1" style="font-size: 14px">
-          <v-list-item
-            v-for="item in navItems"
-            :key="item.title"
-            :to="item.to"
-            :class="['py-1', { 'v-list-item--active': $route.path === item.to }]"
-            active-class="v-list-item--active-custom"
-          >
-            <div class="d-flex align-center">
-              <v-icon class="me-3">{{ item.icon }}</v-icon>
-              <span>{{ item.title }}</span>
-            </div>
-          </v-list-item>
-        </v-list>
-      </div>
-    </v-navigation-drawer>
-    <v-main style="background-color: #f5f6fa; padding-top: 88px">
-      <div :style="s.heroBanner"></div>
-
-      <div :style="s.topToolbar">
-        <div class="left d-flex align-center">
-          <v-icon color="#3b82f6" class="mr-2">mdi-home-city</v-icon>
-          <h3 class="mb-0 font-weight-bold" :style="s.textToolbar">
-            Occupancy Permit Application
-          </h3>
-        </div>
-        <div class="right d-flex align-center">
+        <div class="d-flex align-center">
           <v-menu :close-on-content-click="true" location="bottom end">
             <template #activator="{ props }">
-              <v-btn variant="text" :style="s.profileBtn" v-bind="props">
-                <v-avatar size="32" class="mx-2">
-                  <v-img
-                    alt="Jacque"
-                    src="https://i.pinimg.com/736x/71/84/c9/7184c9d52f44b93a96f09451fdcf6d44.jpg"
-                  />
-                </v-avatar>
+              <v-btn variant="text" class="profile-btn" v-bind="props">
+                <v-avatar size="36" class="mx-2 text-white" color="#5B21B6">JA</v-avatar>
                 <div class="d-flex flex-column text-left">
-                  <span
-                    class="text-caption font-weight-bold"
-                    style="color: #555; white-space: nowrap"
-                    >Lea Bernice</span
+                  <span class="text-caption font-weight-bold profile-name"
+                    >Jacqueline Azada</span
                   >
-                  <span
-                    class="text-caption font-weight-medium"
-                    style="color: #888; white-space: nowrap"
-                    >Administrative Aide</span
+                  <span class="text-caption font-weight-medium profile-role"
+                    >Engineer</span
                   >
                 </div>
                 <v-icon class="ml-1" size="small">mdi-chevron-down</v-icon>
@@ -94,10 +40,10 @@
               <v-list density="compact" nav>
                 <v-list-item>
                   <v-list-item-title class="font-weight-bold">
-                    Lea Bernice
+                    Jacqueline Azada
                   </v-list-item-title>
                   <v-list-item-subtitle>
-                    lea.bernice@nagacity.gov.ph
+                    jacqueline.azada@nagacity.gov.ph
                   </v-list-item-subtitle>
                 </v-list-item>
                 <v-divider class="my-1"></v-divider>
@@ -117,8 +63,45 @@
             </v-card>
           </v-menu>
         </div>
-      </div>
+      </v-container>
+    </v-app-bar>
+    <v-navigation-drawer app permanent width="280" class="navigation-drawer">
+      <div class="nav-content">
+        <v-list nav class="nav-list">
+          <v-list-item
+            v-for="item in navItems"
+            :key="item.title"
+            :to="item.to"
+            :class="['nav-item', { 'nav-item--active': $route.path === item.to }]"
+          >
+            <template #prepend>
+              <v-icon :color="'#111827'" size="20">
+                {{ item.icon }}
+              </v-icon>
+            </template>
+            <v-list-item-title class="nav-item-text">
+              {{ item.title }}
+            </v-list-item-title>
+            <template #append v-if="item.hasSubmenu">
+              <v-icon :color="'#111827'" size="16"> mdi-chevron-right </v-icon>
+            </template>
+          </v-list-item>
+        </v-list>
 
+        <div class="nav-bottom">
+          <v-list nav class="nav-list">
+            <v-list-item @click="logOut" class="logout-item">
+              <template #prepend>
+                <v-icon color="#111827" size="20">mdi-logout-variant</v-icon>
+              </template>
+              <v-list-item-title class="logout-text"> Logout </v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </div>
+      </div>
+    </v-navigation-drawer>
+
+    <v-main class="main-content">
       <div :style="s.pageContainer">
         <v-row class="mb-6">
           <v-col v-for="card in statCards" :key="card.key" cols="12" sm="6" md="3">
@@ -239,26 +222,32 @@
 </template>
 
 <script setup>
+import { ref, computed } from "vue";
+import { useRouter } from "vue-router";
+
 const navItems = [
-  { title: "Dashboard", icon: "mdi-home-outline", to: "/dashboard" },
+  {
+    title: "Building Permit",
+    icon: "mdi-home-city-outline",
+    to: "/dashboard",
+  },
   {
     title: "Locational Clearance",
-    icon: "mdi-map-marker-outline",
+    icon: "mdi-map-marker-radius-outline",
     to: "/locational-clearance",
   },
   {
-    title: "Building Permit",
-    icon: "mdi-file-document-outline",
-    to: "/admin/ComplianceMonitoring",
+    title: "Compliance Monitoring",
+    icon: "mdi-clipboard-check-multiple-outline",
+    to: "/admin/opmonitoring",
+    hasSubmenu: true,
   },
   {
     title: "Occupancy Permit",
-    icon: "mdi-file-certificate-outline",
-    to: "/admin/opmonitoring",
+    icon: "mdi-key-variant",
+    to: "/inspection",
   },
 ];
-import { ref, computed } from "vue";
-import { useRouter } from "vue-router";
 
 const activeTab = ref("applications");
 const search = ref("");
@@ -272,20 +261,6 @@ const applicants = ref([
     initials: "MS",
     dateSubmitted: "May 8, 2025",
     checklistStatus: "Pending",
-  },
-  {
-    applicationNumber: "OP-2025-002",
-    name: "Noah Deguzman",
-    initials: "ND",
-    dateSubmitted: "June 17, 2025",
-    checklistStatus: "Verified",
-  },
-  {
-    applicationNumber: "OP-2025-003",
-    name: "John Doe",
-    initials: "JD",
-    dateSubmitted: "July 1, 2025",
-    checklistStatus: "Return",
   },
 ]);
 
@@ -384,7 +359,6 @@ const getAvatarColor = (initials) => {
   return defined[initials] ?? stringToHslColor(initials, 45, 75);
 };
 
-// Helper function to determine the route based on the status
 const getRouteForStatus = (status) => {
   switch (status) {
     case "Pending":
@@ -393,9 +367,7 @@ const getRouteForStatus = (status) => {
       return "/admin/OPverified";
     case "Return":
       return "/admin/OPreturn";
-    // Add more cases as needed for other statuses
     default:
-      // Fallback route
       return "/admin/OPdefaultdetails";
   }
 };
@@ -405,7 +377,7 @@ const viewDetails = (item) => {
   const route = getRouteForStatus(status);
 
   router.push({
-    path: route, // Dynamically determined route
+    path: route,
     query: { applicationNumber: item.applicationNumber },
     state: { applicantData: item, isInitialLoad: true },
   });
@@ -420,15 +392,6 @@ const appHeaders = [
 ];
 
 const s = {
-  topToolbar: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: "12px 24px",
-    background: "#fff",
-    borderBottom: "1px solid #e8eaf0",
-  },
-  textToolbar: { color: "#111827" },
   pageContainer: {
     maxWidth: "1460px",
     margin: "16px auto 0",
@@ -495,8 +458,9 @@ const s = {
     fontSize: "12px",
     fontWeight: 700,
   },
+  // UPDATED: Standard Blue Style for the "View Details" button
   viewBtn: {
-    background: "#3b82f6",
+    background: "#3b82f6" /* Blue color for primary action */,
     color: "#fff",
     textTransform: "none",
     fontWeight: 600,
@@ -520,9 +484,138 @@ const statusStyles = {
 </script>
 
 <style scoped>
+.navigation-drawer {
+  background: linear-gradient(180deg, #ffffff 0%, #ffffff 100%) !important;
+  border: none !important;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15) !important;
+  overflow: hidden !important;
+  height: calc(100vh - 88px) !important;
+  top: 88px !important;
+}
+
+.drawer-header {
+  padding: 24px 20px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 8px;
+}
+
+.header-logo-wrapper {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
+}
+.header-logo {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+.header-text {
+  color: #111827;
+}
+
+.header-title {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.5px;
+  color: #111827;
+}
+
+.header-subtitle {
+  font-size: 12px;
+  font-weight: 400;
+  opacity: 0.8;
+  line-height: 1.2;
+  color: #111827;
+}
+
+.nav-content {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 88px);
+  overflow: hidden;
+}
+
+.nav-list {
+  padding: 8px 0 !important;
+  overflow: hidden;
+}
+
+.nav-item {
+  margin: 0 16px 4px 16px !important;
+  border-radius: 8px !important;
+  min-height: 44px !important;
+  padding: 0 16px !important;
+  transition: all 0.2s ease !important;
+}
+
+.nav-item:hover {
+  background-color: #f5f5f5 !important;
+}
+
+.nav-item--active {
+  background-color: #e0f7fa !important;
+  box-shadow: none !important;
+}
+
+.nav-item--active .v-icon {
+  color: #00bcd4 !important;
+}
+
+.nav-item-text {
+  color: #111827 !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.25px !important;
+}
+
+.nav-item--active .nav-item-text {
+  color: #111827 !important;
+  font-weight: 600 !important;
+}
+
+.nav-bottom {
+  margin-top: auto;
+  border-top: 1px solid #e5e7eb;
+  padding-top: 16px;
+}
+
+.logout-item {
+  margin: 0 16px !important;
+  border-radius: 8px !important;
+  min-height: 44px !important;
+  padding: 0 16px !important;
+  transition: all 0.2s ease !important;
+}
+
+.logout-item:hover {
+  background-color: rgba(239, 68, 68, 0.1) !important;
+}
+
+.logout-text {
+  color: #111827 !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+}
+
+.logout-item:hover .logout-text {
+  color: #111827 !important;
+}
+
+.main-content {
+  background-color: #f8fafc !important;
+}
+
 .custom-data-table tr:hover {
   background-color: #f5f5f5 !important;
 }
+
 .custom-data-table tr td {
   border-bottom: 1px solid #e5e7eb;
 }

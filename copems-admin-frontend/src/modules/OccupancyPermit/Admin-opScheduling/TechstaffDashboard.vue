@@ -1,7 +1,11 @@
 <template>
   <v-app>
-    <v-app-bar flat color="#0000CC" dark height="88" app class="elevation-4">
-      <v-container fluid class="d-flex align-center py-0" style="max-width: 100%">
+    <v-app-bar flat color="#ffffff" dark height="88" app class="elevation-4">
+      <v-container
+        fluid
+        class="d-flex align-center py-0 justify-space-between"
+        style="max-width: 100%"
+      >
         <div class="d-flex align-center">
           <v-img
             src="https://www2.naga.gov.ph/wp-content/uploads/2022/05/Naga_City_Official_Seal-1.png"
@@ -12,49 +16,21 @@
             class="me-4"
           />
           <div>
-            <div
-              style="font-size: 12px; font-weight: 400; color: white; line-height: 1.2"
-            >
-              REPUBLIC OF THE PHILIPPINES
-            </div>
-            <div
-              style="font-size: 15px; font-weight: 700; color: white; line-height: 1.2"
-            >
-              CITY GOVERNMENT OF NAGA
-            </div>
+            <div class="header-subtitle">REPUBLIC OF THE PHILIPPINES</div>
+            <div class="header-title">CITY GOVERNMENT OF NAGA</div>
           </div>
         </div>
-      </v-container>
-    </v-app-bar>
-    <v-main style="background-color: #f5f6fa; padding-top: 88px">
-      <div :style="s.heroBanner"></div>
-
-      <div :style="s.topToolbar">
-        <div class="left d-flex align-center">
-          <v-icon color="#3b82f6" class="mr-2">mdi-home-city</v-icon>
-          <h3 class="mb-0 font-weight-bold" :style="s.textToolbar">
-            Occupancy Permit Application
-          </h3>
-        </div>
-        <div class="right d-flex align-center">
+        <!-- Profile section from Testingarea.vue header -->
+        <div class="d-flex align-center">
           <v-menu :close-on-content-click="true" location="bottom end">
             <template #activator="{ props }">
-              <v-btn variant="text" :style="s.profileBtn" v-bind="props">
-                <v-avatar size="32" class="mx-2">
-                  <v-img
-                    alt="Jacque"
-                    src="https://i.pinimg.com/736x/71/84/c9/7184c9d52f44b93a96f09451fdcf6d44.jpg"
-                  />
-                </v-avatar>
+              <v-btn variant="text" class="profile-btn" v-bind="props">
+                <v-avatar size="36" class="mx-2 text-white" color="#5B21B6">JA</v-avatar>
                 <div class="d-flex flex-column text-left">
-                  <span
-                    class="text-caption font-weight-bold"
-                    style="color: #555; white-space: nowrap"
+                  <span class="text-caption font-weight-bold profile-name"
                     >Jacqueline Azada</span
                   >
-                  <span
-                    class="text-caption font-weight-medium"
-                    style="color: #888; white-space: nowrap"
+                  <span class="text-caption font-weight-medium profile-role"
                     >Engineer</span
                   >
                 </div>
@@ -72,12 +48,7 @@
                   </v-list-item-subtitle>
                 </v-list-item>
                 <v-divider class="my-1"></v-divider>
-                <v-list-item to="/profile" link>
-                  <template #prepend>
-                    <v-icon>mdi-account-outline</v-icon>
-                  </template>
-                  <v-list-item-title>My Profile</v-list-item-title>
-                </v-list-item>
+
                 <v-list-item link @click="logOut" class="text-red-darken-1">
                   <template #prepend>
                     <v-icon>mdi-logout</v-icon>
@@ -88,8 +59,9 @@
             </v-card>
           </v-menu>
         </div>
-      </div>
-
+      </v-container>
+    </v-app-bar>
+    <v-main style="background-color: #f5f6fa">
       <div :style="s.pageContainer">
         <v-row class="mb-6">
           <v-col v-for="card in statCards" :key="card.key" cols="12" sm="6" md="3">
@@ -222,14 +194,6 @@ const router = useRouter();
 
 const applicants = ref([
   {
-    applicationNumber: "OP-2025-001",
-    name: "Maria Santos",
-    initials: "MS",
-    dateSubmitted: "May 8, 2025",
-    isVerifiedByAdmin: false,
-    isReturned: false,
-  },
-  {
     applicationNumber: "OP-2025-002",
     name: "Noah Deguzman",
     initials: "ND",
@@ -339,9 +303,11 @@ const viewDetails = (item) => {
   const status = applicantStatus(item);
 
   if (status === "Verified") {
-    router.push("/admin/Opverified");
+    router.push("/admin/VerifiedApplication", {
+      query: { applicationNumber: item.applicationNumber },
+    });
     console.log(
-      `Navigating to /admin/Opverified for verified application: ${item.applicationNumber}`
+      `Navigating to /admin/VerifiedApplication for verified application: ${item.applicationNumber}`
     );
   } else {
     console.log("View Details clicked for:", item);
@@ -460,9 +426,39 @@ const statusStyles = {
 </script>
 
 <style scoped>
+.header-subtitle {
+  font-size: 12px;
+  font-weight: 400;
+  color: #111827;
+  line-height: 1.2;
+}
+
+.header-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #111827;
+  line-height: 1.2;
+}
+
+.profile-btn {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  min-width: unset !important;
+}
+
+.profile-name {
+  color: #555 !important;
+}
+
+.profile-role {
+  color: #888 !important;
+}
+
 .custom-data-table tr:hover {
   background-color: #f5f5f5 !important;
 }
+
 .custom-data-table tr td {
   border-bottom: 1px solid #e5e7eb;
 }
