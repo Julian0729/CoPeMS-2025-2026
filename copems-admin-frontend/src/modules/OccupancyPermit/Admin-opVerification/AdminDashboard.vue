@@ -245,7 +245,7 @@ const navItems = [
   {
     title: "Occupancy Permit",
     icon: "mdi-key-variant",
-    to: "/inspection",
+    to: "/admin/AdminDashboard",
   },
 ];
 

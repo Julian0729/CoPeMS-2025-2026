@@ -14,6 +14,11 @@ const router = createRouter({
           name: "adminLanding",
           component: () => import("@/pages/adminLanding.vue"),
         },
+        {
+          path: "testing",
+          name: "testing",
+          component: () => import("@/pages/testing.vue"),
+        },
       ],
     },
     {
@@ -25,9 +30,7 @@ const router = createRouter({
           path: "ListPlan",
           name: "ListPlan",
           component: () =>
-            import(
-              "@/modules/BuildingPermit/Admin-bpEvaluators/ListPlan.vue"
-            ),
+            import("@/modules/BuildingPermit/Admin-bpEvaluators/ListPlan.vue"),
         },
         {
           path: "PlanInformation",

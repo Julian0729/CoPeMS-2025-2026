@@ -47,12 +47,6 @@
                   </v-list-item-subtitle>
                 </v-list-item>
                 <v-divider class="my-1"></v-divider>
-                <v-list-item to="/profile" link>
-                  <template #prepend>
-                    <v-icon>mdi-account-outline</v-icon>
-                  </template>
-                  <v-list-item-title>My Profile</v-list-item-title>
-                </v-list-item>
                 <v-list-item link @click="logOut" class="text-red-darken-1">
                   <template #prepend>
                     <v-icon>mdi-logout</v-icon>
@@ -457,7 +451,7 @@ const navItems = [
   {
     title: "Occupancy Permit",
     icon: "mdi-key-variant",
-    to: "/inspection",
+    to: "/admin/AdminDashboard",
   },
 ];
 
