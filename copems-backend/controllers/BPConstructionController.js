@@ -9,40 +9,60 @@ const handleDbError = (error, response) => {
   });
 };
 
+// Get all BP Construction records for logged-in user
 async function getAllBpConstructions(request, response) {
   try {
-    const [data] = await pool.query("CALL GetAllBpConstructions()");
+    // SECURITY: Get user_id from JWT token
+    const user_id = request.user.user_id;
+
+    const [data] = await pool.execute(
+      "SELECT * FROM bp_construction WHERE user_id = ? ORDER BY created_at DESC",
+      [user_id]
+    );
+
     response.json({
       success: true,
-      data: data[0],
+      data: data,
     });
   } catch (error) {
     handleDbError(error, response);
   }
 }
 
+// Get BP Construction by ID (with ownership verification)
 async function getBpConstructionById(request, response) {
-  const { id } = request.params;
   try {
-    const [data] = await pool.query("CALL GetBpConstructionById(?)", [id]);
+    // SECURITY: Verify ownership
+    const user_id = request.user.user_id;
+    const { id } = request.params;
 
-    if (data[0].length === 0) {
+    const [data] = await pool.execute(
+      "SELECT * FROM bp_construction WHERE bp_construction_id = ? AND user_id = ?",
+      [id, user_id]
+    );
+
+    if (data.length === 0) {
       return response.status(404).json({
         success: false,
         message: "Construction record not found",
       });
     }
+
     response.json({
       success: true,
-      data: data[0][0],
+      data: data[0],
     });
   } catch (error) {
     return handleDbError(error, response);
   }
 }
 
+// Insert new BP Construction record
 async function insertBpConstruction(request, response) {
   try {
+    // SECURITY: Get user_id from JWT token, NOT from request body
+    const user_id = request.user.user_id;
+
     const {
       barangay,
       blk_no,
@@ -52,24 +72,50 @@ async function insertBpConstruction(request, response) {
       scope_of_work,
     } = request.body;
 
-    const [data] = await pool.query(
-      "CALL InsertBpConstruction(?, ?, ?, ?, ?, ?)",
-      [barangay, blk_no, street, tct_no, current_tax_dec_no, scope_of_work]
+    // Validate required fields
+    if (!barangay) {
+      return response.status(400).json({
+        success: false,
+        message: "Barangay is required",
+      });
+    }
+
+    const [result] = await pool.execute(
+      `INSERT INTO bp_construction (
+        user_id, barangay, blk_no, street, tct_no, 
+        current_tax_dec_no, scope_of_work
+      ) VALUES (?, ?, ?, ?, ?, ?, ?)`,
+      [
+        user_id,
+        barangay,
+        blk_no,
+        street,
+        tct_no,
+        current_tax_dec_no,
+        scope_of_work,
+      ]
     );
 
     response.status(201).json({
       success: true,
-      message: "Construction record inserted successfully",
-      data: data[0][0],
+      message: "Construction record created successfully",
+      data: {
+        bp_construction_id: result.insertId,
+        user_id: user_id,
+      },
     });
   } catch (error) {
     return handleDbError(error, response);
   }
 }
 
+// Update BP Construction record (with ownership verification)
 async function updateBpConstruction(request, response) {
-  const { id } = request.params;
   try {
+    // SECURITY: Verify ownership
+    const user_id = request.user.user_id;
+    const { id } = request.params;
+
     const {
       barangay,
       blk_no,
@@ -79,40 +125,59 @@ async function updateBpConstruction(request, response) {
       scope_of_work,
     } = request.body;
 
-    const [data] = await pool.query(
-      "CALL UpdateBpConstruction(?, ?, ?, ?, ?, ?, ?)",
+    const [result] = await pool.execute(
+      `UPDATE bp_construction 
+       SET barangay = ?, blk_no = ?, street = ?, 
+           tct_no = ?, current_tax_dec_no = ?, scope_of_work = ?,
+           updated_at = NOW()
+       WHERE bp_construction_id = ? AND user_id = ?`,
       [
+        barangay,
+        blk_no,
+        street,
+        tct_no,
+        current_tax_dec_no,
+        scope_of_work,
         id,
-        barangay ?? null,
-        blk_no ?? null,
-        street ?? null,
-        tct_no ?? null,
-        current_tax_dec_no ?? null,
-        scope_of_work ?? null,
+        user_id,
       ]
     );
 
-    if (data[0].length === 0) {
+    if (result.affectedRows === 0) {
       return response.status(404).json({
         success: false,
-        message: "Construction record not found or no changes made",
+        message: "Construction record not found or you don't have permission",
       });
     }
 
     response.json({
       success: true,
       message: "Construction record updated successfully",
-      data: data[0][0],
     });
   } catch (error) {
     return handleDbError(error, response);
   }
 }
 
+// Delete BP Construction record (with ownership verification)
 async function deleteBpConstruction(request, response) {
-  const { id } = request.params;
   try {
-    await pool.query("CALL DeleteBpConstruction(?)", [id]);
+    // SECURITY: Verify ownership before delete
+    const user_id = request.user.user_id;
+    const { id } = request.params;
+
+    const [result] = await pool.execute(
+      "DELETE FROM bp_construction WHERE bp_construction_id = ? AND user_id = ?",
+      [id, user_id]
+    );
+
+    if (result.affectedRows === 0) {
+      return response.status(404).json({
+        success: false,
+        message: "Construction record not found or you don't have permission",
+      });
+    }
+
     response.json({
       success: true,
       message: "Construction record deleted successfully",

@@ -66,6 +66,18 @@
           </v-col>
 
           <v-col cols="12" md="9" class="main-content-bg pa-6">
+            <!-- Auto-save status indicator -->
+            <v-snackbar
+              v-model="isSaving"
+              :timeout="-1"
+              color="primary"
+              location="top right"
+              class="mt-12"
+            >
+              <v-icon left>mdi-cloud-upload</v-icon>
+              Saving to database...
+            </v-snackbar>
+            
             <v-container fluid class="px-4 mx-auto" style="max-width: 1300px">
               <v-stepper
                 v-model="formStepValue"
@@ -412,16 +424,22 @@
 <script>
 import { defineComponent } from "vue";
 import { useRouter } from "vue-router";
+import { useAuthStore } from "@/stores/auth";
+import projectDetailsService from "@/services/projectDetailsService";
 
 export default defineComponent({
   name: "BuildingPermitStep3",
   setup() {
     const router = useRouter();
-    return { router };
+    const authStore = useAuthStore();
+    return { router, authStore };
   },
   data() {
     return {
       formStepValue: "3",
+      projectDetailsId: null,
+      saveTimeout: null,
+      isSaving: false,
       selectedGroup: null,
       selectedCategory: null,
       occupancyClassified: "",
@@ -520,38 +538,296 @@ export default defineComponent({
     selectedGroup() {
       this.selectedCategory = null;
       this.validateForm();
+      this.saveFormData();
+      this.autoSaveToBackend();
     },
-    selectedCategory: "validateForm",
-    occupancyClassified: "validateForm",
-    numberOfUnits: "validateForm",
-    numberOfStorey: "validateForm",
-    totalFloorArea: "validateForm",
-    lotArea: "validateForm",
+    selectedCategory() {
+      this.validateForm();
+      this.saveFormData();
+      this.autoSaveToBackend();
+    },
+    occupancyClassified() {
+      this.validateForm();
+      this.saveFormData();
+      this.autoSaveToBackend();
+    },
+    numberOfUnits() {
+      this.validateForm();
+      this.saveFormData();
+      this.autoSaveToBackend();
+    },
+    numberOfStorey() {
+      this.validateForm();
+      this.saveFormData();
+      this.autoSaveToBackend();
+    },
+    totalFloorArea() {
+      this.validateForm();
+      this.saveFormData();
+      this.autoSaveToBackend();
+    },
+    lotArea() {
+      this.validateForm();
+      this.saveFormData();
+      this.autoSaveToBackend();
+    },
     costBuilding() {
       this.validateForm();
+      this.saveFormData();
+      this.autoSaveToBackend();
     },
     costElectrical() {
       this.validateForm();
+      this.saveFormData();
+      this.autoSaveToBackend();
     },
     costMechanical() {
       this.validateForm();
+      this.saveFormData();
+      this.autoSaveToBackend();
     },
     costElectronics() {
       this.validateForm();
+      this.saveFormData();
+      this.autoSaveToBackend();
     },
     costPlumbing() {
       this.validateForm();
+      this.saveFormData();
+      this.autoSaveToBackend();
     },
     costOthers() {
       this.validateForm();
+      this.saveFormData();
+      this.autoSaveToBackend();
     },
-    proposedDate: "validateForm",
-    expectedDate: "validateForm",
+    proposedDate() {
+      this.validateForm();
+      this.saveFormData();
+      this.autoSaveToBackend();
+    },
+    expectedDate() {
+      this.validateForm();
+      this.saveFormData();
+      this.autoSaveToBackend();
+    },
   },
   mounted() {
+    // Ensure auth is loaded from localStorage
+    this.authStore.checkAuth();
+    this.loadSavedData();
     this.validateForm();
   },
+  beforeUnmount() {
+    // Clear any pending save timeout
+    if (this.saveTimeout) {
+      clearTimeout(this.saveTimeout);
+    }
+    // Save data before leaving the page
+    this.saveFormData();
+  },
   methods: {
+    async autoSaveToBackend() {
+      // Clear existing timeout
+      if (this.saveTimeout) {
+        clearTimeout(this.saveTimeout);
+      }
+
+      // Debounce: wait 1 second after user stops typing
+      this.saveTimeout = setTimeout(async () => {
+        await this.saveToBackend();
+      }, 1000);
+    },
+    
+    async saveToBackend() {
+      if (this.isSaving) return;
+      
+      const userId = this.authStore.currentUser?.id || 
+                     this.authStore.currentUser?.user_id || 
+                     this.authStore.user?.id || 
+                     this.authStore.user?.user_id ||
+                     this.authStore.userId;
+      
+      if (!userId) {
+        console.warn('⚠️ No user logged in, cannot save to backend');
+        console.warn('Auth Store:', this.authStore);
+        return;
+      }
+
+      // Don't save if form is empty
+      if (!this.selectedGroup && !this.selectedCategory && !this.numberOfUnits) {
+        console.log('ℹ️ Form is empty, skipping save');
+        return;
+      }
+
+      this.isSaving = true;
+      console.log('💾 Attempting to save to database...');
+
+      try {
+        const projectDetailsData = {
+          occupancy_classified: this.selectedGroup && this.selectedCategory ? `${this.selectedGroup} - ${this.selectedCategory}` : null,
+          total_estimated_cost: parseFloat(this.totalEstimatedCostComputed.replace(/,/g, '')) || 0,
+          number_of_units: parseInt(this.numberOfUnits) || null,
+          number_of_storey: parseInt(this.numberOfStorey) || null,
+          total_floor_area_sqm: parseFloat(this.totalFloorArea.replace(/,/g, '')) || null,
+          lot_area_sqm: parseFloat(this.lotArea.replace(/,/g, '')) || null,
+          building_cost: parseFloat(this.costBuilding.replace(/,/g, '')) || 0,
+          electrical_cost: parseFloat(this.costElectrical.replace(/,/g, '')) || 0,
+          mechanical_cost: parseFloat(this.costMechanical.replace(/,/g, '')) || 0,
+          electronics_cost: parseFloat(this.costElectronics.replace(/,/g, '')) || 0,
+          plumbing_cost: parseFloat(this.costPlumbing.replace(/,/g, '')) || 0,
+          others_cost: parseFloat(this.costOthers.replace(/,/g, '')) || 0,
+          proposed_date_of_construction: this.proposedDate || null,
+          expected_date_of_completion: this.expectedDate || null,
+          application_id: null,
+        };
+
+        let result;
+        if (this.projectDetailsId) {
+          // Update existing record
+          console.log(`📝 Updating existing record ID: ${this.projectDetailsId}`);
+          result = await projectDetailsService.update(this.projectDetailsId, projectDetailsData);
+        } else {
+          // Create new record
+          console.log('✨ Creating new record');
+          result = await projectDetailsService.create(projectDetailsData);
+          
+          // Store the ID for future updates
+          if (result.success && result.data?.data?.project_details_id) {
+            this.projectDetailsId = result.data.data.project_details_id;
+            console.log(`✓ Record created with ID: ${this.projectDetailsId}`);
+          }
+        }
+
+        if (result.success) {
+          console.log('✅ Auto-saved to database successfully!');
+        } else {
+          console.error('❌ Failed to save:', result.message);
+        }
+      } catch (error) {
+        console.error('❌ Error auto-saving to backend:', error.message);
+        console.error('Error details:', error);
+      } finally {
+        this.isSaving = false;
+      }
+    },
+    
+    saveFormData() {
+      const userId = this.authStore.currentUser?.id || 
+                     this.authStore.currentUser?.user_id || 
+                     this.authStore.user?.id || 
+                     this.authStore.user?.user_id ||
+                     this.authStore.userId;
+      
+      if (!userId) {
+        console.warn('No user logged in, cannot save form data');
+        console.log('Auth Store:', this.authStore);
+        return;
+      }
+
+      const formData = {
+        userId: userId,
+        selectedGroup: this.selectedGroup,
+        selectedCategory: this.selectedCategory,
+        occupancyClassified: this.occupancyClassified,
+        numberOfUnits: this.numberOfUnits,
+        numberOfStorey: this.numberOfStorey,
+        totalFloorArea: this.totalFloorArea,
+        lotArea: this.lotArea,
+        costBuilding: this.costBuilding,
+        costElectrical: this.costElectrical,
+        costMechanical: this.costMechanical,
+        costElectronics: this.costElectronics,
+        costPlumbing: this.costPlumbing,
+        costOthers: this.costOthers,
+        proposedDate: this.proposedDate,
+        expectedDate: this.expectedDate,
+      };
+      const storageKey = `bpCharacterFormData_user_${userId}`;
+      localStorage.setItem(storageKey, JSON.stringify(formData));
+    },
+    async loadSavedData() {
+      const userId = this.authStore.currentUser?.id || 
+                     this.authStore.currentUser?.user_id || 
+                     this.authStore.user?.id || 
+                     this.authStore.user?.user_id ||
+                     this.authStore.userId;
+      
+      if (!userId) {
+        console.warn('No user logged in, cannot load form data');
+        console.log('Auth Store:', this.authStore);
+        return;
+      }
+
+      // Try to load from backend first
+      try {
+        // Use the service to get all project details for the authenticated user
+        const result = await projectDetailsService.getAll();
+
+        if (result.success && result.data?.data && result.data.data.length > 0) {
+          // Get the latest project details (first in array)
+          const backendData = result.data.data[0];
+          
+          // Store the project_details_id for updates
+          this.projectDetailsId = backendData.project_details_id;
+          
+          // Parse the occupancy_classified to extract group and category
+          if (backendData.occupancy_classified) {
+            const parts = backendData.occupancy_classified.split(' - ');
+            this.selectedGroup = parts[0] || null;
+            this.selectedCategory = parts[1] || null;
+          }
+          this.occupancyClassified = backendData.occupancy_classified || '';
+          this.numberOfUnits = backendData.number_of_units?.toString() || '';
+          this.numberOfStorey = backendData.number_of_storey?.toString() || '';
+          this.totalFloorArea = backendData.total_floor_area_sqm ? this.formatNumberValue(backendData.total_floor_area_sqm) : '';
+          this.lotArea = backendData.lot_area_sqm ? this.formatNumberValue(backendData.lot_area_sqm) : '';
+          this.costBuilding = backendData.building_cost ? this.formatNumberValue(backendData.building_cost) : '';
+          this.costElectrical = backendData.electrical_cost ? this.formatNumberValue(backendData.electrical_cost) : '';
+          this.costMechanical = backendData.mechanical_cost ? this.formatNumberValue(backendData.mechanical_cost) : '';
+          this.costElectronics = backendData.electronics_cost ? this.formatNumberValue(backendData.electronics_cost) : '';
+          this.costPlumbing = backendData.plumbing_cost ? this.formatNumberValue(backendData.plumbing_cost) : '';
+          this.costOthers = backendData.others_cost ? this.formatNumberValue(backendData.others_cost) : '';
+          this.proposedDate = backendData.proposed_date_of_construction || '';
+          this.expectedDate = backendData.expected_date_of_completion || '';
+          console.log('Form data loaded from backend');
+          return;
+        }
+      } catch (error) {
+        console.log('No backend data found, trying localStorage:', error.message);
+      }
+
+      // Fallback to localStorage if backend data not found
+      const storageKey = `bpCharacterFormData_user_${userId}`;
+      const savedData = localStorage.getItem(storageKey);
+      if (savedData) {
+        try {
+          const formData = JSON.parse(savedData);
+          this.selectedGroup = formData.selectedGroup || null;
+          this.selectedCategory = formData.selectedCategory || null;
+          this.occupancyClassified = formData.occupancyClassified || '';
+          this.numberOfUnits = formData.numberOfUnits || '';
+          this.numberOfStorey = formData.numberOfStorey || '';
+          this.totalFloorArea = formData.totalFloorArea || '';
+          this.lotArea = formData.lotArea || '';
+          this.costBuilding = formData.costBuilding || '';
+          this.costElectrical = formData.costElectrical || '';
+          this.costMechanical = formData.costMechanical || '';
+          this.costElectronics = formData.costElectronics || '';
+          this.costPlumbing = formData.costPlumbing || '';
+          this.costOthers = formData.costOthers || '';
+          this.proposedDate = formData.proposedDate || '';
+          this.expectedDate = formData.expectedDate || '';
+          console.log('Form data loaded from localStorage');
+        } catch (error) {
+          console.error('Error loading saved form data:', error);
+        }
+      }
+    },
+    formatNumberValue(value) {
+      // Format number with commas
+      return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    },
     isNumber(event) {
       const charCode = event.which ? event.which : event.keyCode;
       if (
@@ -599,12 +875,46 @@ export default defineComponent({
         isDropdownSelected && projectDetailsFilled && isTotalCostValid;
     },
     async goToNextFormStep() {
-      if (this.$refs.form) {
-        const { valid } = await this.$refs.form.validate();
-        if (valid) {
-          this.formStepValue = "4";
-          this.router.push("/Applicant/bpsignatories");
-        }
+      // Validate form data manually
+      if (!this.formValid) {
+        alert('Please fill in all required fields before proceeding.');
+        return;
+      }
+
+      // Try multiple ways to get user ID
+      const userId = this.authStore.currentUser?.id || 
+                     this.authStore.currentUser?.user_id || 
+                     this.authStore.user?.id || 
+                     this.authStore.user?.user_id ||
+                     this.authStore.userId;
+      
+      console.log('Auth Store:', this.authStore);
+      console.log('Current User:', this.authStore.currentUser);
+      console.log('User ID:', userId);
+      
+      if (!userId) {
+        alert('You must be logged in to save data. Please log in again.');
+        this.router.push('/login');
+        return;
+      }
+
+      try {
+        // Ensure data is saved to backend before proceeding
+        await this.saveToBackend();
+        
+        // Wait a bit to ensure the save completed
+        await new Promise(resolve => setTimeout(resolve, 500));
+
+        console.log("Project details saved successfully");
+        // Save to localStorage as backup
+        this.saveFormData();
+        // Navigate to bpsignatories page
+        this.router.push("/Applicant/bpsignatories");
+      } catch (error) {
+        console.error("Error submitting project details:", error);
+        alert(
+          "An error occurred while saving data. Please check your connection and try again."
+        );
       }
     },
 

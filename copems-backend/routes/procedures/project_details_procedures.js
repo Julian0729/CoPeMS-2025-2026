@@ -19,11 +19,23 @@ export async function createProcedures(knex) {
     END
   `);
 
+  await knex.raw(`DROP PROCEDURE IF EXISTS GetProjectDetailsByUserId`);
+  await knex.raw(`
+    CREATE PROCEDURE GetProjectDetailsByUserId(IN p_user_id INT)
+    BEGIN
+      SELECT * FROM project_details
+      WHERE user_id = p_user_id
+      ORDER BY updated_at DESC
+      LIMIT 1;
+    END
+  `);
+
   // --- CREATE Procedure ---
 
   await knex.raw(`DROP PROCEDURE IF EXISTS InsertProjectDetails`);
   await knex.raw(`
     CREATE PROCEDURE InsertProjectDetails(
+      IN p_user_id INT,
       IN p_application_id INT,
       IN p_occupancy_classified VARCHAR(255),
       IN p_total_estimated_cost DECIMAL(14, 2),
@@ -41,7 +53,9 @@ export async function createProcedures(knex) {
       IN p_expected_date_of_completion DATE
     )
     BEGIN
+      -- Always insert new record
       INSERT INTO project_details (
+        user_id,
         application_id,
         occupancy_classified,
         total_estimated_cost,
@@ -58,6 +72,7 @@ export async function createProcedures(knex) {
         proposed_date_of_construction,
         expected_date_of_completion
       ) VALUES (
+        p_user_id,
         p_application_id,
         p_occupancy_classified,
         p_total_estimated_cost,
@@ -77,6 +92,8 @@ export async function createProcedures(knex) {
       
       SELECT * FROM project_details
       WHERE project_details_id = LAST_INSERT_ID();
+    END
+  `);
     END
   `);
 

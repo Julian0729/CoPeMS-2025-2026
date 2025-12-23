@@ -241,7 +241,7 @@
 
                 <v-card class="checklist-section-card mb-4">
                   <v-card-title class="checklist-section-title">
-                    Structural Requirements
+                    Architectural Works
                   </v-card-title>
                   <v-card-text class="pa-0">
                     <div

@@ -137,6 +137,68 @@ class EmailService {
       return false;
     }
   }
+
+  /**
+   * Send password reset email to user
+   * @param {string} userEmail - User's email address
+   * @param {string} userName - User's name
+   * @param {string} resetToken - Unique token for password reset
+   */
+  async sendPasswordResetEmail(userEmail, userName, resetToken) {
+    console.log("🔍 === PASSWORD RESET EMAIL DEBUG START ===");
+    try {
+      const resetUrl = `${process.env.FRONTEND_URL}/reset-password?token=${resetToken}`;
+      console.log("🔗 Reset URL:", resetUrl);
+
+      // EmailJS API payload for password reset
+      const payload = {
+        service_id: this.serviceId,
+        template_id: this.templateId, // You may want to create a separate template for password reset
+        user_id: this.publicKey,
+        template_params: {
+          to_email: userEmail,
+          to_name: userName,
+          user_email: userEmail,
+          user_name: userName,
+          reset_url: resetUrl,
+          reset_token: resetToken,
+          system_name: "COPEMS",
+          expiry_time: "1 hour",
+          from_name: "COPEMS Team",
+          reply_to: "noreply@copems.com",
+          email_type: "password_reset",
+        },
+      };
+
+      console.log("📨 Sending password reset email...");
+
+      const response = await axios.post(this.apiUrl, payload, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        timeout: 30000,
+      });
+
+      console.log("✅ Password reset email sent successfully!");
+      console.log("🔍 === PASSWORD RESET EMAIL DEBUG END ===");
+
+      return {
+        success: true,
+        messageId: response.data,
+        status: response.status,
+      };
+    } catch (error) {
+      console.error("❌ Failed to send password reset email");
+      console.error("Error:", error.message);
+      console.log("🔍 === PASSWORD RESET EMAIL DEBUG END ===");
+
+      return {
+        success: false,
+        error: error.response?.data || error.message,
+        status: error.response?.status,
+      };
+    }
+  }
 }
 
 export default new EmailService();

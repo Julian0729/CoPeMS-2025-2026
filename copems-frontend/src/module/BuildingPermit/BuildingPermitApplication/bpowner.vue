@@ -375,7 +375,9 @@ export default defineComponent({
         }
 
         if (result.success) {
-          this.snackbarMessage = "Building owner data saved successfully!";
+          this.snackbarMessage = this.buildingOwnerId
+            ? "Building owner information updated successfully!"
+            : "Building owner information saved successfully!";
           this.snackbarColor = "success";
           this.snackbar = true;
 
@@ -392,17 +394,20 @@ export default defineComponent({
 
           return true;
         } else {
-          this.snackbarMessage = result.message || "Failed to save building owner data";
+          this.snackbarMessage =
+            result.message || "Failed to save building owner information";
           this.snackbarColor = "error";
           this.snackbar = true;
-          console.error("Error saving building owner data:", result.error);
+          console.error("Save error:", result.error);
           return false;
         }
       } catch (error) {
-        this.snackbarMessage = "An unexpected error occurred";
+        this.snackbarMessage =
+          error.response?.data?.message ||
+          "An unexpected error occurred. Please try again.";
         this.snackbarColor = "error";
         this.snackbar = true;
-        console.error("Error in saveBuildingOwner:", error);
+        console.error("Error saving building owner:", error);
         return false;
       } finally {
         this.saving = false;
@@ -415,8 +420,15 @@ export default defineComponent({
         // Save data before proceeding
         const saved = await this.saveBuildingOwner();
         if (saved) {
-          this.$router.push("/applicant/bpconstruction");
+          // Wait a moment for the snackbar to show, then navigate
+          setTimeout(() => {
+            this.$router.push("/applicant/bpconstruction");
+          }, 1000);
         }
+      } else {
+        this.snackbarMessage = "Please fill in all required fields";
+        this.snackbarColor = "warning";
+        this.snackbar = true;
       }
     },
 

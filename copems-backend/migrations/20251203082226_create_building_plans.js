@@ -11,6 +11,15 @@ export async function up(knex) {
     await knex.schema.createTable(tableName, function (table) {
       table.increments("plan_id").primary();
 
+      // Foreign key to user_account
+      table.integer("user_id").unsigned().notNullable();
+      table
+        .foreign("user_id")
+        .references("User_ID")
+        .inTable("user_account")
+        .onDelete("CASCADE")
+        .onUpdate("CASCADE");
+
       // Foreign key to link to the main application (if one exists)
       table.integer("application_id").unsigned().nullable();
       // table.foreign("application_id").references("application_id").inTable("applications");
@@ -25,6 +34,9 @@ export async function up(knex) {
       // Metadata
       table.timestamp("uploaded_at").defaultTo(knex.fn.now());
       table.timestamps(true, true);
+
+      // Index for faster user queries
+      table.index("user_id");
     });
   }
 
