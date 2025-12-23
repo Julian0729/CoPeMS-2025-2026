@@ -55,7 +55,10 @@ async function testAPI() {
 
     if (saveResponse.data.success) {
       console.log("✓ Project details saved successfully!");
-      console.log("Project Details ID:", saveResponse.data.data.project_details_id);
+      console.log(
+        "Project Details ID:",
+        saveResponse.data.data.project_details_id
+      );
     } else {
       console.error("❌ Failed to save:", saveResponse.data.message);
     }

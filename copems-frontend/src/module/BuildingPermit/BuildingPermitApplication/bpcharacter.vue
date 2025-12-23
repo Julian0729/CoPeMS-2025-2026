@@ -77,7 +77,7 @@
               <v-icon left>mdi-cloud-upload</v-icon>
               Saving to database...
             </v-snackbar>
-            
+
             <v-container fluid class="px-4 mx-auto" style="max-width: 1300px">
               <v-stepper
                 v-model="formStepValue"
@@ -638,16 +638,16 @@ export default defineComponent({
         await this.saveToBackend();
       }, 1000);
     },
-    
+
     async saveToBackend() {
       if (this.isSaving) return;
-      
-      const userId = this.authStore.currentUser?.id || 
-                     this.authStore.currentUser?.user_id || 
-                     this.authStore.user?.id || 
+
+      const userId = this.authStore.currentUser?.id ||
+                     this.authStore.currentUser?.user_id ||
+                     this.authStore.user?.id ||
                      this.authStore.user?.user_id ||
                      this.authStore.userId;
-      
+
       if (!userId) {
         console.warn('⚠️ No user logged in, cannot save to backend');
         console.warn('Auth Store:', this.authStore);
@@ -691,7 +691,7 @@ export default defineComponent({
           // Create new record
           console.log('✨ Creating new record');
           result = await projectDetailsService.create(projectDetailsData);
-          
+
           // Store the ID for future updates
           if (result.success && result.data?.data?.project_details_id) {
             this.projectDetailsId = result.data.data.project_details_id;
@@ -711,14 +711,14 @@ export default defineComponent({
         this.isSaving = false;
       }
     },
-    
+
     saveFormData() {
-      const userId = this.authStore.currentUser?.id || 
-                     this.authStore.currentUser?.user_id || 
-                     this.authStore.user?.id || 
+      const userId = this.authStore.currentUser?.id ||
+                     this.authStore.currentUser?.user_id ||
+                     this.authStore.user?.id ||
                      this.authStore.user?.user_id ||
                      this.authStore.userId;
-      
+
       if (!userId) {
         console.warn('No user logged in, cannot save form data');
         console.log('Auth Store:', this.authStore);
@@ -747,12 +747,12 @@ export default defineComponent({
       localStorage.setItem(storageKey, JSON.stringify(formData));
     },
     async loadSavedData() {
-      const userId = this.authStore.currentUser?.id || 
-                     this.authStore.currentUser?.user_id || 
-                     this.authStore.user?.id || 
+      const userId = this.authStore.currentUser?.id ||
+                     this.authStore.currentUser?.user_id ||
+                     this.authStore.user?.id ||
                      this.authStore.user?.user_id ||
                      this.authStore.userId;
-      
+
       if (!userId) {
         console.warn('No user logged in, cannot load form data');
         console.log('Auth Store:', this.authStore);
@@ -767,10 +767,10 @@ export default defineComponent({
         if (result.success && result.data?.data && result.data.data.length > 0) {
           // Get the latest project details (first in array)
           const backendData = result.data.data[0];
-          
+
           // Store the project_details_id for updates
           this.projectDetailsId = backendData.project_details_id;
-          
+
           // Parse the occupancy_classified to extract group and category
           if (backendData.occupancy_classified) {
             const parts = backendData.occupancy_classified.split(' - ');
@@ -882,16 +882,16 @@ export default defineComponent({
       }
 
       // Try multiple ways to get user ID
-      const userId = this.authStore.currentUser?.id || 
-                     this.authStore.currentUser?.user_id || 
-                     this.authStore.user?.id || 
+      const userId = this.authStore.currentUser?.id ||
+                     this.authStore.currentUser?.user_id ||
+                     this.authStore.user?.id ||
                      this.authStore.user?.user_id ||
                      this.authStore.userId;
-      
+
       console.log('Auth Store:', this.authStore);
       console.log('Current User:', this.authStore.currentUser);
       console.log('User ID:', userId);
-      
+
       if (!userId) {
         alert('You must be logged in to save data. Please log in again.');
         this.router.push('/login');
@@ -901,7 +901,7 @@ export default defineComponent({
       try {
         // Ensure data is saved to backend before proceeding
         await this.saveToBackend();
-        
+
         // Wait a bit to ensure the save completed
         await new Promise(resolve => setTimeout(resolve, 500));
 

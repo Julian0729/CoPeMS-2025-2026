@@ -1,10 +1,10 @@
-import api from './api';
+import api from "./api";
 
 const projectDetailsService = {
   // Create a new Project Details record
   async create(data) {
     try {
-      const response = await api.post('/project_details', data);
+      const response = await api.post("/project_details", data);
       return {
         success: true,
         data: response.data,
@@ -12,7 +12,8 @@ const projectDetailsService = {
     } catch (error) {
       return {
         success: false,
-        message: error.response?.data?.message || 'Failed to create project details',
+        message:
+          error.response?.data?.message || "Failed to create project details",
         error: error.response?.data?.error || error.message,
       };
     }
@@ -21,7 +22,7 @@ const projectDetailsService = {
   // Get all Project Details records for the authenticated user
   async getAll() {
     try {
-      const response = await api.get('/project_details');
+      const response = await api.get("/project_details");
       return {
         success: true,
         data: response.data,
@@ -29,7 +30,8 @@ const projectDetailsService = {
     } catch (error) {
       return {
         success: false,
-        message: error.response?.data?.message || 'Failed to fetch project details',
+        message:
+          error.response?.data?.message || "Failed to fetch project details",
         error: error.response?.data?.error || error.message,
       };
     }
@@ -46,7 +48,8 @@ const projectDetailsService = {
     } catch (error) {
       return {
         success: false,
-        message: error.response?.data?.message || 'Failed to fetch project details',
+        message:
+          error.response?.data?.message || "Failed to fetch project details",
         error: error.response?.data?.error || error.message,
       };
     }
@@ -63,7 +66,8 @@ const projectDetailsService = {
     } catch (error) {
       return {
         success: false,
-        message: error.response?.data?.message || 'Failed to update project details',
+        message:
+          error.response?.data?.message || "Failed to update project details",
         error: error.response?.data?.error || error.message,
       };
     }
@@ -80,7 +84,8 @@ const projectDetailsService = {
     } catch (error) {
       return {
         success: false,
-        message: error.response?.data?.message || 'Failed to delete project details',
+        message:
+          error.response?.data?.message || "Failed to delete project details",
         error: error.response?.data?.error || error.message,
       };
     }
