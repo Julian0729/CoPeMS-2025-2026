@@ -1,7 +1,8 @@
 {
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
-    "axios": "^1.13.2"
+    "axios": "^1.13.2",
+    "mysql": "^2.18.1"
   },
   "devDependencies": {
     "knex": "^3.1.0"
