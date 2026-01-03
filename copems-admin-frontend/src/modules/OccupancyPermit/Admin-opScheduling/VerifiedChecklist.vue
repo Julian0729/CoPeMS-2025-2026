@@ -1,7 +1,11 @@
 <template>
   <v-app>
-    <v-app-bar flat color="#0000CC" dark height="88" app class="elevation-4">
-      <v-container fluid class="d-flex align-center py-0" style="max-width: 100%">
+    <v-app-bar flat color="#ffffff" dark height="88" app class="elevation-4">
+      <v-container
+        fluid
+        class="d-flex align-center py-0 justify-space-between"
+        style="max-width: 100%"
+      >
         <div class="d-flex align-center">
           <v-img
             src="https://www2.naga.gov.ph/wp-content/uploads/2022/05/Naga_City_Official_Seal-1.png"
@@ -12,78 +16,49 @@
             class="me-4"
           />
           <div>
-            <div
-              style="font-size: 12px; font-weight: 400; color: white; line-height: 1.2"
-            >
-              REPUBLIC OF THE PHILIPPINES
-            </div>
-            <div
-              style="font-size: 15px; font-weight: 700; color: white; line-height: 1.2"
-            >
-              CITY GOVERNMENT OF NAGA
-            </div>
+            <div class="header-subtitle">REPUBLIC OF THE PHILIPPINES</div>
+            <div class="header-title">CITY GOVERNMENT OF NAGA</div>
           </div>
         </div>
+        <div class="d-flex align-center">
+          <v-menu :close-on-content-click="true" location="bottom end">
+            <template #activator="{ props }">
+              <v-btn variant="text" class="profile-btn" v-bind="props">
+                <v-avatar size="36" class="mx-2 text-white" color="#5B21B6">JA</v-avatar>
+                <div class="d-flex flex-column text-left">
+                  <span class="text-caption font-weight-bold profile-name"
+                    >Jacqueline Azada</span
+                  >
+                  <span class="text-caption font-weight-medium profile-role"
+                    >Engineer</span
+                  >
+                </div>
+                <v-icon class="ml-1" size="small">mdi-chevron-down</v-icon>
+              </v-btn>
+            </template>
+            <v-card min-width="250" class="mt-1">
+              <v-list density="compact" nav>
+                <v-list-item>
+                  <v-list-item-title class="font-weight-bold">
+                    Jacqueline Azada
+                  </v-list-item-title>
+                  <v-list-item-subtitle>
+                    jacqueline.azada@nagacity.gov.ph
+                  </v-list-item-subtitle>
+                </v-list-item>
+                <v-divider class="my-1"></v-divider>
+
+                <v-list-item link @click="logOut" class="text-red-darken-1">
+                  <template #prepend>
+                    <v-icon>mdi-logout</v-icon>
+                  </template>
+                  <v-list-item-title>Log Out</v-list-item-title>
+                </v-list-item>
+              </v-list>
+            </v-card>
+          </v-menu>
+        </div>
       </v-container>
-    </v-app-bar>
-    <v-app-bar app fixed color="white" elevation="1" height="64">
-      <v-toolbar-title class="title-inline">
-        <v-icon color="#3b82f6" class="mr-2">mdi-home-city</v-icon>
-        <span class="title-text">Occupancy Permit Application</span>
-      </v-toolbar-title>
-
-      <v-spacer></v-spacer>
-
-      <v-menu :close-on-content-click="true" location="bottom end">
-        <template #activator="{ props }">
-          <v-btn variant="text" :style="s.profileBtn" v-bind="props">
-            <v-avatar size="32" class="mx-2">
-              <v-img
-                alt="Jacque"
-                src="https://i.pinimg.com/736x/71/84/c9/7184c9d52f44b93a96f09451fdcf6d44.jpg"
-              />
-            </v-avatar>
-            <div class="d-flex flex-column text-left hidden-sm-and-down">
-              <span
-                class="text-caption font-weight-bold"
-                style="color: #555; white-space: nowrap"
-                >Jacqueline Azada</span
-              >
-              <span
-                class="text-caption font-weight-medium"
-                style="color: #888; white-space: nowrap"
-                >Engineer</span
-              >
-            </div>
-            <v-icon class="ml-1" size="small">mdi-chevron-down</v-icon>
-          </v-btn>
-        </template>
-        <v-card min-width="250" class="mt-1">
-          <v-list density="compact" nav>
-            <v-list-item>
-              <v-list-item-title class="font-weight-bold">
-                Jacqueline Azada
-              </v-list-item-title>
-              <v-list-item-subtitle>
-                jacqueline.azada@nagacity.gov.ph
-              </v-list-item-subtitle>
-            </v-list-item>
-            <v-divider class="my-1"></v-divider>
-            <v-list-item to="/profile" link>
-              <template #prepend>
-                <v-icon>mdi-account-outline</v-icon>
-              </template>
-              <v-list-item-title>My Profile</v-list-item-title>
-            </v-list-item>
-            <v-list-item link @click="logOut" class="text-red-darken-1">
-              <template #prepend>
-                <v-icon>mdi-logout</v-icon>
-              </template>
-              <v-list-item-title>Log Out</v-list-item-title>
-            </v-list-item>
-          </v-list>
-        </v-card>
-      </v-menu>
     </v-app-bar>
 
     <v-main style="background-color: #f5f6fa">
@@ -93,45 +68,51 @@
           Back to Application
         </v-btn>
 
-        <v-card class="mx-auto pa-4 pa-md-6" max-width="1200" rounded="lg" elevation="4">
-          <div class="d-flex justify-space-between align-center mb-4">
-            <div class="d-flex align-center">
-              <v-icon color="#1e3a8a" class="mr-3" size="25"
-                >mdi-checkbox-multiple-marked-outline</v-icon
-              >
-              <h2 class="text-h8 font-weight-bold text-grey-darken-4">
-                Occupancy Requirement Checklist
-              </h2>
+        <v-card
+          class="mx-auto pa-6 pa-md-8 checklist-card"
+          max-width="1200"
+          rounded="xl"
+          elevation="0"
+        >
+          <div class="header-section">
+            <div class="title-section">
+              <div class="icon-wrapper">
+                <v-icon class="checklist-icon">mdi-clipboard-check-outline</v-icon>
+              </div>
+              <div class="title-content">
+                <h1 class="checklist-title">Occupancy Requirements</h1>
+                <p class="checklist-subtitle">
+                  Verification checklist for occupancy permit application
+                </p>
+              </div>
             </div>
-            <v-chip color="green-darken-2" label size="large" class="font-weight-bold">
-              <v-icon start icon="mdi-check-circle-outline"></v-icon>
-              Verified
-            </v-chip>
+            <div class="status-wrapper">
+              <div class="status-chip">
+                <v-icon class="status-icon">mdi-check-circle</v-icon>
+                <span class="status-text">Verified</span>
+              </div>
+            </div>
           </div>
 
-          <v-divider class="mb-4"></v-divider>
+          <div class="divider-section"></div>
 
-          <v-list lines="two" density="comfortable" class="bg-transparent">
+          <v-list class="checklist-list">
             <v-list-item
               v-for="(item, index) in checklistItems"
               :key="index"
-              class="mb-2 pa-0"
-              :class="{ 'border-b': index < checklistItems.length - 1 }"
+              class="checklist-item"
             >
               <template #prepend>
-                <v-icon color="success" size="24" class="mr-3">mdi-check-circle</v-icon>
+                <div class="check-icon-wrapper">
+                  <v-icon class="check-icon">mdi-check</v-icon>
+                </div>
               </template>
-              <v-list-item-title
-                class="font-weight-medium text-body-1 text-grey-darken-3"
-              >
-                {{ item.title }}
-              </v-list-item-title>
-              <v-list-item-subtitle
-                v-if="item.details"
-                class="text-caption text-grey-darken-1"
-              >
-                Details: {{ item.details }}
-              </v-list-item-subtitle>
+              <div class="item-content">
+                <div class="item-title">{{ item.title }}</div>
+                <div v-if="item.details" class="item-details">
+                  {{ item.details }}
+                </div>
+              </div>
             </v-list-item>
           </v-list>
         </v-card>
@@ -187,10 +168,6 @@ const checklistItems = [
     title: "Sketch map indicating the location of the project;",
     details: null,
   },
-  {
-    title: "Others:",
-    details: "Submitted latest version of the site plan and structural analysis.",
-  },
 ];
 
 const logOut = () => {
@@ -198,8 +175,7 @@ const logOut = () => {
 };
 
 const goBack = () => {
-  router.push("/admin/OPverified");
-  console.log("Navigating back to OPverified page.");
+  router.push("/admin/VerifiedApplication", {});
 };
 
 const s = {
@@ -213,20 +189,225 @@ const s = {
 </script>
 
 <style scoped>
-.border-b {
-  border-bottom: 1px solid #e0e0e0;
-  padding-bottom: 8px;
+/* Header Styles */
+.header-subtitle {
+  font-size: 12px;
+  font-weight: 400;
+  color: black;
+  line-height: 1.2;
 }
 
-.title-inline {
-  display: inline-flex;
-  align-items: center;
+.header-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: black;
+  line-height: 1.2;
+}
+
+/* Profile Button */
+.profile-btn {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  min-width: unset !important;
+}
+
+.profile-name {
+  color: #555 !important;
   white-space: nowrap;
 }
-.title-text {
-  color: #111827;
+
+.profile-role {
+  color: #888 !important;
+  white-space: nowrap;
+}
+
+/* Main Card */
+.checklist-card {
+  background: #ffffff;
+  border: 1px solid #f1f5f9;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Header Section */
+.header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 32px;
+  gap: 24px;
+}
+
+.title-section {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  flex: 1;
+}
+
+.icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+
+.checklist-icon {
+  color: white;
+  font-size: 24px;
+}
+
+.title-content {
+  flex: 1;
+}
+
+.checklist-title {
+  font-size: 28px;
   font-weight: 700;
-  font-size: 1rem;
-  line-height: 1;
+  color: #0f172a;
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+
+.checklist-subtitle {
+  font-size: 16px;
+  color: #64748b;
+  margin: 4px 0 0 0;
+  font-weight: 400;
+}
+
+/* Status Chip */
+.status-wrapper {
+  display: flex;
+  align-items: flex-start;
+}
+
+.status-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #d1fae5;
+  color: #059669;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid #a7f3d0;
+}
+
+.status-icon {
+  color: #059669;
+  font-size: 16px;
+}
+
+.status-text {
+  color: #059669;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+/* Divider */
+.divider-section {
+  height: 1px;
+  background: linear-gradient(90deg, #e2e8f0 0%, #cbd5e1 50%, #e2e8f0 100%);
+  margin-bottom: 32px;
+}
+
+/* Checklist List */
+.checklist-list {
+  background: transparent;
+  padding: 0;
+}
+
+.checklist-item {
+  padding: 20px 0;
+  border-bottom: 1px solid #f1f5f9;
+  transition: all 0.2s ease;
+}
+
+.checklist-item:last-child {
+  border-bottom: none;
+}
+
+.checklist-item:hover {
+  background: #f8fafc;
+  border-radius: 8px;
+  padding-left: 12px;
+  padding-right: 12px;
+  margin: 0 -12px;
+}
+
+.check-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background: #10b981;
+  border-radius: 6px;
+  margin-right: 16px;
+  flex-shrink: 0;
+}
+
+.check-icon {
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.item-content {
+  flex: 1;
+}
+
+.item-title {
+  font-size: 16px;
+  font-weight: 500;
+  color: #1e293b;
+  line-height: 1.5;
+  margin-bottom: 4px;
+}
+
+.item-details {
+  font-size: 14px;
+  color: #64748b;
+  font-style: italic;
+  line-height: 1.4;
+}
+
+/* Back Button Enhancement */
+.v-btn {
+  text-transform: none !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .header-section {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .title-section {
+    gap: 12px;
+  }
+
+  .checklist-title {
+    font-size: 24px;
+  }
+
+  .checklist-subtitle {
+    font-size: 14px;
+  }
+
+  .icon-wrapper {
+    width: 40px;
+    height: 40px;
+  }
+
+  .checklist-icon {
+    font-size: 20px;
+  }
 }
 </style>

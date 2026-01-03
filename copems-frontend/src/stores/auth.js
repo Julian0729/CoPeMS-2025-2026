@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import { useDraftStore } from "./draft";
 
 // Backend API base URL
 const API_BASE_URL = "http://localhost:4003/api/user";
@@ -47,9 +48,14 @@ export const useAuthStore = defineStore("auth", {
           };
           this.isAuthenticated = true;
 
-          // Store auth state in localStorage for persistence
-          localStorage.setItem("authToken", data.token);
+          // Store tokens and user data in localStorage
+          localStorage.setItem("accessToken", data.accessToken);
+          localStorage.setItem("refreshToken", data.refreshToken);
           localStorage.setItem("user", JSON.stringify(this.user));
+
+          // Load user's draft data
+          const draftStore = useDraftStore();
+          await draftStore.loadDrafts();
         } else {
           throw new Error(data.message || "Login failed");
         }
@@ -135,24 +141,54 @@ export const useAuthStore = defineStore("auth", {
       }
     },
 
-    logout() {
+    async logout() {
+      const refreshToken = localStorage.getItem("refreshToken");
+
+      // Attempt to revoke refresh token on server
+      if (refreshToken) {
+        try {
+          await fetch(`${API_BASE_URL}/logout`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              refreshToken: refreshToken,
+            }),
+          });
+        } catch (error) {
+          console.error("Logout error:", error);
+          // Continue with logout even if server request fails
+        }
+      }
+
       this.user = null;
       this.isAuthenticated = false;
 
       // Clear stored auth data
-      localStorage.removeItem("authToken");
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
       localStorage.removeItem("user");
+
+      // Clear draft data
+      const draftStore = useDraftStore();
+      draftStore.clearDrafts();
     },
 
     // Check if user is already authenticated (e.g., on app startup)
-    checkAuth() {
-      const token = localStorage.getItem("authToken");
+    async checkAuth() {
+      const accessToken = localStorage.getItem("accessToken");
+      const refreshToken = localStorage.getItem("refreshToken");
       const userData = localStorage.getItem("user");
 
-      if (token && userData) {
+      if ((accessToken || refreshToken) && userData) {
         try {
           this.user = JSON.parse(userData);
           this.isAuthenticated = true;
+
+          // Load user's draft data
+          const draftStore = useDraftStore();
+          await draftStore.loadDrafts();
         } catch (error) {
           // If there's an error parsing user data, clear everything
           this.logout();

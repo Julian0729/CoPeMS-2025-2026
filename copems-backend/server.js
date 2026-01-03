@@ -29,20 +29,26 @@ app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 
 // Routes
 import authRoutes from "./routes/auth.js";
+import draftRoutes from "./routes/draft.js";
 import bldgOwnerRoutes from "./routes/bldg_owner.js";
 import bpConstructionRoutes from "./routes/bp_construction.js";
 import characterOfOccupancyRoutes from "./routes/character_of_occupancy.js";
 import engineerInformationRoutes from "./routes/engineer_information.js";
 import lotRepresentativeRoutes from "./routes/lot_representative.js";
 import buildingPlansRoutes from "./routes/building_plans.js";
+import projectDetailsRoutes from "./routes/project_details.js";
+import occupancyTypeRoutes from "./routes/occupancy_type.js";
 
 app.use("/api/user", authRoutes);
+app.use("/api/draft", draftRoutes);
 app.use("/api/bldg_owner", bldgOwnerRoutes);
 app.use("/api/bp_construction", bpConstructionRoutes);
 app.use("/api/occupancy", characterOfOccupancyRoutes);
 app.use("/api/engineer_information", engineerInformationRoutes);
 app.use("/api/lot_representative", lotRepresentativeRoutes);
 app.use("/api/building_plans", buildingPlansRoutes);
+app.use("/api/project_details", projectDetailsRoutes);
+app.use("/api/occupancy_type", occupancyTypeRoutes);
 
 // Health check endpoint
 app.get("/api/health", (req, res) => {

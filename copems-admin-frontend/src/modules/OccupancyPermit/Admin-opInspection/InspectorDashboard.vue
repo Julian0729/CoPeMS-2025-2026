@@ -1,7 +1,11 @@
 <template>
   <v-app>
-    <v-app-bar flat color="#0000CC" dark height="88" app class="elevation-4">
-      <v-container fluid class="d-flex align-center py-0" style="max-width: 100%">
+    <v-app-bar flat color="#ffffff" dark height="88" app class="elevation-4">
+      <v-container
+        fluid
+        class="d-flex align-center py-0 justify-space-between"
+        style="max-width: 100%"
+      >
         <div class="d-flex align-center">
           <v-img
             src="https://www2.naga.gov.ph/wp-content/uploads/2022/05/Naga_City_Official_Seal-1.png"
@@ -12,143 +16,21 @@
             class="me-4"
           />
           <div>
-            <div
-              style="font-size: 12px; font-weight: 400; color: white; line-height: 1.2"
-            >
-              REPUBLIC OF THE PHILIPPINES
-            </div>
-            <div
-              style="font-size: 15px; font-weight: 700; color: white; line-height: 1.2"
-            >
-              CITY GOVERNMENT OF NAGA
-            </div>
+            <div class="header-subtitle">REPUBLIC OF THE PHILIPPINES</div>
+            <div class="header-title">CITY GOVERNMENT OF NAGA</div>
           </div>
         </div>
-      </v-container>
-    </v-app-bar>
-    <v-main style="background-color: #f5f6fa; padding-top: 88px">
-      <v-dialog v-model="approvalDialog" max-width="500px">
-        <v-card v-if="selectedApplicant" :style="s.dialogCard">
-          <v-card-title :style="s.dialogHeader">
-            <v-icon class="mr-3" color="#fff">mdi-calendar-check</v-icon>
-            <span class="text-h6 font-weight-bold" style="color: #fff"
-              >Schedule Inspection</span
-            >
-            <v-spacer></v-spacer>
-            <v-btn icon variant="text" @click="approvalDialog = false" size="small">
-              <v-icon color="#fff">mdi-close</v-icon>
-            </v-btn>
-          </v-card-title>
-
-          <v-card-text class="pa-6">
-            <v-row>
-              <v-col cols="6">
-                <div class="mb-4">
-                  <div :style="s.label">Inspection Date</div>
-                  <div :style="s.dialogValue">{{ selectedApplicant.date }}</div>
-                </div>
-                <div>
-                  <div :style="s.label">Inspection Time</div>
-                  <div :style="s.dialogValue">{{ selectedApplicant.time }}</div>
-                </div>
-              </v-col>
-
-              <v-col cols="6">
-                <div class="mb-4">
-                  <div :style="s.label">Application Number</div>
-                  <div :style="s.dialogValue">
-                    {{ selectedApplicant.applicationNumber }}
-                  </div>
-                </div>
-                <div>
-                  <div :style="s.label">Applicant Name</div>
-                  <div :style="s.dialogValue">{{ selectedApplicant.name }}</div>
-                </div>
-              </v-col>
-            </v-row>
-
-            <v-col cols="12" class="px-0">
-              <div :style="s.label">Project Location</div>
-              <div :style="s.dialogValue">Barangay Concepcion Grande</div>
-            </v-col>
-          </v-card-text>
-
-          <v-card-actions class="pa-4 pt-0">
-            <v-spacer></v-spacer>
-            <v-btn
-              :style="s.approveBtn"
-              size="large"
-              class="flex-grow-1 mr-2"
-              @click="approveSchedule(selectedApplicant)"
-            >
-              Approve Schedule
-            </v-btn>
-            <v-btn
-              :style="s.rejectBtn"
-              size="large"
-              class="flex-grow-1"
-              @click="rejectSchedule(selectedApplicant)"
-            >
-              Reject Schedule
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-
-      <v-dialog v-model="rejectDialog" max-width="400px">
-        <v-card>
-          <v-card-title class="text-h6 text-red-darken-1 font-weight-bold"
-            >Reject Inspection Schedule</v-card-title
-          >
-          <v-card-text>
-            <v-textarea
-              v-model="rejectionRemarks"
-              label="Remarks / Reason for Rejection"
-              variant="outlined"
-              rows="3"
-              hide-details
-            ></v-textarea>
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn variant="text" @click="rejectDialog = false">Cancel</v-btn>
-            <v-btn
-              color="red"
-              variant="flat"
-              @click="confirmReject(selectedApplicant)"
-              :disabled="!rejectionRemarks"
-              >Confirm Reject</v-btn
-            >
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-
-      <div :style="s.topToolbar">
-        <div class="left d-flex align-center">
-          <v-icon color="#3b82f6" class="mr-2">mdi-home-city</v-icon>
-          <h3 class="mb-0 font-weight-bold" :style="s.textToolbar">
-            Occupancy Permit Application
-          </h3>
-        </div>
-        <div class="right d-flex align-center">
+        <!-- Profile section from Testingarea.vue header -->
+        <div class="d-flex align-center">
           <v-menu :close-on-content-click="true" location="bottom end">
             <template #activator="{ props }">
-              <v-btn variant="text" :style="s.profileBtn" v-bind="props">
-                <v-avatar size="32" class="mx-2">
-                  <v-img
-                    alt="Jacque"
-                    src="https://i.pinimg.com/736x/71/84/c9/7184c9d52f44b93a96f09451fdcf6d44.jpg"
-                  />
-                </v-avatar>
+              <v-btn variant="text" class="profile-btn" v-bind="props">
+                <v-avatar size="36" class="mx-2 text-white" color="#5B21B6">JA</v-avatar>
                 <div class="d-flex flex-column text-left">
-                  <span
-                    class="text-caption font-weight-bold"
-                    style="color: #555; white-space: nowrap"
+                  <span class="text-caption font-weight-bold profile-name"
                     >Jacqueline Azada</span
                   >
-                  <span
-                    class="text-caption font-weight-medium"
-                    style="color: #888; white-space: nowrap"
+                  <span class="text-caption font-weight-medium profile-role"
                     >Engineer</span
                   >
                 </div>
@@ -166,12 +48,7 @@
                   </v-list-item-subtitle>
                 </v-list-item>
                 <v-divider class="my-1"></v-divider>
-                <v-list-item to="/profile" link>
-                  <template #prepend>
-                    <v-icon>mdi-account-outline</v-icon>
-                  </template>
-                  <v-list-item-title>My Profile</v-list-item-title>
-                </v-list-item>
+
                 <v-list-item link @click="logOut" class="text-red-darken-1">
                   <template #prepend>
                     <v-icon>mdi-logout</v-icon>
@@ -182,7 +59,136 @@
             </v-card>
           </v-menu>
         </div>
-      </div>
+      </v-container>
+    </v-app-bar>
+    <v-main style="background-color: #f5f6fa; padding-top: 88px">
+      <!-- Schedule Inspection Dialog -->
+      <v-dialog v-model="approvalDialog" max-width="600px" persistent>
+        <v-card v-if="selectedApplicant" class="schedule-dialog-card">
+          <v-card-title class="schedule-dialog-header pa-5">
+            <v-icon color="#3b82f6" size="28" class="mr-3">mdi-calendar-check</v-icon>
+            <span class="schedule-dialog-title">Schedule Inspection</span>
+            <v-spacer></v-spacer>
+            <v-btn icon variant="text" @click="approvalDialog = false" size="small">
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
+          </v-card-title>
+          <v-divider></v-divider>
+          <v-card-text class="pa-5">
+            <v-row>
+              <v-col cols="6">
+                <div class="mb-4">
+                  <div class="schedule-field-label">Inspection Date</div>
+                  <div class="schedule-field-value">{{ selectedApplicant.date }}</div>
+                </div>
+                <div>
+                  <div class="schedule-field-label">Inspection Time</div>
+                  <div class="schedule-field-value">{{ selectedApplicant.time }}</div>
+                </div>
+              </v-col>
+
+              <v-col cols="6">
+                <div class="mb-4">
+                  <div class="schedule-field-label">Application Number</div>
+                  <div class="schedule-field-value">
+                    {{ selectedApplicant.applicationNumber }}
+                  </div>
+                </div>
+                <div>
+                  <div class="schedule-field-label">Applicant Name</div>
+                  <div class="schedule-field-value">{{ selectedApplicant.name }}</div>
+                </div>
+              </v-col>
+            </v-row>
+
+            <div class="mt-3">
+              <div class="schedule-field-label">Project Location</div>
+              <div class="schedule-field-value">Barangay Concepcion Grande</div>
+            </div>
+          </v-card-text>
+          <v-divider></v-divider>
+          <v-card-actions class="pa-4 d-flex justify-end">
+            <v-btn
+              variant="outlined"
+              color="#ef4444"
+              class="text-none font-weight-medium"
+              size="large"
+              @click="rejectSchedule(selectedApplicant)"
+              style="min-width: 160px; border-width: 2px"
+            >
+              Reject Schedule
+            </v-btn>
+            <v-btn
+              variant="flat"
+              color="#3b82f6"
+              class="text-none font-weight-medium ml-3"
+              size="large"
+              @click="approveSchedule(selectedApplicant)"
+              style="min-width: 160px"
+            >
+              Approve Schedule
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+
+      <!-- Reject Inspection Schedule Dialog -->
+      <v-dialog v-model="rejectDialog" max-width="500px" persistent>
+        <v-card class="reject-dialog-card">
+          <v-card-title class="reject-dialog-header pa-5">
+            <v-icon color="#ef4444" size="28" class="mr-3">mdi-close-circle</v-icon>
+            <span class="reject-dialog-title">Reject Inspection Schedule</span>
+            <v-spacer></v-spacer>
+            <v-btn icon variant="text" @click="rejectDialog = false" size="small">
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
+          </v-card-title>
+          <v-divider></v-divider>
+          <v-card-text class="pa-5">
+            <div class="reject-dialog-subtitle mb-4">
+              Provide a reason for rejecting this inspection schedule
+            </div>
+            <div class="field-label mb-2">
+              Remarks / Reason for Rejection <span class="text-red-darken-2">*</span>
+            </div>
+            <v-textarea
+              v-model="rejectionRemarks"
+              placeholder="Please provide a clear reason for rejecting this schedule..."
+              variant="outlined"
+              rows="3"
+              hide-details
+              class="reject-textarea"
+            ></v-textarea>
+            <div class="text-caption text-grey-darken-1 mt-2">
+              This will be communicated to the applicant
+            </div>
+          </v-card-text>
+          <v-divider></v-divider>
+          <v-card-actions class="pa-4 d-flex justify-end">
+            <v-btn
+              variant="outlined"
+              color="#6b7280"
+              class="text-none font-weight-medium"
+              size="large"
+              @click="rejectDialog = false"
+              style="min-width: 120px"
+            >
+              Cancel
+            </v-btn>
+            <v-btn
+              variant="flat"
+              color="#ef4444"
+              class="text-none font-weight-medium ml-3"
+              size="large"
+              @click="confirmReject(selectedApplicant)"
+              :disabled="!rejectionRemarks"
+              style="min-width: 150px"
+            >
+              Confirm Reject
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
 
       <div :style="s.pageContainer">
         <v-row class="mb-6">
@@ -474,9 +480,9 @@ const viewDetails = (item) => {
     selectedApplicant.value = item;
     approvalDialog.value = true;
   } else if (status === "Approved") {
-    router.push("/admin/reportevaluation");
+    router.push("/admin/ReportInput");
     console.log(
-      `Navigating to /admin/reportevaluation for approved application: ${item.applicationNumber}`
+      `Navigating to /admin/ReportInput for approved application: ${item.applicationNumber}`
     );
   } else {
     console.log("View Details clicked for:", item);
@@ -629,10 +635,116 @@ const statusStyles = {
 </script>
 
 <style scoped>
+.header-subtitle {
+  font-size: 12px;
+  font-weight: 400;
+  color: #111827;
+  line-height: 1.2;
+}
+
+.header-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #111827;
+  line-height: 1.2;
+}
+
+.profile-btn {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  min-width: unset !important;
+}
+
+.profile-name {
+  color: #555 !important;
+}
+
+.profile-role {
+  color: #888 !important;
+}
+
 .custom-data-table tr:hover {
   background-color: #f5f5f5 !important;
 }
+
 .custom-data-table tr td {
   border-bottom: 1px solid #e5e7eb;
+}
+
+/* Schedule Dialog Styles */
+.schedule-dialog-card {
+  border-radius: 12px !important;
+}
+
+.schedule-dialog-header {
+  background-color: #f9fafb;
+  display: flex;
+  align-items: center;
+}
+
+.schedule-dialog-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.schedule-dialog-subtitle {
+  font-size: 14px;
+  color: #6b7280;
+  line-height: 1.5;
+}
+
+.schedule-field-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  letter-spacing: 0.5px;
+}
+
+.schedule-field-value {
+  font-size: 15px;
+  font-weight: 500;
+  color: #111827;
+}
+
+/* Reject Dialog Styles */
+.reject-dialog-card {
+  border-radius: 12px !important;
+}
+
+.reject-dialog-header {
+  background-color: #f9fafb;
+  display: flex;
+  align-items: center;
+}
+
+.reject-dialog-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.reject-dialog-subtitle {
+  font-size: 14px;
+  color: #6b7280;
+  line-height: 1.5;
+}
+
+.field-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.reject-textarea :deep(.v-field) {
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.reject-textarea :deep(.v-field__input) {
+  padding: 12px;
 }
 </style>

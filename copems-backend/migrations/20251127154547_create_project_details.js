@@ -10,6 +10,15 @@ export async function up(knex) {
     await knex.schema.createTable("project_details", function (table) {
       table.increments("project_details_id").primary();
 
+      // Foreign key to user_account
+      table.integer("user_id").unsigned().notNullable();
+      table
+        .foreign("user_id")
+        .references("User_ID")
+        .inTable("user_account")
+        .onDelete("CASCADE")
+        .onUpdate("CASCADE");
+
       table.integer("application_id").unsigned().nullable();
 
       table.string("occupancy_classified", 255).notNullable();
@@ -36,6 +45,9 @@ export async function up(knex) {
       table.date("expected_date_of_completion").nullable();
 
       table.timestamps(true, true);
+
+      // Index for faster user queries
+      table.index("user_id");
     });
   }
 

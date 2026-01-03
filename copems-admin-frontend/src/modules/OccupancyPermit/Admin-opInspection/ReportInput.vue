@@ -1,7 +1,11 @@
 <template>
   <v-app>
-    <v-app-bar flat color="#0000CC" dark height="88" app class="elevation-4">
-      <v-container fluid class="d-flex align-center py-0" style="max-width: 100%">
+    <v-app-bar flat color="#ffffff" dark height="88" app class="elevation-4">
+      <v-container
+        fluid
+        class="d-flex align-center py-0 justify-space-between"
+        style="max-width: 100%"
+      >
         <div class="d-flex align-center">
           <v-img
             src="https://www2.naga.gov.ph/wp-content/uploads/2022/05/Naga_City_Official_Seal-1.png"
@@ -12,47 +16,21 @@
             class="me-4"
           />
           <div>
-            <div
-              style="font-size: 12px; font-weight: 400; color: white; line-height: 1.2"
-            >
-              REPUBLIC OF THE PHILIPPINES
-            </div>
-            <div
-              style="font-size: 15px; font-weight: 700; color: white; line-height: 1.2"
-            >
-              CITY GOVERNMENT OF NAGA
-            </div>
+            <div class="header-subtitle">REPUBLIC OF THE PHILIPPINES</div>
+            <div class="header-title">CITY GOVERNMENT OF NAGA</div>
           </div>
         </div>
-      </v-container>
-    </v-app-bar>
-    <v-main style="background-color: #f5f6fa; padding-top: 88px">
-      <div :style="s.topToolbar">
-        <div class="left d-flex align-center">
-          <v-icon color="#3b82f6" class="mr-2">mdi-home-city</v-icon>
-          <h3 class="mb-0 font-weight-bold" :style="s.textToolbar">
-            Occupancy Permit Application
-          </h3>
-        </div>
-        <div class="right d-flex align-center">
+        <!-- Profile section from Testingarea.vue header -->
+        <div class="d-flex align-center">
           <v-menu :close-on-content-click="true" location="bottom end">
             <template #activator="{ props }">
-              <v-btn variant="text" :style="s.profileBtn" v-bind="props">
-                <v-avatar size="32" class="mx-2">
-                  <v-img
-                    alt="Jacque"
-                    src="https://i.pinimg.com/736x/71/84/c9/7184c9d52f44b93a96f09451fdcf6d44.jpg"
-                  />
-                </v-avatar>
+              <v-btn variant="text" class="profile-btn" v-bind="props">
+                <v-avatar size="36" class="mx-2 text-white" color="#5B21B6">JA</v-avatar>
                 <div class="d-flex flex-column text-left">
-                  <span
-                    class="text-caption font-weight-bold"
-                    style="color: #555; white-space: nowrap"
+                  <span class="text-caption font-weight-bold profile-name"
                     >Jacqueline Azada</span
                   >
-                  <span
-                    class="text-caption font-weight-medium"
-                    style="color: #888; white-space: nowrap"
+                  <span class="text-caption font-weight-medium profile-role"
                     >Engineer</span
                   >
                 </div>
@@ -70,12 +48,7 @@
                   </v-list-item-subtitle>
                 </v-list-item>
                 <v-divider class="my-1"></v-divider>
-                <v-list-item to="/profile" link>
-                  <template #prepend>
-                    <v-icon>mdi-account-outline</v-icon>
-                  </template>
-                  <v-list-item-title>My Profile</v-list-item-title>
-                </v-list-item>
+
                 <v-list-item link @click="logOut" class="text-red-darken-1">
                   <template #prepend>
                     <v-icon>mdi-logout</v-icon>
@@ -86,331 +59,664 @@
             </v-card>
           </v-menu>
         </div>
-      </div>
-
-      <v-container>
-        <v-card :style="s.reviewCard" class="mx-auto" max-width="800">
-          <v-card-title :style="s.reviewHeader" class="font-weight-bold">
-            Architectural Works
-          </v-card-title>
-          <v-card-text class="pt-4">
-            <v-form ref="reviewFormRef" @submit.prevent="submitReport">
-              <div v-for="(item, index) in checklistItems" :key="index">
-                <div class="d-flex align-center mt-2">
-                  <v-checkbox
-                    v-model="reviewFormData.checkedItems[index]"
-                    :label="item.label"
-                    hide-details
-                    density="compact"
-                  ></v-checkbox>
-                </div>
-                <div class="ml-4">
-                  <v-textarea
-                    v-model="reviewFormData.remarks[index]"
-                    :label="item.remarkLabel"
-                    :placeholder="item.placeholder"
-                    rows="1"
-                    auto-grow
-                    density="compact"
-                    variant="outlined"
-                    class="mt-1 mb-3"
-                    hide-details
-                    style="width: 100%; min-height: 80px"
-                  ></v-textarea>
-                </div>
-              </div>
-
-              <div class="mt-4">
-                <v-checkbox
-                  v-model="reviewFormData.checkedItems[checklistItems.length]"
-                  label="Others"
-                  hide-details
-                  density="compact"
-                ></v-checkbox>
-                <div class="ml-4">
-                  <v-textarea
-                    v-model="reviewFormData.othersRemarks"
-                    label="Enter detailed structural assessment findings..."
-                    placeholder="Enter detailed structural assessment findings..."
-                    rows="1"
-                    auto-grow
-                    density="compact"
-                    variant="outlined"
-                    class="mt-1 mb-3"
-                    hide-details
-                    style="width: 100%; min-height: 80px"
-                  ></v-textarea>
-                </div>
-              </div>
-
-              <div class="d-flex justify-end mt-6">
-                <v-btn
-                  type="submit"
-                  color="#3b82f6"
-                  variant="flat"
-                  size="large"
-                  class="font-weight-bold"
-                >
-                  Submit Report
-                </v-btn>
-              </div>
-            </v-form>
-          </v-card-text>
-        </v-card>
       </v-container>
-
-      <v-dialog v-model="reviewSummaryDialog" max-width="800">
-        <v-card :style="s.dialogCard">
-          <div :style="s.dialogHeader" class="font-weight-bold">
-            Review Architectural Report
-            <v-btn
-              icon="mdi-close"
-              variant="text"
-              size="small"
-              @click="reviewSummaryDialog = false"
-            ></v-btn>
+    </v-app-bar>
+    <v-main class="main-content">
+      <div class="page-container">
+        <!-- Application Header -->
+        <div class="application-header mb-4">
+          <div class="d-flex align-center mb-2">
+            <v-btn icon variant="text" size="small" class="mr-2" @click="goBack">
+              <v-icon>mdi-arrow-left</v-icon>
+            </v-btn>
+            <div>
+              <div class="header-main-title">Application Details</div>
+              <div class="header-app-number">{{ applicant.applicationNumber }}</div>
+            </div>
           </div>
-          <v-card-text class="pt-4">
-            <p class="font-weight-bold mb-3 text-subtitle-1">
-              Please confirm the following items for submission:
-            </p>
+        </div>
 
-            <div class="mb-4">
-              <p
-                class="font-weight-bold text-caption text-uppercase text-grey-darken-1 mb-1"
-              >
-                Checked Items & Remarks
-              </p>
-              <v-list density="compact" class="pa-0">
-                <v-list-item
-                  v-for="(item, index) in summaryData.filteredItems"
-                  :key="index"
-                  class="px-0 py-2"
-                  :style="{ borderBottom: '1px solid #eee' }"
-                >
-                  <v-list-item-title class="font-weight-medium text-wrap">
-                    <v-icon
-                      size="small"
-                      :color="item.isChecked ? 'success' : 'warning'"
-                      class="mr-2"
+        <!-- Tabs Section -->
+        <v-card class="elevation-1 tabs-card">
+          <v-tabs v-model="activeTab" color="#3b82f6" class="custom-tabs">
+            <v-tab value="applicant">
+              <v-icon size="18" class="mr-2">mdi-account-details-outline</v-icon>
+              Applicant Information
+            </v-tab>
+            <v-tab value="pdf">
+              <v-icon size="18" class="mr-2">mdi-file-pdf-box</v-icon>
+              Architectural Plan
+            </v-tab>
+            <v-tab value="checklist">
+              <v-icon size="18" class="mr-2">mdi-clipboard-check-outline</v-icon>
+              Report Checklist
+            </v-tab>
+          </v-tabs>
+
+          <v-divider></v-divider>
+
+          <v-window v-model="activeTab">
+            <!-- Tab 1: Applicant Information -->
+            <v-window-item value="applicant">
+              <div class="tab-content pa-6">
+                <v-card class="unified-tab-card elevation-0">
+                  <div class="tab-header-section">
+                    <div class="tab-title-section">
+                      <div class="tab-icon-wrapper">
+                        <v-icon class="tab-icon">mdi-account-details-outline</v-icon>
+                      </div>
+                      <div class="tab-title-content">
+                        <h2 class="tab-title">Application & Property Details</h2>
+                        <p class="tab-subtitle">
+                          Complete information about the inspection report application
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="tab-divider"></div>
+
+                  <div class="tab-content-section">
+                    <!-- Applicant Information Section -->
+                    <div class="content-section mb-6">
+                      <h3 class="section-header">
+                        <v-icon class="mr-2" size="18">mdi-account</v-icon>
+                        Applicant Information
+                      </h3>
+                      <v-row class="mt-4">
+                        <v-col cols="12" sm="4" class="info-field">
+                          <div class="field-label">Application Number</div>
+                          <div class="field-value">{{ applicant.applicationNumber }}</div>
+                        </v-col>
+                        <v-col cols="12" sm="4" class="info-field">
+                          <div class="field-label">Type of Application</div>
+                          <div class="field-value">{{ applicant.typeOfApplication }}</div>
+                        </v-col>
+                        <v-col cols="12" sm="4" class="info-field">
+                          <div class="field-label">Applicant Name</div>
+                          <div class="field-value">{{ applicant.name }}</div>
+                        </v-col>
+                        <v-col cols="12" sm="4" class="info-field">
+                          <div class="field-label">Building Permit</div>
+                          <div class="field-value">{{ applicant.buildingPermit }}</div>
+                        </v-col>
+                        <v-col cols="12" sm="4" class="info-field">
+                          <div class="field-label">Contact No.</div>
+                          <div class="field-value">{{ applicant.contactNo }}</div>
+                        </v-col>
+                        <v-col cols="12" sm="4" class="info-field">
+                          <div class="field-label">Address</div>
+                          <div class="field-value">{{ applicant.address }}</div>
+                        </v-col>
+                      </v-row>
+                    </div>
+
+                    <!-- Property Details Section -->
+                    <div class="content-section">
+                      <h3 class="section-header">
+                        <v-icon class="mr-2" size="18">mdi-home-city</v-icon>
+                        Property Details
+                      </h3>
+                      <v-row class="mt-4">
+                        <v-col cols="12" sm="4" class="info-field">
+                          <div class="field-label">Name of Project</div>
+                          <div class="field-value">{{ property.projectName }}</div>
+                        </v-col>
+                        <v-col cols="12" sm="4" class="info-field">
+                          <div class="field-label">No. of Storey/s</div>
+                          <div class="field-value">{{ property.noOfStoreys }}</div>
+                        </v-col>
+                        <v-col cols="12" sm="4" class="info-field">
+                          <div class="field-label">Project Location</div>
+                          <div class="field-value">{{ property.projectLocation }}</div>
+                        </v-col>
+                        <v-col cols="12" sm="4" class="info-field">
+                          <div class="field-label">No. of Units</div>
+                          <div class="field-value">{{ property.noOfUnits }}</div>
+                        </v-col>
+                        <v-col cols="12" sm="4" class="info-field">
+                          <div class="field-label">Use/Character of Occupancy</div>
+                          <div class="field-value">{{ property.buildingUse }}</div>
+                        </v-col>
+                        <v-col cols="12" sm="4" class="info-field">
+                          <div class="field-label">Total Gross Floor Area</div>
+                          <div class="field-value">
+                            {{ property.totalGrossFloorArea }}
+                          </div>
+                        </v-col>
+                      </v-row>
+                    </div>
+                  </div>
+                </v-card>
+              </div>
+            </v-window-item>
+
+            <!-- Tab 2: PDF Plans -->
+            <v-window-item value="pdf">
+              <div class="tab-content pa-6">
+                <v-card class="unified-tab-card elevation-0">
+                  <div class="tab-header-section">
+                    <div class="tab-title-section">
+                      <div class="tab-icon-wrapper">
+                        <v-icon class="tab-icon">mdi-file-pdf-box</v-icon>
+                      </div>
+                      <div class="tab-title-content">
+                        <h2 class="tab-title">Architectural Plan</h2>
+                        <p class="tab-subtitle">
+                          Review uploaded building plans and documents
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="tab-divider"></div>
+
+                  <div class="tab-content-section">
+                    <div class="content-section">
+                      <h3 class="section-header">
+                        <v-icon class="mr-2" size="18">mdi-file-document</v-icon>
+                        Uploaded Document
+                      </h3>
+                      <v-card class="pdf-viewer-card mt-4">
+                        <div class="pdf-preview-container">
+                          <v-icon size="64" color="#ef4444"
+                            >mdi-file-upload-outline</v-icon
+                          >
+                          <div class="pdf-title mt-4">Building Plan Document</div>
+                          <div class="pdf-filename">architectural_plans_deguzman.pdf</div>
+                        </div>
+                      </v-card>
+                    </div>
+                  </div>
+                </v-card>
+              </div>
+            </v-window-item>
+
+            <!-- Tab 3: Report Checklist -->
+            <v-window-item value="checklist">
+              <div class="tab-content pa-6">
+                <div class="d-flex justify-space-between align-center mb-4">
+                  <div class="checklist-header-title">Inspection Checklist Report</div>
+                </div>
+
+                <v-card class="checklist-section-card mb-4">
+                  <v-card-title class="checklist-section-title">
+                    Architectural Works
+                  </v-card-title>
+                  <v-card-text class="pa-0">
+                    <div
+                      v-for="(item, index) in checklistItems"
+                      :key="index"
+                      class="checklist-item"
                     >
-                      {{ item.isChecked ? "mdi-check-circle" : "mdi-alert-circle" }}
-                    </v-icon>
-                    {{ item.label }}
-                  </v-list-item-title>
-                  <v-list-item-subtitle
-                    class="mt-1 text-wrap ml-7"
-                    :style="{ color: '#444', whiteSpace: 'pre-wrap' }"
-                  >
-                    **Remarks:** {{ item.remark || "*No remarks provided.*" }}
-                  </v-list-item-subtitle>
-                </v-list-item>
-              </v-list>
-              <p
-                v-if="summaryData.filteredItems.length === 0"
-                class="text-caption text-grey-darken-1 pt-2"
-              >
-                *No checklist items were checked or had remarks.*
-              </p>
-            </div>
+                      <div class="d-flex align-center justify-space-between pa-4">
+                        <div class="d-flex align-center flex-grow-1">
+                          <v-checkbox
+                            v-model="item.checked"
+                            hide-details
+                            color="#3b82f6"
+                            class="checklist-checkbox"
+                          ></v-checkbox>
+                          <div class="ml-3">
+                            <div class="checklist-item-label">{{ item.label }}</div>
+                          </div>
+                        </div>
+                      </div>
+                      <v-divider v-if="item.checked"></v-divider>
+                      <div v-if="item.checked" class="pa-4 pt-2 remarks-section">
+                        <v-textarea
+                          v-model="item.remarks"
+                          placeholder="Add your remarks here..."
+                          variant="outlined"
+                          rows="2"
+                          density="compact"
+                          hide-details
+                          class="remarks-textarea"
+                        ></v-textarea>
+                      </div>
+                      <v-divider v-if="index < checklistItems.length - 1"></v-divider>
+                    </div>
+                  </v-card-text>
+                </v-card>
 
-            <div class="mt-4">
-              <p
-                class="font-weight-bold text-caption text-uppercase text-grey-darken-1 mb-1"
-              >
-                Others (Detailed Assessment)
-              </p>
-              <v-card
-                variant="outlined"
-                class="pa-3 text-body-2"
-                :style="{ whiteSpace: 'pre-wrap' }"
-              >
-                {{
-                  summaryData.othersRemarks || "No additional detailed remarks entered."
-                }}
-              </v-card>
-            </div>
-          </v-card-text>
-          <v-card-actions class="d-flex justify-end pa-4">
-            <v-btn
-              variant="flat"
-              color="grey-darken-1"
-              @click="reviewSummaryDialog = false"
-              class="font-weight-bold"
-            >
-              Cancel / Edit
-            </v-btn>
-            <v-btn
-              variant="flat"
-              color="#3b82f6"
-              @click="confirmSubmission"
-              class="font-weight-bold"
-              to="/admin/architecturalDB"
-            >
-              Confirm Submission
-            </v-btn>
-          </v-card-actions>
+                <div class="d-flex justify-end">
+                  <v-btn
+                    variant="flat"
+                    color="#3b82f6"
+                    class="text-none font-weight-medium"
+                    size="large"
+                    @click="submitReport"
+                  >
+                    Submit Report
+                  </v-btn>
+                </div>
+              </div>
+            </v-window-item>
+          </v-window>
         </v-card>
-      </v-dialog>
+      </div>
     </v-main>
   </v-app>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
+import { useRouter } from "vue-router";
 
-const approvalDialog = ref(false);
-const rejectDialog = ref(false);
-const selectedApplicant = ref(null);
-const rejectionRemarks = ref("");
+const activeTab = ref("applicant");
 
-const reviewFormRef = ref(null);
-const checklistItems = ref([
-  { label: "Site Development Setting", remarkLabel: "Enter remarks..." },
-  { label: "Fire Safety Requirements", remarkLabel: "Enter remarks..." },
-  { label: "Occupancy Use and Functionalities", remarkLabel: "Enter remarks..." },
-  {
-    label: "Architectural Deficiencies & Parking Requirements",
-    remarkLabel: "Enter remarks...",
-  },
-  { label: "Light Ventilation", remarkLabel: "Enter remarks..." },
-  { label: "Accessories Control Location", remarkLabel: "Enter remarks..." },
-  { label: "BP 344 Requirements", remarkLabel: "Enter remarks..." },
-]);
+const router = useRouter();
 
-const initialFormData = {
-  checkedItems: new Array(checklistItems.value.length + 1).fill(false),
-  remarks: new Array(checklistItems.value.length).fill(""),
-  othersRemarks: "",
+const goBack = () => {
+  router.push("/admin/InspectorDashboard");
 };
 
-const reviewFormData = ref({ ...initialFormData });
-
-const reviewSummaryDialog = ref(false);
-const summaryData = ref({
-  filteredItems: [],
-  othersRemarks: "",
+const applicant = ref({
+  applicationNumber: "OP-2025-002",
+  name: "Noah A. Deguzman",
+  address: "Calauag Filoville Naga City",
+  contactNo: "09265428922",
+  buildingPermit: "BP-2024-001",
+  typeOfApplication: "Full",
 });
 
-const approveSchedule = (applicant) => {
-  approvalDialog.value = false;
-  selectedApplicant.value = null;
+const property = ref({
+  projectName: "Deguzman Residential Building",
+  projectLocation: "456 Main St., Brgy. San Isidro, Naga City",
+  buildingUse: "Residential - Single-Family",
+  noOfStoreys: 2,
+  noOfUnits: 5,
+  totalGrossFloorArea: "200.00 sqm",
+});
 
-  console.log(`Schedule Approved for ${applicant.name}. Status updated.`);
-};
+const checklistItems = ref([
+  {
+    label: "Site Development Setting",
+    checked: false,
+    remarks: "",
+  },
+  { label: "Fire Safety Requirements", checked: false, remarks: "" },
+  { label: "Occupancy/Use & Functionalities", checked: false, remarks: "" },
+  {
+    label: "Architectural Deficiencies & Parking Requirements",
+    checked: false,
+    remarks: "",
+  },
+  {
+    label: "Light & Ventilation",
+    checked: false,
+    remarks: "",
+  },
+  {
+    label: "Accessories Control Location",
+    checked: false,
+    remarks: "",
+  },
+  {
+    label: "BP 344 Requirements",
+    checked: false,
+    remarks: "",
+  },
+  {
+    label: "Mechanical Requirements",
+    checked: false,
+    remarks: "",
+  },
+]);
 
-const confirmReject = (applicant) => {
-  if (!rejectionRemarks.value) return;
+const totalItems = computed(() => checklistItems.value.length);
+const completedItems = computed(
+  () => checklistItems.value.filter((item) => item.checked).length
+);
 
-  console.log(
-    `Schedule Rejected for ${applicant.name}. Reason: ${rejectionRemarks.value}`
-  );
-
-  rejectionRemarks.value = "";
-  rejectDialog.value = false;
-  selectedApplicant.value = null;
-};
-
-const submitReport = async () => {
-  if (reviewFormRef.value) {
-    const { valid } = await reviewFormRef.value.validate();
-    if (!valid) return;
-  }
-
-  const reportData = reviewFormData.value;
-  const filteredItems = [];
-
-  checklistItems.value.forEach((item, index) => {
-    const isChecked = reportData.checkedItems[index];
-    const remark = reportData.remarks[index].trim();
-
-    if (isChecked || remark) {
-      filteredItems.push({
-        label: item.label,
-        remark: remark,
-        isChecked: isChecked,
-      });
-    }
-  });
-
-  summaryData.value = {
-    filteredItems: filteredItems,
-    othersRemarks: reportData.othersRemarks.trim(),
-  };
-
-  reviewSummaryDialog.value = true;
-};
-
-const confirmSubmission = () => {
-  console.log("Architectural Works Report FINAL Submission Confirmed! Data:");
-  console.log({
-    filteredItems: summaryData.value.filteredItems,
-    othersRemarks: summaryData.value.othersRemarks,
-  });
-
-  console.log("Full raw form data:", reviewFormData.value);
-
-  reviewSummaryDialog.value = false;
-
-  reviewFormData.value = { ...initialFormData };
-  console.log("Form reset.");
+const submitReport = () => {
+  console.log("Report submitted:", checklistItems.value);
 };
 
 const logOut = () => {
   console.log("Log Out clicked. User should be logged out.");
 };
-
-const s = {
-  topToolbar: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: "12px 24px",
-    background: "#fff",
-    borderBottom: "1px solid #e8eaf0",
-  },
-  textToolbar: { color: "#111827" },
-  profileBtn: {
-    backgroundColor: "transparent",
-    boxShadow: "none",
-    padding: 0,
-    minWidth: "unset",
-  },
-  dialogCard: {
-    borderRadius: "10px",
-  },
-  dialogHeader: {
-    background: "#3b82f6",
-    color: "#fff",
-    padding: "16px 24px",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-    fontSize: "1.25rem",
-  },
-  label: {
-    fontSize: "12px",
-    fontWeight: 500,
-    color: "#6b7280",
-    textTransform: "uppercase",
-    marginBottom: "4px",
-  },
-  dialogValue: {
-    fontSize: "16px",
-    fontWeight: 600,
-    color: "#1f2937",
-  },
-  reviewCard: {
-    borderRadius: "10px",
-    boxShadow: "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
-  },
-  reviewHeader: {
-    background: "#3b82f6",
-    color: "#fff",
-    padding: "16px 24px",
-    fontSize: "1.25rem",
-  },
-};
 </script>
 
-<style scoped></style>
+<style scoped>
+/* Header Styles */
+.header-subtitle {
+  font-size: 12px;
+  font-weight: 400;
+  color: #111827;
+  line-height: 1.2;
+}
+
+.header-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #111827;
+  line-height: 1.2;
+}
+
+/* Profile Styles */
+.profile-btn {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  min-width: unset !important;
+}
+
+.profile-name {
+  color: #555 !important;
+}
+
+.profile-role {
+  color: #888 !important;
+}
+
+/* Main Content */
+.main-content {
+  background-color: #f5f6fa;
+  padding-top: 88px;
+}
+
+.page-container {
+  max-width: 1460px;
+  margin: 16px auto 0;
+  padding: 0 12px;
+}
+
+/* Application Header */
+.application-header {
+  background: transparent;
+}
+
+.header-main-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.header-app-number {
+  font-size: 13px;
+  color: #6b7280;
+  margin-top: 2px;
+}
+
+/* Tabs Card */
+.tabs-card {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.custom-tabs {
+  background-color: #fff;
+}
+
+.custom-tabs :deep(.v-tab) {
+  text-transform: none;
+  font-weight: 500;
+  letter-spacing: normal;
+}
+
+.tab-content {
+  min-height: 500px;
+  background-color: #fafbfc;
+}
+
+/* Info Section Cards */
+.info-section-card {
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.section-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #111827;
+  padding: 20px 24px;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  align-items: center;
+}
+
+.info-field {
+  padding: 16px 24px !important;
+}
+
+.info-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.info-value {
+  font-size: 15px;
+  font-weight: 500;
+  color: #111827;
+  line-height: 1.5;
+}
+
+/* PDF Viewer Section */
+.pdf-header-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.pdf-viewer-card {
+  border-radius: 8px;
+  border: 2px dashed #d1d5db;
+  background-color: #f9fafb;
+}
+
+.pdf-preview-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 40px;
+  text-align: center;
+}
+
+.pdf-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.pdf-filename {
+  font-size: 14px;
+  color: #3b82f6;
+  margin-top: 4px;
+}
+
+.pdf-meta {
+  font-size: 12px;
+  color: #6b7280;
+  margin-top: 8px;
+}
+
+/* Checklist Section */
+.checklist-header-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.progress-text {
+  font-size: 13px;
+  color: #3b82f6;
+  font-weight: 600;
+}
+
+.checklist-section-card {
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+}
+
+.checklist-section-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #111827;
+  padding: 16px;
+  border-bottom: 1px solid #e5e7eb;
+  background-color: #f9fafb;
+}
+
+.checklist-item {
+  background-color: #fff;
+  transition: background-color 0.2s;
+}
+
+.checklist-item:hover {
+  background-color: #fafbfc;
+}
+
+.checklist-checkbox :deep(.v-selection-control) {
+  min-height: unset;
+}
+
+.checklist-item-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #111827;
+}
+
+/* checklist-status removed - icon and text no longer shown */
+
+.remarks-section {
+  background-color: #f9fafb;
+}
+
+.remarks-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.remarks-textarea :deep(.v-field) {
+  font-size: 13px;
+  background-color: #fff;
+}
+
+/* Unified Tab Styles */
+.unified-tab-card {
+  background: #ffffff;
+  border: 1px solid #f1f5f9;
+  border-radius: 12px;
+  padding: 32px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+}
+
+.tab-header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 32px;
+  gap: 24px;
+}
+
+.tab-title-section {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  flex: 1;
+}
+
+.tab-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+
+.tab-icon {
+  color: white;
+  font-size: 24px;
+}
+
+.tab-title-content {
+  flex: 1;
+}
+
+.tab-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+
+.tab-subtitle {
+  font-size: 14px;
+  color: #64748b;
+  margin: 4px 0 0 0;
+  font-weight: 400;
+}
+
+.tab-divider {
+  height: 1px;
+  background: linear-gradient(90deg, #e2e8f0 0%, #cbd5e1 50%, #e2e8f0 100%);
+  margin-bottom: 32px;
+}
+
+.tab-content-section {
+  min-height: 200px;
+}
+
+.content-section {
+  background: #fafbfc;
+  border-radius: 8px;
+  padding: 24px;
+  border: 1px solid #e5e7eb;
+}
+
+.section-header {
+  font-size: 16px;
+  font-weight: 600;
+  color: #374151;
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.field-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
+.field-value {
+  font-size: 15px;
+  font-weight: 500;
+  color: #111827;
+  line-height: 1.5;
+}
+
+.unified-btn {
+  background: #3b82f6 !important;
+  color: white !important;
+  text-transform: none;
+  font-weight: 600;
+  border-radius: 8px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.unified-btn:hover {
+  background: #2563eb !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+</style>

@@ -381,7 +381,9 @@ export default defineComponent({
         }
 
         if (result.success) {
-          this.snackbarMessage = "Building owner data saved successfully!";
+          this.snackbarMessage = this.buildingOwnerId
+            ? "Building owner information updated successfully!"
+            : "Building owner information saved successfully!";
           this.snackbarColor = "success";
           this.snackbar = true;
           if (result.data?.data?.bldg_owner_id) {
@@ -401,7 +403,9 @@ export default defineComponent({
           return false;
         }
       } catch (error) {
-        this.snackbarMessage = "An unexpected error occurred";
+        this.snackbarMessage =
+          error.response?.data?.message ||
+          "An unexpected error occurred. Please try again.";
         this.snackbarColor = "error";
         this.snackbar = true;
         return false;
@@ -414,8 +418,15 @@ export default defineComponent({
       if (valid) {
         const saved = await this.saveBuildingOwner();
         if (saved) {
-          this.$router.push("/applicant/bpconstruction");
+          // Wait a moment for the snackbar to show, then navigate
+          setTimeout(() => {
+            this.$router.push("/applicant/bpconstruction");
+          }, 1000);
         }
+      } else {
+        this.snackbarMessage = "Please fill in all required fields";
+        this.snackbarColor = "warning";
+        this.snackbar = true;
       }
     },
     async loadExistingData() {

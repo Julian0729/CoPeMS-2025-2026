@@ -12,6 +12,7 @@
   "dependencies": {
     "@fontsource/roboto": "5.2.7",
     "@mdi/font": "7.4.47",
+    "axios": "^1.13.2",
     "dompurify": "^3.3.0",
     "html2pdf.js": "^0.12.1",
     "pinia": "^3.0.3",

@@ -1,7 +1,11 @@
 <template>
   <v-app>
-    <v-app-bar flat color="#0000CC" dark height="88" app class="elevation-4">
-      <v-container fluid class="d-flex align-center py-0" style="max-width: 100%">
+    <v-app-bar flat color="#ffffff" dark height="88" app class="elevation-4">
+      <v-container
+        fluid
+        class="d-flex align-center py-0 justify-space-between"
+        style="max-width: 100%"
+      >
         <div class="d-flex align-center">
           <v-img
             src="https://www2.naga.gov.ph/wp-content/uploads/2022/05/Naga_City_Official_Seal-1.png"
@@ -12,50 +16,22 @@
             class="me-4"
           />
           <div>
-            <div
-              style="font-size: 12px; font-weight: 400; color: white; line-height: 1.2"
-            >
-              REPUBLIC OF THE PHILIPPINES
-            </div>
-            <div
-              style="font-size: 15px; font-weight: 700; color: white; line-height: 1.2"
-            >
-              CITY GOVERNMENT OF NAGA
-            </div>
+            <div class="header-subtitle">REPUBLIC OF THE PHILIPPINES</div>
+            <div class="header-title">CITY GOVERNMENT OF NAGA</div>
           </div>
         </div>
-      </v-container>
-    </v-app-bar>
-    <v-main style="background-color: #f5f6fa; padding-top: 88px">
-      <div :style="s.heroBanner"></div>
-
-      <div :style="s.topToolbar">
-        <div class="left d-flex align-center">
-          <v-icon color="#3b82f6" class="mr-2">mdi-home-city</v-icon>
-          <h3 class="mb-0 font-weight-bold" :style="s.textToolbar">
-            Occupancy Permit Application
-          </h3>
-        </div>
-        <div class="right d-flex align-center">
+        <!-- Profile section from Testingarea.vue header -->
+        <div class="d-flex align-center">
           <v-menu :close-on-content-click="true" location="bottom end">
             <template #activator="{ props }">
-              <v-btn variant="text" :style="s.profileBtn" v-bind="props">
-                <v-avatar size="32" class="mx-2">
-                  <v-img
-                    alt="Jacque"
-                    src="https://png.pngtree.com/png-clipart/20241018/original/pngtree-construction-worker-back-view-with-yellow-hard-hat-clipart-illustration-png-image_16380171.png"
-                  />
-                </v-avatar>
+              <v-btn variant="text" class="profile-btn" v-bind="props">
+                <v-avatar size="36" class="mx-2 text-white" color="#5B21B6">JA</v-avatar>
                 <div class="d-flex flex-column text-left">
-                  <span
-                    class="text-caption font-weight-bold"
-                    style="color: #555; white-space: nowrap"
-                    >Inspection Chief</span
+                  <span class="text-caption font-weight-bold profile-name"
+                    >Jacqueline Azada</span
                   >
-                  <span
-                    class="text-caption font-weight-medium"
-                    style="color: #888; white-space: nowrap"
-                    >Inspector</span
+                  <span class="text-caption font-weight-medium profile-role"
+                    >Engineer</span
                   >
                 </div>
                 <v-icon class="ml-1" size="small">mdi-chevron-down</v-icon>
@@ -65,19 +41,14 @@
               <v-list density="compact" nav>
                 <v-list-item>
                   <v-list-item-title class="font-weight-bold">
-                    Lea Bernice
+                    Jacqueline Azada
                   </v-list-item-title>
                   <v-list-item-subtitle>
-                    lea.bernice@nagacity.gov.ph
+                    jacqueline.azada@nagacity.gov.ph
                   </v-list-item-subtitle>
                 </v-list-item>
                 <v-divider class="my-1"></v-divider>
-                <v-list-item to="/profile" link>
-                  <template #prepend>
-                    <v-icon>mdi-account-outline</v-icon>
-                  </template>
-                  <v-list-item-title>My Profile</v-list-item-title>
-                </v-list-item>
+
                 <v-list-item link @click="logOut" class="text-red-darken-1">
                   <template #prepend>
                     <v-icon>mdi-logout</v-icon>
@@ -88,8 +59,9 @@
             </v-card>
           </v-menu>
         </div>
-      </div>
-
+      </v-container>
+    </v-app-bar>
+    <v-main style="background-color: #f5f6fa; padding-top: 88px">
       <div :style="s.pageContainer">
         <v-row class="mb-6">
           <v-col v-for="card in statCards" :key="card.key" cols="12" sm="6" md="3">
@@ -251,7 +223,7 @@ const statCards = computed(() => {
   return [
     {
       key: "total",
-      label: "Total Applicants",
+      label: "Total Inspection Reports",
       value: total,
       icon: "mdi-account-group",
       iconColor: "#3b82f6",
