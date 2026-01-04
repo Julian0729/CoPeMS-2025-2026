@@ -59,7 +59,10 @@
                   </v-card-title>
                   <v-divider class="mb-4"></v-divider>
                   <v-card-text>
-                    <v-form ref="form" @submit.prevent="validateAndProceed">
+                    <v-form
+                      ref="entryForm"
+                      @submit.prevent="validateAndProceed"
+                    >
                       <v-card class="mb-4 card-section">
                         <v-card-title
                           class="text-h6 card-title-responsive section-title"
@@ -74,7 +77,7 @@
                           <v-row dense>
                             <v-col cols="12" sm="6" md="3">
                               <v-text-field
-                                v-model="lastName"
+                                v-model="formData.last_name"
                                 label="Last Name"
                                 variant="outlined"
                                 density="comfortable"
@@ -87,7 +90,7 @@
                             </v-col>
                             <v-col cols="12" sm="6" md="3">
                               <v-text-field
-                                v-model="firstName"
+                                v-model="formData.first_name"
                                 label="First Name"
                                 variant="outlined"
                                 density="comfortable"
@@ -100,7 +103,7 @@
                             </v-col>
                             <v-col cols="12" sm="6" md="3">
                               <v-text-field
-                                v-model="middleInitial"
+                                v-model="formData.middle_initial"
                                 label="Middle Initial"
                                 variant="outlined"
                                 density="comfortable"
@@ -115,7 +118,7 @@
                             </v-col>
                             <v-col cols="12" sm="6" md="3">
                               <v-text-field
-                                v-model="tin"
+                                v-model="formData.tin"
                                 label="TIN"
                                 variant="outlined"
                                 density="comfortable"
@@ -144,7 +147,7 @@
                           <v-row dense class="d-flex align-center">
                             <v-col cols="12" md="6">
                               <v-checkbox
-                                v-model="isOwnedByEnterprise"
+                                v-model="formData.is_enterprise"
                                 label="Owned by an Enterprise"
                                 hide-details
                                 color="blue-darken-3"
@@ -153,18 +156,19 @@
                             </v-col>
                             <v-col cols="12" md="6">
                               <v-text-field
-                                v-model="formOfOwnership"
+                                v-model="formData.form_of_ownership"
                                 label="Form of Ownership"
                                 variant="outlined"
                                 density="comfortable"
-                                :disabled="!isOwnedByEnterprise"
+                                :disabled="!formData.is_enterprise"
                                 :rules="[
-                                  isOwnedByEnterprise ? rules.required : true,
+                                  formData.is_enterprise
+                                    ? rules.required
+                                    : true,
                                 ]"
                                 color="blue-darken-3"
                                 prepend-inner-icon="mdi-account-group-outline"
                                 hide-details="auto"
-                                required
                               ></v-text-field>
                             </v-col>
                           </v-row>
@@ -185,7 +189,7 @@
                           <v-row dense>
                             <v-col cols="12" sm="6" md="2">
                               <v-text-field
-                                v-model="province"
+                                v-model="formData.province"
                                 label="Province"
                                 variant="outlined"
                                 density="comfortable"
@@ -198,7 +202,7 @@
                             </v-col>
                             <v-col cols="12" sm="6" md="2">
                               <v-text-field
-                                v-model="city"
+                                v-model="formData.city_municipality"
                                 label="City/Municipality"
                                 variant="outlined"
                                 density="comfortable"
@@ -211,7 +215,7 @@
                             </v-col>
                             <v-col cols="12" sm="6" md="2">
                               <v-text-field
-                                v-model="barangay"
+                                v-model="formData.barangay"
                                 label="Barangay"
                                 variant="outlined"
                                 density="comfortable"
@@ -224,7 +228,7 @@
                             </v-col>
                             <v-col cols="12" sm="6" md="2">
                               <v-text-field
-                                v-model="houseNo"
+                                v-model="formData.house_no"
                                 label="House No."
                                 variant="outlined"
                                 density="comfortable"
@@ -237,7 +241,7 @@
                             </v-col>
                             <v-col cols="12" sm="6" md="2">
                               <v-text-field
-                                v-model="street"
+                                v-model="formData.street"
                                 label="Street"
                                 variant="outlined"
                                 density="comfortable"
@@ -250,7 +254,7 @@
                             </v-col>
                             <v-col cols="12" sm="6" md="2">
                               <v-text-field
-                                v-model="contactNo"
+                                v-model="formData.contact_no"
                                 label="Contact No."
                                 variant="outlined"
                                 density="comfortable"
@@ -323,89 +327,89 @@ export default defineComponent({
         { title: "Use or Character of Occupancy", value: 3 },
         { title: "Signatories Details", value: 4 },
       ],
-      buildingOwnerId: null,
-      lastName: null,
-      firstName: null,
-      middleInitial: null,
-      tin: null,
-      isOwnedByEnterprise: false,
-      formOfOwnership: null,
-      houseNo: null,
-      street: null,
-      barangay: null,
-      city: null,
-      province: null,
-      contactNo: null,
-      rules: {
-        required: (value) => !!value || "This field is required.",
-      },
       sidebarStep: 0,
       sidebarSteps: [
         "Fill up the Unified Application Form",
         "Upload Building Plans & Lot Plans",
         "Download Filled-up Unified Application Form and Required Ancillary Permits ",
       ],
+
+      formData: {
+        bldg_owner_id: "",
+        last_name: "",
+        first_name: "",
+        middle_initial: "",
+        tin: "",
+        is_enterprise: false,
+        form_of_ownership: "",
+        province: "",
+        city_municipality: "",
+        barangay: "",
+        house_no: "",
+        street: "",
+        contact_no: "",
+      },
+
       saving: false,
       snackbar: false,
       snackbarMessage: "",
       snackbarColor: "success",
+      rules: {
+        required: (value) => !!value || "This field is required.",
+      },
     };
   },
   methods: {
+    /**
+     * Handles API call to create or update building owner
+     */
     async saveBuildingOwner() {
       try {
         this.saving = true;
-        const ownerData = {
-          last_name: this.lastName,
-          first_name: this.firstName,
-          middle_initial: this.middleInitial,
-          tin: this.tin,
-          is_enterprise: this.isOwnedByEnterprise,
-          form_of_ownership: this.formOfOwnership,
-          province: this.province,
-          city_municipality: this.city,
-          barangay: this.barangay,
-          house_no: this.houseNo,
-          street: this.street,
-          contact_no: this.contactNo,
-        };
+
+        const payload = { ...this.formData };
 
         let result;
-        if (this.buildingOwnerId) {
+        if (this.formData.bldg_owner_id) {
           result = await buildingOwnerService.update(
-            this.buildingOwnerId,
-            ownerData
+            this.formData.bldg_owner_id,
+            payload
           );
         } else {
-          result = await buildingOwnerService.create(ownerData);
+          result = await buildingOwnerService.create(payload);
         }
 
         if (result.success) {
-          this.snackbarMessage = this.buildingOwnerId
+          const updatedData = result.data?.data || result.data;
+
+          this.snackbarMessage = this.formData.bldg_owner_id
             ? "Building owner information updated successfully!"
             : "Building owner information saved successfully!";
           this.snackbarColor = "success";
           this.snackbar = true;
-          if (result.data?.data?.bldg_owner_id) {
-            this.buildingOwnerId = result.data.data.bldg_owner_id;
+
+          // Update local data with ID from server
+          if (updatedData?.bldg_owner_id) {
+            this.formData.bldg_owner_id = updatedData.bldg_owner_id;
           }
-          localStorage.setItem("bldg_owner_id", this.buildingOwnerId);
+
+          // Persistence
+          localStorage.setItem("bldg_owner_id", this.formData.bldg_owner_id);
           localStorage.setItem(
             "buildingOwnerData",
-            JSON.stringify(result.data.data)
+            JSON.stringify(this.formData)
           );
+
           return true;
         } else {
-          this.snackbarMessage =
-            result.message || "Failed to save building owner data";
+          this.snackbarMessage = result.message || "Failed to save data";
           this.snackbarColor = "error";
           this.snackbar = true;
           return false;
         }
       } catch (error) {
         this.snackbarMessage =
-          error.response?.data?.message ||
-          "An unexpected error occurred. Please try again.";
+          error.response?.data?.message || "An unexpected error occurred.";
         this.snackbarColor = "error";
         this.snackbar = true;
         return false;
@@ -413,12 +417,12 @@ export default defineComponent({
         this.saving = false;
       }
     },
+
     async validateAndProceed() {
-      const { valid } = await this.$refs.form.validate();
+      const { valid } = await this.$refs.entryForm.validate();
       if (valid) {
         const saved = await this.saveBuildingOwner();
         if (saved) {
-          // Wait a moment for the snackbar to show, then navigate
           setTimeout(() => {
             this.$router.push("/applicant/bpconstruction");
           }, 1000);
@@ -429,13 +433,19 @@ export default defineComponent({
         this.snackbar = true;
       }
     },
+
+    /**
+     * Fetches data from API or LocalStorage on mount
+     */
     async loadExistingData() {
       const savedId = localStorage.getItem("bldg_owner_id");
       if (savedId) {
         try {
           const result = await buildingOwnerService.getById(savedId);
           if (result.success && result.data?.data) {
-            this.applyData(result.data.data);
+            this.formData = { ...this.formData, ...result.data.data };
+            // Ensure checkbox is boolean
+            this.formData.is_enterprise = !!this.formData.is_enterprise;
           }
         } catch (error) {
           this.loadLocalStorageData();
@@ -444,36 +454,24 @@ export default defineComponent({
         this.loadLocalStorageData();
       }
     },
+
     loadLocalStorageData() {
       const savedData = localStorage.getItem("buildingOwnerData");
       if (savedData) {
         try {
-          this.applyData(JSON.parse(savedData));
+          const parsed = JSON.parse(savedData);
+          this.formData = { ...this.formData, ...parsed };
         } catch (e) {
-          console.error(e);
+          console.error("Local Storage Parse Error:", e);
         }
       }
     },
-    applyData(data) {
-      this.buildingOwnerId = data.bldg_owner_id;
-      this.lastName = data.last_name;
-      this.firstName = data.first_name;
-      this.middleInitial = data.middle_initial;
-      this.tin = data.tin;
-      this.isOwnedByEnterprise =
-        data.is_enterprise === 1 || data.is_enterprise === true;
-      this.formOfOwnership = data.form_of_ownership;
-      this.province = data.province;
-      this.city = data.city_municipality;
-      this.barangay = data.barangay;
-      this.houseNo = data.house_no;
-      this.street = data.street;
-      this.contactNo = data.contact_no;
-    },
+
     handleLogout() {
       localStorage.clear();
       this.$router.push("/login");
     },
+
     goToStep(index) {
       this.sidebarStep = index;
     },
@@ -482,8 +480,8 @@ export default defineComponent({
     this.loadExistingData();
   },
   watch: {
-    isOwnedByEnterprise(newVal) {
-      if (!newVal) this.formOfOwnership = null;
+    "formData.is_enterprise"(newVal) {
+      if (!newVal) this.formData.form_of_ownership = null;
     },
   },
 });
@@ -497,23 +495,22 @@ export default defineComponent({
 
 .main-content-wrapper {
   height: 100vh;
-  overflow: hidden; /* Prevent the column itself from scrolling */
+  overflow: hidden;
   background: #fafdff;
 }
 
 .stepper-fixed-header {
-  flex-shrink: 0; /* Ensures the header doesn't shrink */
+  flex-shrink: 0;
   background: #fafdff;
   z-index: 10;
 }
 
 .scrollable-form-area {
   flex-grow: 1;
-  overflow-y: auto; /* This creates the scroll within the form section only */
+  overflow-y: auto;
   scrollbar-width: thin;
 }
 
-/* Custom Scrollbar for Chrome/Safari */
 .scrollable-form-area::-webkit-scrollbar {
   width: 6px;
 }
@@ -522,7 +519,6 @@ export default defineComponent({
   border-radius: 10px;
 }
 
-/* Rest of the original styles */
 .stepper-elevated {
   background: white;
   border-radius: 14px;

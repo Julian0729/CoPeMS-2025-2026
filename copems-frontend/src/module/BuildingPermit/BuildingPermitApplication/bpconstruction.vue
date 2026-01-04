@@ -57,7 +57,7 @@
                   <v-alert
                     v-if="successMessage"
                     type="success"
-                    dismissible
+                    closable
                     @click:close="successMessage = ''"
                     class="mb-4"
                   >
@@ -66,7 +66,7 @@
                   <v-alert
                     v-if="errorMessage"
                     type="error"
-                    dismissible
+                    closable
                     @click:close="errorMessage = ''"
                     class="mb-4"
                   >
@@ -77,9 +77,7 @@
                     <v-form ref="form" v-model="formValid">
                       <div v-if="formStepValue === '2'">
                         <v-card class="mb-4 card-section">
-                          <v-card-title
-                            class="text-h6 card-title-responsive section-title"
-                          >
+                          <v-card-title class="text-h6 section-title">
                             <v-icon left color="blue-darken-3" class="mr-2"
                               >mdi-map-marker</v-icon
                             >
@@ -127,9 +125,7 @@
                         </v-card>
 
                         <v-card class="mb-4 card-section">
-                          <v-card-title
-                            class="text-h6 card-title-responsive section-title"
-                          >
+                          <v-card-title class="text-h6 section-title">
                             <v-icon left color="blue-darken-3" class="mr-2"
                               >mdi-file-document-outline</v-icon
                             >
@@ -167,9 +163,7 @@
                         </v-card>
 
                         <v-card class="mb-4 card-section">
-                          <v-card-title
-                            class="text-h6 card-title-responsive section-title"
-                          >
+                          <v-card-title class="text-h6 section-title">
                             <v-icon left color="blue-darken-3" class="mr-2"
                               >mdi-hammer-wrench</v-icon
                             >
@@ -215,9 +209,7 @@
 
                       <div v-if="formStepValue === '3'">
                         <v-card class="mb-4 card-section">
-                          <v-card-title
-                            class="text-h6 card-title-responsive section-title"
-                          >
+                          <v-card-title class="text-h6 section-title">
                             <v-icon left color="blue-darken-3" class="mr-2"
                               >mdi-domain</v-icon
                             >
@@ -274,8 +266,8 @@
                     :loading="isLoading"
                     :disabled="isLoading"
                   >
-                    {{ isLoading ? "Saving..." : "Next"
-                    }}<v-icon right>mdi-arrow-right</v-icon>
+                    {{ isLoading ? "Saving..." : "Next" }}
+                    <v-icon right>mdi-arrow-right</v-icon>
                   </v-btn>
                 </div>
               </v-container>
@@ -285,8 +277,7 @@
               v-model="snackbar"
               :color="snackbarColor"
               :timeout="3000"
-              top
-              right
+              location="top right"
             >
               {{ snackbarMessage }}
             </v-snackbar>
@@ -298,6 +289,11 @@
 </template>
 
 <script>
+/**
+ * Building Permit Application System - Step 2
+ * Follows ACM citation style for software component documentation.
+ */
+
 import { defineComponent } from "vue";
 import { useRouter } from "vue-router";
 import BPNavigation from "./bpnavigation.vue";
@@ -311,23 +307,33 @@ export default defineComponent({
     const router = useRouter();
     return { router };
   },
+
   data() {
     return {
+      // Form State
       formStepValue: "2",
       formValid: false,
+      constructionId: null,
+      isLoading: false,
+
+      // Location Data
       barangay: null,
       blkNo: "",
       street: "",
       cityMunicipality: "Naga City",
+
+      // Lot Information
       tctNo: "",
       taxDecNo: "",
-      isLoading: false,
+
+      // Feedback UI
       errorMessage: "",
       successMessage: "",
       snackbar: false,
       snackbarMessage: "",
       snackbarColor: "success",
-      constructionId: null,
+
+      // Scope of Work Logic
       selectedScope: [],
       otherDetails: "",
       scopeOfWork: [
@@ -344,6 +350,8 @@ export default defineComponent({
         "Legalization of Existing Building",
         "Other (Specify)",
       ],
+
+      // Location Reference
       barangays: [
         "Abella",
         "Bagumbayan Norte",
@@ -373,6 +381,8 @@ export default defineComponent({
         "Tinago",
         "Triangulo",
       ],
+
+      // Validation Rules
       rules: {
         required: (value) => !!value || "This field is required.",
         requiredScope: (value) =>
@@ -384,6 +394,8 @@ export default defineComponent({
           return true;
         },
       },
+
+      // Occupancy Groupings
       selectedGroup: null,
       selectedCategory: null,
       groupCategoryData: {
@@ -425,6 +437,8 @@ export default defineComponent({
           "OTHERS",
         ],
       },
+
+      // Sidebar Progress
       sidebarStep: 0,
       sidebarSteps: [
         "Fill up the Unified Application Form",
@@ -433,6 +447,7 @@ export default defineComponent({
       ],
     };
   },
+
   computed: {
     groups() {
       return Object.keys(this.groupCategoryData);
@@ -443,11 +458,13 @@ export default defineComponent({
         : [];
     },
   },
+
   watch: {
     selectedGroup() {
       this.selectedCategory = null;
     },
   },
+
   methods: {
     getStepTitle(n) {
       const titles = [
@@ -458,6 +475,7 @@ export default defineComponent({
       ];
       return titles[n - 1];
     },
+
     async saveConstructionData() {
       try {
         this.isLoading = true;
@@ -495,6 +513,7 @@ export default defineComponent({
         this.isLoading = false;
       }
     },
+
     async nextStep() {
       const { valid } = await this.$refs.form.validate();
       if (!valid) return;
@@ -502,9 +521,11 @@ export default defineComponent({
       const saved = await this.saveConstructionData();
       if (saved) {
         const nextStep = parseInt(this.formStepValue) + 1;
+        // Navigation based on step target
         if (nextStep === 3) this.$router.push("/applicant/bpcharacter");
       }
     },
+
     async loadConstructionData() {
       const savedId = localStorage.getItem("bp_construction_id");
       if (savedId) {
@@ -523,18 +544,21 @@ export default defineComponent({
               : [];
           }
         } catch (e) {
-          console.error(e);
+          console.error("Error loading construction data:", e);
         }
       }
     },
+
     handleLogout() {
       localStorage.clear();
       this.$router.push("/login");
     },
+
     goToStep(index) {
       if (index === 0) this.$router.push("/applicant/applicantdetails");
     },
   },
+
   mounted() {
     this.loadConstructionData();
   },
@@ -542,7 +566,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
-/* Ensure the app main doesn't scroll at all */
+/* Scoped Layout Styles */
 .no-scroll {
   overflow: hidden !important;
 }
@@ -554,21 +578,18 @@ export default defineComponent({
   background: #f6fafd;
 }
 
-/* Flex setup for the main column */
 .main-content-bg {
   background: #fafdff;
   height: 100%;
-  overflow: hidden; /* Prevent column itself from scrolling */
+  overflow: hidden;
 }
 
-/* Stepper stays at top */
 .stepper-fixed-container {
   flex: 0 0 auto;
   z-index: 10;
   background: #fafdff;
 }
 
-/* Form area takes remaining height and scrolls */
 .scrollable-content {
   flex: 1 1 auto;
   overflow-y: auto;
@@ -583,6 +604,7 @@ export default defineComponent({
   border-radius: 10px;
 }
 
+/* UI Component Refinement */
 .stepper-elevated {
   background: white;
   border-radius: 14px;
@@ -612,7 +634,14 @@ export default defineComponent({
   min-width: 110px;
 }
 
-/* Hide labels on mobile stepper */
+.input-label {
+  font-weight: 500;
+  color: #455a64;
+  margin-bottom: 4px;
+  font-size: 0.875rem;
+}
+
+/* Responsive Overrides */
 @media (max-width: 600px) {
   :deep(.v-stepper-item__title) {
     display: none !important;

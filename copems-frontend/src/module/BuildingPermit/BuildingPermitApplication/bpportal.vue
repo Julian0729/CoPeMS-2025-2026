@@ -1,6 +1,5 @@
 <template>
   <v-app>
-    <!-- Header: Fixed at top -->
     <v-app-bar elevation="1" color="white" height="60" style="flex-shrink: 0">
       <v-container
         class="d-flex align-center px-6"
@@ -8,11 +7,10 @@
         style="max-width: 1300px"
       >
         <h1 class="text-subtitle-1 font-weight-bold text-grey-darken-3">
-          Building Permit Portal
+          Building Permit Information
         </h1>
         <v-spacer></v-spacer>
 
-        <!-- Profile Menu -->
         <v-menu v-model="showProfileMenu" location="bottom end" offset="10">
           <template v-slot:activator="{ props }">
             <v-btn
@@ -50,13 +48,10 @@
       </v-container>
     </v-app-bar>
 
-    <!-- Main Content: Scrollable -->
-    <v-main class="bg-grey-lighten-5">
-      <!-- Expanded max-width to 1200px to fill the screen better -->
-      <v-container style="max-width: 1300px" class="pt-0 pb-6 px-6" fluid>
-        <!-- Application Header Text -->
-        <div class="mb-2">
-          <h2 class="text-h6 font-weight-bold text-grey-darken-3 mb-1">
+    <v-main class="bg-grey-lighten-5 pt-0">
+      <v-container style="max-width: 1300px" class="pa-0 px-6 pb-6" fluid>
+        <div class="mb-1 mt-0 py-2">
+          <h2 class="text-h6 font-weight-bold text-grey-darken-3 mb-0">
             Application BP-2025-0808-001
           </h2>
           <p class="text-caption text-grey-darken-1">
@@ -64,8 +59,7 @@
           </p>
         </div>
 
-        <!-- Application Info Card -->
-        <v-card flat border class="mb-4 rounded-lg">
+        <v-card flat border class="mb-2 rounded-lg">
           <v-card-text class="pa-4">
             <v-row dense>
               <v-col cols="6" md="3">
@@ -101,7 +95,6 @@
           </v-card-text>
         </v-card>
 
-        <!-- Application Status Tracker -->
         <v-card flat border class="rounded-lg">
           <v-card-title
             class="text-subtitle-1 font-weight-bold text-grey-darken-3 px-4 pt-4 pb-2"
@@ -138,7 +131,6 @@
                       {{ step.title }}
                     </h4>
 
-                    <!-- Fixed Width Container for Chip -->
                     <div
                       style="width: 100px"
                       class="flex-shrink-0 d-flex justify-end"
@@ -147,9 +139,7 @@
                         :color="
                           step.status === 'completed' ? 'success' : 'grey'
                         "
-                        :variant="
-                          step.status === 'completed' ? 'tonal' : 'tonal'
-                        "
+                        variant="tonal"
                         size="x-small"
                         class="font-weight-medium justify-center"
                         style="width: 100%"
@@ -226,7 +216,6 @@ const steps = ref([
 ]);
 
 const handleLogout = () => {
-  alert("Logging out...");
   showProfileMenu.value = false;
 };
 </script>
@@ -250,12 +239,8 @@ const handleLogout = () => {
   overflow-x: hidden;
   flex: 1;
   min-height: 0;
-}
-
-:deep(.v-main__wrap) {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+  /* Force removal of dynamic padding if necessary */
+  padding-top: 0 !important;
 }
 
 .v-application {

@@ -456,6 +456,7 @@ export default defineComponent({
       proposedDate: "",
       expectedDate: "",
       formValid: false,
+      dataComponents: [],
       groupCategoryData: {
         "GROUP A: RESIDENTIAL (DWELLINGS)": [
           "SINGLE",
@@ -642,41 +643,54 @@ export default defineComponent({
     async saveToBackend() {
       if (this.isSaving) return;
 
-      const userId = this.authStore.currentUser?.id ||
-                     this.authStore.currentUser?.user_id ||
-                     this.authStore.user?.id ||
-                     this.authStore.user?.user_id ||
-                     this.authStore.userId;
+      const userId =
+        this.authStore.currentUser?.id ||
+        this.authStore.currentUser?.user_id ||
+        this.authStore.user?.id ||
+        this.authStore.user?.user_id ||
+        this.authStore.userId;
 
       if (!userId) {
-        console.warn('⚠️ No user logged in, cannot save to backend');
-        console.warn('Auth Store:', this.authStore);
+        console.warn("⚠️ No user logged in, cannot save to backend");
+        console.warn("Auth Store:", this.authStore);
         return;
       }
 
       // Don't save if form is empty
-      if (!this.selectedGroup && !this.selectedCategory && !this.numberOfUnits) {
-        console.log('ℹ️ Form is empty, skipping save');
+      if (
+        !this.selectedGroup &&
+        !this.selectedCategory &&
+        !this.numberOfUnits
+      ) {
+        console.log("ℹ️ Form is empty, skipping save");
         return;
       }
 
       this.isSaving = true;
-      console.log('💾 Attempting to save to database...');
+      console.log("💾 Attempting to save to database...");
 
       try {
         const projectDetailsData = {
-          occupancy_classified: this.selectedGroup && this.selectedCategory ? `${this.selectedGroup} - ${this.selectedCategory}` : null,
-          total_estimated_cost: parseFloat(this.totalEstimatedCostComputed.replace(/,/g, '')) || 0,
+          occupancy_classified:
+            this.selectedGroup && this.selectedCategory
+              ? `${this.selectedGroup} - ${this.selectedCategory}`
+              : null,
+          total_estimated_cost:
+            parseFloat(this.totalEstimatedCostComputed.replace(/,/g, "")) || 0,
           number_of_units: parseInt(this.numberOfUnits) || null,
           number_of_storey: parseInt(this.numberOfStorey) || null,
-          total_floor_area_sqm: parseFloat(this.totalFloorArea.replace(/,/g, '')) || null,
-          lot_area_sqm: parseFloat(this.lotArea.replace(/,/g, '')) || null,
-          building_cost: parseFloat(this.costBuilding.replace(/,/g, '')) || 0,
-          electrical_cost: parseFloat(this.costElectrical.replace(/,/g, '')) || 0,
-          mechanical_cost: parseFloat(this.costMechanical.replace(/,/g, '')) || 0,
-          electronics_cost: parseFloat(this.costElectronics.replace(/,/g, '')) || 0,
-          plumbing_cost: parseFloat(this.costPlumbing.replace(/,/g, '')) || 0,
-          others_cost: parseFloat(this.costOthers.replace(/,/g, '')) || 0,
+          total_floor_area_sqm:
+            parseFloat(this.totalFloorArea.replace(/,/g, "")) || null,
+          lot_area_sqm: parseFloat(this.lotArea.replace(/,/g, "")) || null,
+          building_cost: parseFloat(this.costBuilding.replace(/,/g, "")) || 0,
+          electrical_cost:
+            parseFloat(this.costElectrical.replace(/,/g, "")) || 0,
+          mechanical_cost:
+            parseFloat(this.costMechanical.replace(/,/g, "")) || 0,
+          electronics_cost:
+            parseFloat(this.costElectronics.replace(/,/g, "")) || 0,
+          plumbing_cost: parseFloat(this.costPlumbing.replace(/,/g, "")) || 0,
+          others_cost: parseFloat(this.costOthers.replace(/,/g, "")) || 0,
           proposed_date_of_construction: this.proposedDate || null,
           expected_date_of_completion: this.expectedDate || null,
           application_id: null,
@@ -685,11 +699,16 @@ export default defineComponent({
         let result;
         if (this.projectDetailsId) {
           // Update existing record
-          console.log(`📝 Updating existing record ID: ${this.projectDetailsId}`);
-          result = await projectDetailsService.update(this.projectDetailsId, projectDetailsData);
+          console.log(
+            `📝 Updating existing record ID: ${this.projectDetailsId}`
+          );
+          result = await projectDetailsService.update(
+            this.projectDetailsId,
+            projectDetailsData
+          );
         } else {
           // Create new record
-          console.log('✨ Creating new record');
+          console.log("✨ Creating new record");
           result = await projectDetailsService.create(projectDetailsData);
 
           // Store the ID for future updates
@@ -700,28 +719,29 @@ export default defineComponent({
         }
 
         if (result.success) {
-          console.log('✅ Auto-saved to database successfully!');
+          console.log("✅ Auto-saved to database successfully!");
         } else {
-          console.error('❌ Failed to save:', result.message);
+          console.error("❌ Failed to save:", result.message);
         }
       } catch (error) {
-        console.error('❌ Error auto-saving to backend:', error.message);
-        console.error('Error details:', error);
+        console.error("❌ Error auto-saving to backend:", error.message);
+        console.error("Error details:", error);
       } finally {
         this.isSaving = false;
       }
     },
 
     saveFormData() {
-      const userId = this.authStore.currentUser?.id ||
-                     this.authStore.currentUser?.user_id ||
-                     this.authStore.user?.id ||
-                     this.authStore.user?.user_id ||
-                     this.authStore.userId;
+      const userId =
+        this.authStore.currentUser?.id ||
+        this.authStore.currentUser?.user_id ||
+        this.authStore.user?.id ||
+        this.authStore.user?.user_id ||
+        this.authStore.userId;
 
       if (!userId) {
-        console.warn('No user logged in, cannot save form data');
-        console.log('Auth Store:', this.authStore);
+        console.warn("No user logged in, cannot save form data");
+        console.log("Auth Store:", this.authStore);
         return;
       }
 
@@ -747,24 +767,28 @@ export default defineComponent({
       localStorage.setItem(storageKey, JSON.stringify(formData));
     },
     async loadSavedData() {
-      const userId = this.authStore.currentUser?.id ||
-                     this.authStore.currentUser?.user_id ||
-                     this.authStore.user?.id ||
-                     this.authStore.user?.user_id ||
-                     this.authStore.userId;
+      const userId =
+        this.authStore.currentUser?.id ||
+        this.authStore.currentUser?.user_id ||
+        this.authStore.user?.id ||
+        this.authStore.user?.user_id ||
+        this.authStore.userId;
 
       if (!userId) {
-        console.warn('No user logged in, cannot load form data');
-        console.log('Auth Store:', this.authStore);
+        console.warn("No user logged in, cannot load form data");
+        console.log("Auth Store:", this.authStore);
         return;
       }
 
-      // Try to load from backend first
       try {
         // Use the service to get all project details for the authenticated user
         const result = await projectDetailsService.getAll();
 
-        if (result.success && result.data?.data && result.data.data.length > 0) {
+        if (
+          result.success &&
+          result.data?.data &&
+          result.data.data.length > 0
+        ) {
           // Get the latest project details (first in array)
           const backendData = result.data.data[0];
 
@@ -773,28 +797,47 @@ export default defineComponent({
 
           // Parse the occupancy_classified to extract group and category
           if (backendData.occupancy_classified) {
-            const parts = backendData.occupancy_classified.split(' - ');
+            const parts = backendData.occupancy_classified.split(" - ");
             this.selectedGroup = parts[0] || null;
             this.selectedCategory = parts[1] || null;
           }
-          this.occupancyClassified = backendData.occupancy_classified || '';
-          this.numberOfUnits = backendData.number_of_units?.toString() || '';
-          this.numberOfStorey = backendData.number_of_storey?.toString() || '';
-          this.totalFloorArea = backendData.total_floor_area_sqm ? this.formatNumberValue(backendData.total_floor_area_sqm) : '';
-          this.lotArea = backendData.lot_area_sqm ? this.formatNumberValue(backendData.lot_area_sqm) : '';
-          this.costBuilding = backendData.building_cost ? this.formatNumberValue(backendData.building_cost) : '';
-          this.costElectrical = backendData.electrical_cost ? this.formatNumberValue(backendData.electrical_cost) : '';
-          this.costMechanical = backendData.mechanical_cost ? this.formatNumberValue(backendData.mechanical_cost) : '';
-          this.costElectronics = backendData.electronics_cost ? this.formatNumberValue(backendData.electronics_cost) : '';
-          this.costPlumbing = backendData.plumbing_cost ? this.formatNumberValue(backendData.plumbing_cost) : '';
-          this.costOthers = backendData.others_cost ? this.formatNumberValue(backendData.others_cost) : '';
-          this.proposedDate = backendData.proposed_date_of_construction || '';
-          this.expectedDate = backendData.expected_date_of_completion || '';
-          console.log('Form data loaded from backend');
+          this.occupancyClassified = backendData.occupancy_classified || "";
+          this.numberOfUnits = backendData.number_of_units?.toString() || "";
+          this.numberOfStorey = backendData.number_of_storey?.toString() || "";
+          this.totalFloorArea = backendData.total_floor_area_sqm
+            ? this.formatNumberValue(backendData.total_floor_area_sqm)
+            : "";
+          this.lotArea = backendData.lot_area_sqm
+            ? this.formatNumberValue(backendData.lot_area_sqm)
+            : "";
+          this.costBuilding = backendData.building_cost
+            ? this.formatNumberValue(backendData.building_cost)
+            : "";
+          this.costElectrical = backendData.electrical_cost
+            ? this.formatNumberValue(backendData.electrical_cost)
+            : "";
+          this.costMechanical = backendData.mechanical_cost
+            ? this.formatNumberValue(backendData.mechanical_cost)
+            : "";
+          this.costElectronics = backendData.electronics_cost
+            ? this.formatNumberValue(backendData.electronics_cost)
+            : "";
+          this.costPlumbing = backendData.plumbing_cost
+            ? this.formatNumberValue(backendData.plumbing_cost)
+            : "";
+          this.costOthers = backendData.others_cost
+            ? this.formatNumberValue(backendData.others_cost)
+            : "";
+          this.proposedDate = backendData.proposed_date_of_construction || "";
+          this.expectedDate = backendData.expected_date_of_completion || "";
+          console.log("Form data loaded from backend");
           return;
         }
       } catch (error) {
-        console.log('No backend data found, trying localStorage:', error.message);
+        console.log(
+          "No backend data found, trying localStorage:",
+          error.message
+        );
       }
 
       // Fallback to localStorage if backend data not found
@@ -805,27 +848,26 @@ export default defineComponent({
           const formData = JSON.parse(savedData);
           this.selectedGroup = formData.selectedGroup || null;
           this.selectedCategory = formData.selectedCategory || null;
-          this.occupancyClassified = formData.occupancyClassified || '';
-          this.numberOfUnits = formData.numberOfUnits || '';
-          this.numberOfStorey = formData.numberOfStorey || '';
-          this.totalFloorArea = formData.totalFloorArea || '';
-          this.lotArea = formData.lotArea || '';
-          this.costBuilding = formData.costBuilding || '';
-          this.costElectrical = formData.costElectrical || '';
-          this.costMechanical = formData.costMechanical || '';
-          this.costElectronics = formData.costElectronics || '';
-          this.costPlumbing = formData.costPlumbing || '';
-          this.costOthers = formData.costOthers || '';
-          this.proposedDate = formData.proposedDate || '';
-          this.expectedDate = formData.expectedDate || '';
-          console.log('Form data loaded from localStorage');
+          this.occupancyClassified = formData.occupancyClassified || "";
+          this.numberOfUnits = formData.numberOfUnits || "";
+          this.numberOfStorey = formData.numberOfStorey || "";
+          this.totalFloorArea = formData.totalFloorArea || "";
+          this.lotArea = formData.lotArea || "";
+          this.costBuilding = formData.costBuilding || "";
+          this.costElectrical = formData.costElectrical || "";
+          this.costMechanical = formData.costMechanical || "";
+          this.costElectronics = formData.costElectronics || "";
+          this.costPlumbing = formData.costPlumbing || "";
+          this.costOthers = formData.costOthers || "";
+          this.proposedDate = formData.proposedDate || "";
+          this.expectedDate = formData.expectedDate || "";
+          console.log("Form data loaded from localStorage");
         } catch (error) {
-          console.error('Error loading saved form data:', error);
+          console.error("Error loading saved form data:", error);
         }
       }
     },
     formatNumberValue(value) {
-      // Format number with commas
       return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     },
     isNumber(event) {
@@ -875,26 +917,26 @@ export default defineComponent({
         isDropdownSelected && projectDetailsFilled && isTotalCostValid;
     },
     async goToNextFormStep() {
-      // Validate form data manually
       if (!this.formValid) {
-        alert('Please fill in all required fields before proceeding.');
+        alert("Please fill in all required fields before proceeding.");
         return;
       }
 
       // Try multiple ways to get user ID
-      const userId = this.authStore.currentUser?.id ||
-                     this.authStore.currentUser?.user_id ||
-                     this.authStore.user?.id ||
-                     this.authStore.user?.user_id ||
-                     this.authStore.userId;
+      const userId =
+        this.authStore.currentUser?.id ||
+        this.authStore.currentUser?.user_id ||
+        this.authStore.user?.id ||
+        this.authStore.user?.user_id ||
+        this.authStore.userId;
 
-      console.log('Auth Store:', this.authStore);
-      console.log('Current User:', this.authStore.currentUser);
-      console.log('User ID:', userId);
+      console.log("Auth Store:", this.authStore);
+      console.log("Current User:", this.authStore.currentUser);
+      console.log("User ID:", userId);
 
       if (!userId) {
-        alert('You must be logged in to save data. Please log in again.');
-        this.router.push('/login');
+        alert("You must be logged in to save data. Please log in again.");
+        this.router.push("/login");
         return;
       }
 
@@ -902,13 +944,12 @@ export default defineComponent({
         // Ensure data is saved to backend before proceeding
         await this.saveToBackend();
 
-        // Wait a bit to ensure the save completed
-        await new Promise(resolve => setTimeout(resolve, 500));
+        await new Promise((resolve) => setTimeout(resolve, 500));
 
         console.log("Project details saved successfully");
         // Save to localStorage as backup
         this.saveFormData();
-        // Navigate to bpsignatories page
+
         this.router.push("/Applicant/bpsignatories");
       } catch (error) {
         console.error("Error submitting project details:", error);
@@ -991,6 +1032,7 @@ export default defineComponent({
 
 .gradient-text {
   background: linear-gradient(90deg, #1976d2 20%, #1565c0 80%);
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }

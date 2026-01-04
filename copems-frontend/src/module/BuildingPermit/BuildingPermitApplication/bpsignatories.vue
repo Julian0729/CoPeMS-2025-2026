@@ -897,6 +897,7 @@ export default defineComponent({
       showApplicationNumberDialog: false,
       generatedApplicationNumber: "",
       showValidationError: false,
+      dataComponents: [],
     };
   },
 
@@ -1168,4 +1169,4 @@ export default defineComponent({
     font-size: 0.9rem;
   }
 }
-</style>
+</style>  
