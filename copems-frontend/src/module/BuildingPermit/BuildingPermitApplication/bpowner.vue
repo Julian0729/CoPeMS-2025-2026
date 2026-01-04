@@ -490,7 +490,6 @@ export default defineComponent({
 </script>
 
 <style scoped>
-/* FIX: Layout structure to prevent stepper from scrolling */
 .no-scroll {
   height: 100vh;
   overflow: hidden !important;
